@@ -1,4 +1,72 @@
 <resources>
-    <string name="app_name">ClassApp</string>
+    <string name="app_name">Stock Insights</string>
     <string name="hello_world">Hello, World!</string>
+
+    <!-- Login Screen -->
+    <string name="login_title">Login</string>
+    <string name="email_hint">Email</string>
+    <string name="phonenumber">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="login_button">Login</string>
+
+    <string name="forgot_password">Forgot password?</string>
+    <string name="login_error">Invalid email or password</string>
+    <string name="already_have_account">Invalid email or password</string>
+
+    <string name="app_logo">App Logo</string>
+    <string name="login">LOGIN</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="guest">Continue as Guest</string>
+
+    <!-- Signup Screen -->
+    <string name="signup_title">Create Account</string>
+    <string name="name_hint">Full Name</string>
+    <string name="phone_hint">Phone Number</string>
+    <string name="signup_button">Sign Up</string>
+    <string name="login_prompt">Already have an account? Login</string>
+    <string name="signup_success">Account created successfully!</string>
+
+    <!-- Validation Messages -->
+    <string name="error_field_required">This field is required</string>
+    <string name="error_invalid_email">Please enter a valid email</string>
+    <string name="error_short_password">Password must be at least 6 characters</string>
+    <string name="error_password_mismatch">Passwords don\'t match</string>
+
+    <!-- Common Buttons -->
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="continue_button">Continue</string>
+
+    <!-- Error Messages -->
+    <string name="error_network">Network error. Please try again.</string>
+    <string name="error_unknown">Something went wrong</string>
+    <string name="error_timeout">Request timed out</string>
+
+    <!-- Dialog Titles -->
+    <string name="dialog_title_success">Success</string>
+    <string name="dialog_title_error">Error</string>
+    <string name="dialog_title_warning">Warning</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="phone">Phone Number</string>
+    <string name="image">Image Loading</string>
+    <string name="sign_in">Sign_in</string>
+    <!-- Forgot Password -->
+    <string name="forgot_password_title">Reset Password</string>
+    <string name="forgot_password_message">Enter your email to receive a reset link</string>
+    <string name="reset_button">Send Reset Link</string>
+    <string name="reset_success">Reset link sent to your email</string>
+    <string image="Will load later" name="Image">Waittttttttttt</string>
+    <!-- Placeholder Text -->
+
+    <string name="no_data">No data available</string>
+    <string name="guestpage">Guest Page</string>
+    <string name="guestimageamge">Guest Profile Image</string>
+    <string name="no">No</string>
+    <string name="welcome_to_stock_analyzer">Welcome to Stock Analyzer</string>
+    <string name="an_easy_to_use_online_stock_market_prediction_application_just_search_the_company_below_and_we_will_tell_you_the_prediction_value_of_that_company_in_the_near_future">An easy-to-use online stock market prediction application. Just search the company below and we will tell you the prediction value of that company in the near future.</string>
+
+    <!-- Add these if using Material search icon -->
+    <string name="search_hint">Search company...</string>
 </resources>
