@@ -29,12 +29,12 @@ class Login : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        emailEditText = findViewById(R.id.email_edittext_login)
-        passwordEditText = findViewById(R.id.password_edittext_login)
-        val forgotPasswordText = findViewById<TextView>(R.id.forgot_password_login)
+        emailEditText = findViewById(R.id.usernameEmail)
+        passwordEditText = findViewById(R.id.password)
+        val forgotPasswordText = findViewById<TextView>(R.id.forgotPassword)
 
         // Setup login button (removed duplicate listener)
-        findViewById<Button>(R.id.signin_button_login).setOnClickListener {
+        findViewById<Button>(R.id.signInButton).setOnClickListener {
             handleLogin()
         }
 
