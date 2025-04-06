@@ -5,7 +5,7 @@
     <!-- Login Screen -->
     <string name="login_title">Login</string>
     <string name="email_hint">Email</string>
-    <string name="phonenumber">Email</string>
+<!--    <string name="phonenumber">Email</string>-->
     <string name="password_hint">Password</string>
     <string name="login_button">Login</string>
 
@@ -51,7 +51,7 @@
     <string name="password">Password</string>
     <string name="phone">Phone Number</string>
     <string name="image">Image Loading</string>
-    <string name="sign_in">Sign_in</string>
+    <string name="sign_in">Sign In</string>
     <!-- Forgot Password -->
     <string name="forgot_password_title">Reset Password</string>
     <string name="forgot_password_message">Enter your email to receive a reset link</string>
@@ -69,4 +69,15 @@
 
     <!-- Add these if using Material search icon -->
     <string name="search_hint">Search company...</string>
+
+    <!-- For Login page-->
+    <string name="enter_email">Enter Email</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="welcome_message">Welcome back to Stock Insights</string>
+    <string name="new_sign_up">New User? Sign up</string>
+    <string name="enter_username">Enter Username</string>
+    <string name="enter_first_name">Enter First Name</string>
+    <string name="enter_last_name">Enter Last Name</string>
+    <string name="log_back_in">Already have an account? Login</string>
+    <string name="new_welcome">Welcome to Stock Insights</string>
 </resources>
