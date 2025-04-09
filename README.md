@@ -72,3 +72,14 @@ Stock Insight is a comprehensive Android application designed to provide users w
 ### System Architecture
 
 ![Mermaid Diagram](images/systemArchitecture.png)
+
+
+### April 9, UI updates
+- **Color Palette**: #8b94a3, #c2eabd, #72a0c1, #555d50, #392511
+- **SVG to Vector Asset conversion**:
+  - For reference svgs: https://www.svgrepo.com/
+  - Download a svg image 
+  - In Android Studio, go to Files
+  - Create New -> Vector Assets
+  - Specs: 24dp to 30dp
+  - Change palettes accordingly if required in the converted xml file
