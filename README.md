@@ -83,3 +83,6 @@ Stock Insight is a comprehensive Android application designed to provide users w
   - Create New -> Vector Assets
   - Specs: 24dp to 30dp
   - Change palettes accordingly if required in the converted xml file
+- **Links for svg**:
+  - https://www.svgrepo.com/collection/outlined-business-vectors/
+  - https://www.svgrepo.com/collection/stylized-app-icons/
