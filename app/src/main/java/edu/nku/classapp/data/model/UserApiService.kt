@@ -5,15 +5,15 @@ import retrofit2.http.*
 
 interface UserApiService {
 
-    @POST("signup")
+    @POST("user/signup/")
     fun signup(@Body user: Map<String, String>): Call<SignupResponse>
 
-    @POST("login")
+    @POST("user/login/")
     fun login(@Body credentials: Map<String, String>): Call<LoginResponse>
 
-    @GET("test_token")
+    @GET("user/test_token/")
     fun testToken(@Header("Authorization") token: String): Call<String>
 
-    @POST("logout")
+    @POST("user/logout/")
     fun logout(@Header("Authorization") token: String): Call<Void>
 }
