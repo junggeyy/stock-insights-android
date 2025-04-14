@@ -1,22 +1,20 @@
-package edu.nku.classapp.model
+package edu.nku.classapp.ui.auth
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.nku.classapp.R
-import edu.nku.classapp.data.model.SignupResponse
+import edu.nku.classapp.data.model.response.LoginSignupResponse
 import edu.nku.classapp.di.AppModule
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SignUp : AppCompatActivity() {
+class SignupActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,8 +46,9 @@ class SignUp : AppCompatActivity() {
             "password" to password
         )
 
-        AppModule.instance.signup(userData).enqueue(object : Callback<SignupResponse> {
-            override fun onResponse(call: Call<SignupResponse>, response: Response<SignupResponse>) {
+        AppModule.instance.signup(userData).enqueue(object : Callback<LoginSignupResponse>
+            {
+            override fun onResponse(call: Call<LoginSignupResponse>, response: Response<LoginSignupResponse>) {
                 if (response.isSuccessful) {
                     showToast("Signup successful! Redirecting to login...")
                     navigateToLogin()
@@ -58,7 +57,7 @@ class SignUp : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<SignupResponse>, t: Throwable) {
+            override fun onFailure(call: Call<LoginSignupResponse>, t: Throwable) {
                 showToast("Network Error: ${t.message}")
             }
         })
@@ -98,7 +97,7 @@ class SignUp : AppCompatActivity() {
     }
 
     private fun navigateToLogin() {
-        startActivity(Intent(this, Login::class.java))
+        startActivity(Intent(this, LoginActivity::class.java))
         finish()
     }
 }

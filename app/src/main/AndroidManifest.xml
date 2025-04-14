@@ -32,12 +32,14 @@
 
         </activity>
 
-        <activity android:name=".model.Login" />
+        <activity android:name=".ui.auth.LoginActivity" />
         <activity android:name=".model.Guest" />
-        <activity android:name=".model.SignUp" />
+        <activity android:name=".ui.auth.SignupActivity" />
         <activity android:name=".LandingActivity" />
+        <activity android:name=".ui.StockDetailActivity" />
         <activity android:name=".ProfileActivity"
             android:exported="true">
+
 
         </activity>
 

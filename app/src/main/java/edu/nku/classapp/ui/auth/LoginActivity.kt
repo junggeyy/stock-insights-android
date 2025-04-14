@@ -1,4 +1,4 @@
-package edu.nku.classapp.model
+package edu.nku.classapp.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,17 +10,16 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import edu.nku.classapp.data.model.LoginResponse
+import edu.nku.classapp.data.model.response.LoginSignupResponse
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 import edu.nku.classapp.LandingActivity
-import edu.nku.classapp.ProfileActivity
 import edu.nku.classapp.R
 import edu.nku.classapp.di.AppModule
 
 
-class Login : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
@@ -86,8 +85,8 @@ class Login : AppCompatActivity() {
     private fun authenticateUser(email: String, password: String) {
         val credentials = mapOf("email" to email, "password" to password)
 
-        AppModule.instance.login(credentials).enqueue(object : retrofit2.Callback<LoginResponse> {
-            override fun onResponse(call: retrofit2.Call<LoginResponse>, response: retrofit2.Response<LoginResponse>) {
+        AppModule.instance.login(credentials).enqueue(object : retrofit2.Callback<LoginSignupResponse> {
+            override fun onResponse(call: retrofit2.Call<LoginSignupResponse>, response: retrofit2.Response<LoginSignupResponse>) {
                 if (response.isSuccessful) {
                     val loginResponse = response.body()
                     val token = loginResponse?.token
@@ -111,7 +110,7 @@ class Login : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: retrofit2.Call<LoginResponse>, t: Throwable) {
+            override fun onFailure(call: retrofit2.Call<LoginSignupResponse>, t: Throwable) {
                 Log.e("LoginActivity", "Network error", t)
                 showToast("Network Error: ${t.message}")
             }
