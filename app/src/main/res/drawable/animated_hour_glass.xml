@@ -1,0 +1,6 @@
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/hour_glass">
+    <target
+        android:name="iconPath"
+        android:animation="@animator/icon_path_animator" />
+</animated-vector>

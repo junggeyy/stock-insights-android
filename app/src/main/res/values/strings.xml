@@ -80,4 +80,9 @@
     <string name="enter_last_name">Enter Last Name</string>
     <string name="log_back_in">Already have an account? Login</string>
     <string name="new_welcome">Welcome to Stock Insights</string>
+
+    <string name="money">Image of dollar bills</string>
+    <string name="bar_increase">Image of bar chart increase</string>
+    <string name="company">Image of company</string>
+
 </resources>
