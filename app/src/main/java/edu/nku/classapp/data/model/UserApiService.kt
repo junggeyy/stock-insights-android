@@ -1,6 +1,7 @@
 package edu.nku.classapp.data.model
 
 import edu.nku.classapp.data.model.response.LoginSignupResponse
+import edu.nku.classapp.data.model.response.UserProfileResponse
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -17,4 +18,7 @@ interface UserApiService {
 
     @POST("user/logout/")
     fun logout(@Header("Authorization") token: String): Call<Void>
+
+    @GET("user/profile/")
+    fun getProfile(@Header("Authorization") token: String): Call<UserProfileResponse>
 }

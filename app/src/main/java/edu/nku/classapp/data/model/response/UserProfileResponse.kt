@@ -1,7 +1,7 @@
-package edu.nku.classapp.data.model
+package edu.nku.classapp.data.model.response
 
 import com.squareup.moshi.JsonClass
-import edu.nku.classapp.model.Stock
+import edu.nku.classapp.data.model.response.Stock
 
 @JsonClass(generateAdapter = true)
 data class UserProfileResponse(
