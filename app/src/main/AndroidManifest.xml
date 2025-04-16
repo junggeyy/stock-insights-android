@@ -15,8 +15,9 @@
         android:theme="@style/Theme.ClassApp"
         tools:targetApi="31">
 
+        <!-- Priyanka- I will start from this screen -->
         <activity
-            android:name=".MainActivity1"
+            android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.ClassApp">
             <intent-filter>
@@ -25,21 +26,20 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.ClassApp">
-
-        </activity>
 
         <activity android:name=".model.Login" />
-        <activity android:name=".model.Guest" />
-        <activity android:name=".model.SignUp" />
-        <activity android:name=".LandingActivity" />
-        <activity android:name=".ProfileActivity"
-            android:exported="true">
 
-        </activity>
+        <activity android:name=".model.SignUp" />
+
+        <activity android:name=".model.Guest" />
+
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".LandingActivity"
+            android:exported="true" />
 
     </application>
 </manifest>

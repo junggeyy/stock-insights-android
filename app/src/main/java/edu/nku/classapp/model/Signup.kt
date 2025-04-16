@@ -1,10 +1,8 @@
 package edu.nku.classapp.model
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -22,17 +20,16 @@ class SignUp : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
 
-        // Initialize the signup button and set an onClick listener
         val signupButton = findViewById<Button>(R.id.btnSignup)
         signupButton.setOnClickListener {
             performRegister()
         }
     }
 
-    // Function to perform the registration
     private fun performRegister() {
         // Get values from the input fields
-        val firstName = findViewById<EditText>(R.id.first_name_edittext_signup).text.toString().trim()
+        val firstName =
+            findViewById<EditText>(R.id.first_name_edittext_signup).text.toString().trim()
         val lastName = findViewById<EditText>(R.id.last_name_edittext_signup).text.toString().trim()
         val username = findViewById<EditText>(R.id.username_edittext_signup).text.toString().trim()
         val email = findViewById<EditText>(R.id.email_edittext_signup).text.toString().trim()
@@ -49,7 +46,10 @@ class SignUp : AppCompatActivity() {
         )
 
         AppModule.instance.signup(userData).enqueue(object : Callback<SignupResponse> {
-            override fun onResponse(call: Call<SignupResponse>, response: Response<SignupResponse>) {
+            override fun onResponse(
+                call: Call<SignupResponse>,
+                response: Response<SignupResponse>
+            ) {
                 if (response.isSuccessful) {
                     showToast("Signup successful! Redirecting to login...")
                     navigateToLogin()
@@ -64,28 +64,39 @@ class SignUp : AppCompatActivity() {
         })
     }
 
-    private fun validateInput(firstName: String, lastName: String, username: String, email: String, password: String): Boolean {
+    private fun validateInput(
+        firstName: String,
+        lastName: String,
+        username: String,
+        email: String,
+        password: String
+    ): Boolean {
         return when {
             firstName.isEmpty() -> {
                 showToast("Please enter your first name")
                 false
             }
+
             lastName.isEmpty() -> {
                 showToast("Please enter your last name")
                 false
             }
+
             username.isEmpty() -> {
                 showToast("Please enter your username")
                 false
             }
+
             email.isEmpty() -> {
                 showToast("Please enter your email")
                 false
             }
+
             password.isEmpty() || password.length < 6 -> {
                 showToast("Password must be at least 6 characters")
                 false
             }
+
             else -> true
         }
     }
