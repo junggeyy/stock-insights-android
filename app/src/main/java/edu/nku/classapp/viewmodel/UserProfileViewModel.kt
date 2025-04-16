@@ -5,35 +5,36 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import edu.nku.classapp.data.model.response.UserProfileResponse
 import edu.nku.classapp.di.AppModule
+import edu.nku.classapp.ui.state.UserProfileUiState
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class UserProfileViewModel : ViewModel() {
 
-    private val _profile = MutableLiveData<UserProfileResponse>()
-    val profile: LiveData<UserProfileResponse> = _profile
-
-    private val _error = MutableLiveData<String>()
-    val error: LiveData<String> = _error
+    private val _uiState = MutableLiveData<UserProfileUiState>()
+    val uiState: LiveData<UserProfileUiState> = _uiState
 
     fun fetchProfile(token: String) {
+        _uiState.value = UserProfileUiState.Loading
+
         AppModule.instance.getProfile("Token $token")
             .enqueue(object : Callback<UserProfileResponse> {
                 override fun onResponse(
                     call: Call<UserProfileResponse>,
                     response: Response<UserProfileResponse>
                 ) {
-                    if (response.isSuccessful) {
-                        _profile.postValue(response.body())
+                    if (response.isSuccessful && response.body() != null) {
+                        _uiState.value = UserProfileUiState.Success(response.body()!!)
                     } else {
-                        _error.postValue("Profile fetch failed: ${response.code()}")
+                        _uiState.value = UserProfileUiState.Error("Fetch failed: ${response.code()}")
                     }
                 }
 
                 override fun onFailure(call: Call<UserProfileResponse>, t: Throwable) {
-                    _error.postValue("Network error: ${t.message}")
+                    _uiState.value = UserProfileUiState.Error("Network error: ${t.message}")
                 }
             })
     }
 }
+

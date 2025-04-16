@@ -121,5 +121,15 @@
     <string name="sell_rating">Analyst Rating: %s</string>
     <string name="hold_rating">Analyst Rating: %s</string>
     <string name="max_rating">Analyst Rating: %s</string>
+    <string name="logout_icon">logout_icon</string>
+
+    <!-- User Profile Screen -->
+    <string name="profile_picture">Profile Picture</string>
+    <string name="back">Back</string>
+    <string name="view_watchlist">View Watchlist</string>
+    <string name="view_portfolio">View Portfolio</string>
+    <string name="logout">Logout</string>
+    <string name="watchlist_icon">Watchlist Icon</string>
+    <string name="portfolio_icon">Portfolio Icon</string>
 
 </resources>
