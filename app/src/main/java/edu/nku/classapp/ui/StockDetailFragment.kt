@@ -1,5 +1,6 @@
 package edu.nku.classapp.ui
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.TextView
@@ -31,13 +32,24 @@ class StockDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_stock_detail)
 
-        val symbol = "NVDA"
-        val token = "Token 60bcda1b8550d022caa8d8d204b22f43618b908e"
+        val symbol = intent.getStringExtra("SYMBOL") ?: "AAPL" // fallback just in case
+
+        // retrieve saved auth token
+        val prefs = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+        val token = prefs.getString("AUTH_TOKEN", null)
+
+        if (token == null) {
+            Toast.makeText(this, "Missing auth token", Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
+
+        val authHeader = "Token $token"
 
         stockApi = AppModule.stockApi
         lineChart = findViewById(R.id.lineChart)
 
-        stockApi.getStockDetails(token, symbol).enqueue(object : Callback<StockDetailResponse> {
+        stockApi.getStockDetails(authHeader, symbol).enqueue(object : Callback<StockDetailResponse> {
             override fun onResponse(
                 call: Call<StockDetailResponse>,
                 response: Response<StockDetailResponse>
@@ -65,7 +77,7 @@ class StockDetailActivity : AppCompatActivity() {
                     findViewById<TextView>(R.id.tvSellLabel).text = stock?.recommendation?.hold.toString()
                     findViewById<TextView>(R.id.tvHoldLabel).text = stock?.recommendation?.sell.toString()
 
-                    loadChartData(token, symbol)
+                    loadChartData(authHeader, symbol)
 
                 } else {
                     Toast.makeText(this@StockDetailActivity, "Error loading stock",

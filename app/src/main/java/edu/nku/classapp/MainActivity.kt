@@ -8,7 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import edu.nku.classapp.model.Guest
-import edu.nku.classapp.data.model.response.LoginSignupResponse
 import edu.nku.classapp.ui.auth.LoginActivity
 import edu.nku.classapp.ui.auth.SignupActivity
 

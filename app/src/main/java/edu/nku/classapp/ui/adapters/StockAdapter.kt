@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import edu.nku.classapp.R
 import edu.nku.classapp.data.model.response.Stock
 
-class StockAdapter(private val stockList: List<Stock>) :
+class StockAdapter(
+    private val stockList: List<Stock>,
+    private val onClick: (String) -> Unit) :
     RecyclerView.Adapter<StockAdapter.StockViewHolder>() {
 
     class StockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -25,7 +27,8 @@ class StockAdapter(private val stockList: List<Stock>) :
     override fun onBindViewHolder(holder: StockViewHolder, position: Int) {
         val stock = stockList[position]
         holder.symbolText.text = stock.symbol
-        holder.priceText.text = "$${stock.price}"
+        holder.priceText.text = stock.price?.let { "$${String.format("%.2f", it)}" } ?: "--"
+        holder.itemView.setOnClickListener { onClick(stock.symbol) }
 
     }
 
