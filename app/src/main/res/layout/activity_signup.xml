@@ -23,9 +23,9 @@
             android:layout_marginTop="80dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Welcome Text -->
+        <!-- welcome text -->
         <TextView
             android:id="@+id/new_welcome"
             android:layout_width="wrap_content"
@@ -38,7 +38,7 @@
             app:layout_constraintStart_toStartOf="@id/logo"
             app:layout_constraintEnd_toEndOf="@id/logo" />
 
-        <!-- Username EditText -->
+        <!-- Username Edit text -->
         <EditText
             android:id="@+id/username_edittext_signup"
             android:layout_width="0dp"
@@ -50,11 +50,11 @@
             android:inputType="text"
             android:textSize="20sp"
             android:background="@drawable/rounded_text_box"
-            android:drawableStart = "@drawable/username"
+            android:drawableStart="@drawable/username"
             android:drawablePadding="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/new_welcome"/>
+            app:layout_constraintTop_toBottomOf="@id/new_welcome" />
 
         <!-- Email EditText -->
         <EditText
@@ -68,13 +68,13 @@
             android:inputType="textEmailAddress"
             android:textSize="20sp"
             android:background="@drawable/rounded_text_box"
-            android:drawableStart = "@drawable/user_email"
+            android:drawableStart="@drawable/user_email"
             android:drawablePadding="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/username_edittext_signup" />
 
-        <!-- Name EditText -->
+        <!-- name EditText -->
         <EditText
             android:id="@+id/first_name_edittext_signup"
             android:layout_width="0dp"
@@ -86,7 +86,7 @@
             android:inputType="textPersonName"
             android:textSize="20sp"
             android:background="@drawable/rounded_text_box"
-            android:drawableStart = "@drawable/user_logo"
+            android:drawableStart="@drawable/user_logo"
             android:drawablePadding="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -103,13 +103,13 @@
             android:inputType="textPersonName"
             android:textSize="20sp"
             android:background="@drawable/rounded_text_box"
-            android:drawableStart = "@drawable/user_logo"
+            android:drawableStart="@drawable/user_logo"
             android:drawablePadding="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/first_name_edittext_signup" />
 
-        <!-- Password EditText -->
+        <!-- password EditText -->
         <EditText
             android:id="@+id/password_edittext_signup"
             android:layout_width="0dp"
@@ -127,7 +127,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/last_name_edittext_signup" />
 
-        <!-- Sign Up Button -->
+        <!-- Signup button -->
         <Button
             android:id="@+id/btnSignup"
             android:layout_width="wrap_content"
@@ -146,7 +146,7 @@
             app:layout_constraintTop_toBottomOf="@id/password_edittext_signup"
             android:onClick="performRegister" />
 
-        <!-- Login Button (Already have an account) -->
+        <!-- Login button (already have an account) -->
         <TextView
             android:id="@+id/btnLogin"
             android:layout_width="wrap_content"

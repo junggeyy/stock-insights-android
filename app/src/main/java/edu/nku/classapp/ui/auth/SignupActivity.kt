@@ -20,14 +20,12 @@ class SignupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
 
-        // Initialize the signup button and set an onClick listener
         val signupButton = findViewById<Button>(R.id.btnSignup)
         signupButton.setOnClickListener {
             performRegister()
         }
     }
 
-    // Function to perform the registration
     private fun performRegister() {
         // Get values from the input fields
         val firstName = findViewById<EditText>(R.id.first_name_edittext_signup).text.toString().trim()
@@ -63,28 +61,39 @@ class SignupActivity : AppCompatActivity() {
         })
     }
 
-    private fun validateInput(firstName: String, lastName: String, username: String, email: String, password: String): Boolean {
+    private fun validateInput(
+        firstName: String,
+        lastName: String,
+        username: String,
+        email: String,
+        password: String
+    ): Boolean {
         return when {
             firstName.isEmpty() -> {
                 showToast("Please enter your first name")
                 false
             }
+
             lastName.isEmpty() -> {
                 showToast("Please enter your last name")
                 false
             }
+
             username.isEmpty() -> {
                 showToast("Please enter your username")
                 false
             }
+
             email.isEmpty() -> {
                 showToast("Please enter your email")
                 false
             }
+
             password.isEmpty() || password.length < 6 -> {
                 showToast("Password must be at least 6 characters")
                 false
             }
+
             else -> true
         }
     }
