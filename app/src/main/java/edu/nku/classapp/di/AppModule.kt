@@ -3,6 +3,7 @@ package edu.nku.classapp.di
 import edu.nku.classapp.data.model.UserApiService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import edu.nku.classapp.data.model.StockApiService
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import okhttp3.OkHttpClient
@@ -31,4 +32,14 @@ object AppModule {
             .build()
             .create(UserApiService::class.java)
     }
+
+    val stockApi: StockApiService by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .client(client)
+            .build()
+            .create(StockApiService::class.java)
+    }
+
 }

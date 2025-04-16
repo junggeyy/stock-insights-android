@@ -5,7 +5,6 @@
     <!-- Login Screen -->
     <string name="login_title">Login</string>
     <string name="email_hint">Email</string>
-<!--    <string name="phonenumber">Email</string>-->
     <string name="password_hint">Password</string>
     <string name="login_button">Login</string>
 
@@ -80,4 +79,47 @@
     <string name="enter_last_name">Enter Last Name</string>
     <string name="log_back_in">Already have an account? Login</string>
     <string name="new_welcome">Welcome to Stock Insights</string>
+
+    <string name="money">Image of dollar bills</string>
+    <string name="bar_increase">Image of bar chart increase</string>
+<!--    <string name="company">Image of company</string>-->
+
+
+    <!-- For Stock Detailed View -->
+    <string name="symbol">Stock Symbol</string>
+    <string name="current_price">Current Price</string>
+
+    <string name="companyHolder">Company:</string>
+    <string name="company">Company: %s</string>
+
+    <string name="ipoHolder">IPO:</string>
+    <string name="ipo">IPO: %s</string>
+
+    <string name="share_outstandingHolder">Share Outstanding: </string>
+    <string name="share_outstanding">Share Outstanding: %d</string>
+
+    <string name="market_capHolder">Market Cap: </string>
+    <string name="market_cap">Market Cap: %d</string>
+
+    <string name="exchangeHolder">Exchange: </string>
+    <string name="exchange">Exchange: %s</string>
+
+    <string name="currencyHolder">Currency: </string>
+    <string name="currency">Currency: %s</string>
+
+    <string name="industryHolder">Industry: </string>
+    <string name="industry">Industry: %s</string>
+
+    <string name="websiteHolder">Website: </string>
+    <string name="website">Website: %s</string>
+
+    <string name="recommendationHolder">Recommendation: </string>
+
+    <string name="analyst_rating">Analyst Rating: %s</string>
+
+    <string name="buy_rating">Analyst Rating: %s</string>
+    <string name="sell_rating">Analyst Rating: %s</string>
+    <string name="hold_rating">Analyst Rating: %s</string>
+    <string name="max_rating">Analyst Rating: %s</string>
+
 </resources>
