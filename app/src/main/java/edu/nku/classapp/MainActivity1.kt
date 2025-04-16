@@ -37,43 +37,43 @@ class MainActivity1 : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val animatedMoney = findViewById<ImageView>(R.id.animatedMoney)
+//        val animatedMoney = findViewById<ImageView>(R.id.animatedMoney)
+//
+//        val flyAnimation = ObjectAnimator.ofFloat(animatedMoney, "translationX", -500f, 1000f).apply {
+//            duration = 6000L
+//            repeatCount = ObjectAnimator.INFINITE
+//            repeatMode = ObjectAnimator.RESTART
+//            interpolator = LinearInterpolator()
+//        }
+//
+//        // Vertical floating (gentle bobbing like a socially awkward balloon)
+//        val floatAnimation = ObjectAnimator.ofFloat(animatedMoney, "translationY", 0f, -20f, 0f, 20f, 0f).apply {
+//            duration = 3000L
+//            repeatCount = ObjectAnimator.INFINITE
+//            repeatMode = ObjectAnimator.RESTART
+//            interpolator = LinearInterpolator()
+//        }
 
-        val flyAnimation = ObjectAnimator.ofFloat(animatedMoney, "translationX", -500f, 1000f).apply {
-            duration = 6000L
-            repeatCount = ObjectAnimator.INFINITE
-            repeatMode = ObjectAnimator.RESTART
-            interpolator = LinearInterpolator()
-        }
-
-        // Vertical floating (gentle bobbing like a socially awkward balloon)
-        val floatAnimation = ObjectAnimator.ofFloat(animatedMoney, "translationY", 0f, -20f, 0f, 20f, 0f).apply {
-            duration = 3000L
-            repeatCount = ObjectAnimator.INFINITE
-            repeatMode = ObjectAnimator.RESTART
-            interpolator = LinearInterpolator()
-        }
-
-        //For company animation
-        val animatorSet = AnimatorSet()
-        animatorSet.playTogether(flyAnimation, floatAnimation)
-        animatorSet.start()
-
-        val company = findViewById<ImageView>(R.id.animatedCompany)
-        val zoomIn = AnimationUtils.loadAnimation(this, R.anim.zoom_in)
-        company.startAnimation(zoomIn)
-        zoomIn.repeatCount = Animation.INFINITE
-        zoomIn.repeatMode = Animation.RESTART
-
+//        //For company animation
+//        val animatorSet = AnimatorSet()
+//        animatorSet.playTogether(flyAnimation, floatAnimation)
+//        animatorSet.start()
+//
+//        val company = findViewById<ImageView>(R.id.animatedCompany)
+//        val zoomIn = AnimationUtils.loadAnimation(this, R.anim.zoom_in)
+//        company.startAnimation(zoomIn)
+//        zoomIn.repeatCount = Animation.INFINITE
+//        zoomIn.repeatMode = Animation.RESTART
+//
         //For bar increase animation
-        val barIncrease = findViewById<ImageView>(R.id.animatedBarIncrease)
+        val animatedMoney = findViewById<ImageView>(R.id.animatedMoney)
         val animation = AnimationUtils.loadAnimation(this, R.anim.wiggle_zoom)
-        barIncrease.startAnimation(animation)
-
-        //Sparkle hour glass
-        val hourGlass = findViewById<ImageView>(R.id.animatedHourGlass)
-        val anim = AnimationUtils.loadAnimation(this, R.anim.sparkle)
-        hourGlass.startAnimation(anim)
+        animatedMoney.startAnimation(animation)
+//
+//        //Sparkle hour glass
+//        val hourGlass = findViewById<ImageView>(R.id.animatedHourGlass)
+//        val anim = AnimationUtils.loadAnimation(this, R.anim.sparkle)
+//        hourGlass.startAnimation(anim)
 
     }
 }
