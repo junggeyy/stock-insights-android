@@ -3,6 +3,7 @@ package edu.nku.classapp.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,7 @@ import edu.nku.classapp.ui.auth.LoginActivity
 import edu.nku.classapp.PortfolioActivity
 import edu.nku.classapp.R
 //import edu.nku.classapp.WatchlistActivity
-import edu.nku.classapp.databinding.ActivityProfileBinding
+import edu.nku.classapp.databinding.FragmentUserProfileBinding
 import edu.nku.classapp.di.AppModule
 import edu.nku.classapp.ui.state.UserProfileUiState
 import edu.nku.classapp.viewmodel.UserProfileViewModel
@@ -24,7 +25,7 @@ import retrofit2.Response
 
 class UserProfileFragment : Fragment() {
 
-    private var _binding: ActivityProfileBinding? = null
+    private var _binding: FragmentUserProfileBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var viewModel: UserProfileViewModel
@@ -33,7 +34,7 @@ class UserProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = ActivityProfileBinding.inflate(inflater, container, false)
+        _binding = FragmentUserProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
 

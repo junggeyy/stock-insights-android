@@ -7,8 +7,8 @@ import edu.nku.classapp.data.model.response.Stock
 data class UserProfileResponse(
     val avatar: String?,
     val name: String,
-    val portfolio: List<Stock>,
-    val watchlist: List<Stock>,
+    val portfolio: List<Any>,
+    val watchlist: List<Any>,
     val username: String,
     val email: String
 )
