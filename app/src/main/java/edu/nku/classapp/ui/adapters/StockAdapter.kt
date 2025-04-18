@@ -16,6 +16,7 @@ class StockAdapter(
     class StockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val symbolText: TextView = itemView.findViewById(R.id.stockSymbol)
         val priceText: TextView = itemView.findViewById(R.id.stockPrice)
+        val companyText: TextView = itemView.findViewById(R.id.stockCompany)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StockViewHolder {
@@ -27,6 +28,7 @@ class StockAdapter(
     override fun onBindViewHolder(holder: StockViewHolder, position: Int) {
         val stock = stockList[position]
         holder.symbolText.text = stock.symbol
+        holder.companyText.text = stock.company
         holder.priceText.text = stock.price?.let { "$${String.format("%.2f", it)}" } ?: "--"
         holder.itemView.setOnClickListener { onClick(stock.symbol) }
 

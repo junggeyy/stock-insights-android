@@ -81,11 +81,11 @@ class LandingActivity : AppCompatActivity() {
                 // split stocks into sections
                 val tech = response.data.slice(0..4)
                 val health = response.data.slice(5..9)
-                val crypto = response.data.slice(10..14)
+                val finance = response.data.slice(10..14)
 
                 setupRecycler(R.id.techRecyclerView, tech)
                 setupRecycler(R.id.healthRecyclerView, health)
-                setupRecycler(R.id.financeRecyclerView, crypto)
+                setupRecycler(R.id.financeRecyclerView, finance)
 
             } catch (e: Exception) {
                 Toast.makeText(this@LandingActivity, "Failed to load homepage", Toast.LENGTH_SHORT).show()

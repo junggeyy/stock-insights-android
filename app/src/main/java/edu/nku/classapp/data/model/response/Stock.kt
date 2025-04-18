@@ -5,7 +5,8 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class Stock(
     val symbol: String,
-    val price: Double?
+    val price: Double?,
+    val company: String
 )
 
 data class HomeStockResponse(
