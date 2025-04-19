@@ -137,5 +137,12 @@
     <string name="logout">Logout</string>
     <string name="watchlist_icon">Watchlist Icon</string>
     <string name="portfolio_icon">Portfolio Icon</string>
+    <string name="failed_to_load_forecast">Failed to load forecast.</string>
+    <string name="search">Search</string>
+    <string name="search_by_stock_name">Search by stock name, symbol, isbn</string>
+    <string name="no_stock_found">No stock found</string>
+    <string name="stock_description">Description: %s</string>
+    <string name="stock_symbol">Symbol: %s</string>
+    <string name="search_bar_image">search bar image</string>
 
 </resources>

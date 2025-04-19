@@ -16,7 +16,6 @@ class LandingActivity : AppCompatActivity() {
 
         setupBottomNav()
 
-        // Load home screen fragment
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, HomePageFragment())

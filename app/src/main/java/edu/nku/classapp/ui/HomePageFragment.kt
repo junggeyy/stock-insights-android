@@ -2,7 +2,9 @@ package edu.nku.classapp.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -30,6 +32,16 @@ class HomePageFragment : Fragment(R.layout.fragment_home_page) {
 
         setupDate(view)
         loadHomepageStocks(view)
+        val searchBar = view.findViewById<ImageView>(R.id.searchBar)
+
+        searchBar.setOnClickListener {
+            Log.d("HomePageFragment", "Search icon clicked")
+
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, StockSearchFragment())
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     private fun setupDate(view: View) {

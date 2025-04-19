@@ -14,7 +14,6 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import edu.nku.classapp.R
-import edu.nku.classapp.data.model.StockApiService
 import edu.nku.classapp.data.model.response.Candle
 import edu.nku.classapp.viewmodel.StockDetailViewModel
 

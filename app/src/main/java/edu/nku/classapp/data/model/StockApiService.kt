@@ -4,7 +4,9 @@ import edu.nku.classapp.data.model.response.CandleChartResponse
 import edu.nku.classapp.data.model.response.HomeStockResponse
 import edu.nku.classapp.data.model.response.StockAnalysisResponse
 import edu.nku.classapp.data.model.response.StockDetailResponse
+import edu.nku.classapp.data.model.response.StockSearchResponse
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 interface StockApiService {
@@ -29,6 +31,12 @@ interface StockApiService {
         @Header("Authorization") token: String,
         @Path("symbol") symbol: String
     ): StockAnalysisResponse
+
+    @GET("stocks/{symbol}/search/")
+    suspend fun getStockSearch(
+        @Header("Authorization") token: String,
+        @Path("symbol") query: String
+    ): Response<StockSearchResponse>
 }
 
 

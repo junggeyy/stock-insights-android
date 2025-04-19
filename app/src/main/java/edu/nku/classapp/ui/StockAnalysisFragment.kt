@@ -44,7 +44,7 @@ class StockAnalysisFragment : Fragment(R.layout.fragment_stock_analysis) {
             }
 
             result.onFailure {
-                recommendationText.text = "Failed to load forecast."
+                recommendationText.text = getString(R.string.failed_to_load_forecast)
             }
         }
     }
@@ -72,9 +72,7 @@ class StockAnalysisFragment : Fragment(R.layout.fragment_stock_analysis) {
         dataset.setDrawCircles(true)
         dataset.setDrawFilled(true)
 
-        val lineData = LineData(dataset)
-        chart.data = lineData
-
+        chart.data = LineData(dataset)
         val dayLabels = forecast.indices.map { "Day ${it + 1}" }
 
         chart.xAxis.apply {
