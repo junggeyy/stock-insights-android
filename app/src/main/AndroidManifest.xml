@@ -4,6 +4,7 @@
     package="edu.nku.classapp">
 
     <application
+        android:name=".StockInsightsApplication"
         android:networkSecurityConfig="@xml/network_security_config"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -36,7 +37,6 @@
         <activity android:name=".model.Guest" />
         <activity android:name=".ui.auth.SignupActivity" />
         <activity android:name=".LandingActivity" />
-        <activity android:name=".ui.StockDetailActivity" />
         <activity android:name=".ProfileActivity"
             android:exported="true">
 

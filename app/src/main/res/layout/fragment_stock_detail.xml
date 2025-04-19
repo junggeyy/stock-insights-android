@@ -222,6 +222,17 @@
             android:textColor="@android:color/black" />
     </LinearLayout>
 
+        <TextView
+            android:id="@+id/analyze_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/analyze"
+            app:layout_constraintTop_toBottomOf="@id/leftColumn"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin= "8dp"
+            />
+
+
     <!-- Recommendation Title -->
     <TextView
         android:id="@+id/recommendation"

@@ -1,98 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#C2EABD">
 
-    <androidx.core.widget.NestedScrollView
+    <!-- Fragment container to swap in home/detail/analysis -->
+    <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="16dp"
-        android:fillViewport="true">
+        android:layout_weight="1" />
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/dateText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Monday, April 14"
-                android:textSize="14sp"
-                android:textColor="#555D50" />
-
-            <TextView
-                android:id="@+id/appTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Stock Insights"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:textColor="#392511"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tech Stocks"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textColor="#392511"
-                android:layout_marginTop="24dp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/techRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="8dp"
-                android:nestedScrollingEnabled="false"
-                tools:listitem="@layout/stock_card_view" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Healthcare Stocks"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textColor="#392511"
-                android:layout_marginTop="24dp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/healthRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="8dp"
-                android:nestedScrollingEnabled="false"
-                tools:listitem="@layout/stock_card_view" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Finance Stocks"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textColor="#392511"
-                android:layout_marginTop="24dp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/financeRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="8dp"
-                android:nestedScrollingEnabled="false"
-                tools:listitem="@layout/stock_card_view" />
-
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
-
+    <!-- Persistent bottom nav -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
@@ -101,4 +22,5 @@
         app:itemIconTint="@color/nav_selector"
         app:itemTextColor="@color/nav_selector"
         app:menu="@menu/bottom_nav_menu" />
+
 </LinearLayout>

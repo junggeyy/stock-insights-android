@@ -3,107 +3,83 @@ package edu.nku.classapp.ui
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 import edu.nku.classapp.R
 import edu.nku.classapp.data.model.StockApiService
 import edu.nku.classapp.data.model.response.Candle
-import edu.nku.classapp.data.model.response.CandleChartResponse
-import edu.nku.classapp.di.AppModule
-import edu.nku.classapp.data.model.response.StockDetailResponse
-import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import edu.nku.classapp.viewmodel.StockDetailViewModel
 
-class StockDetailActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class StockDetailFragment : Fragment(R.layout.fragment_stock_detail) {
 
-    private lateinit var stockApi: StockApiService
+    private val viewModel: StockDetailViewModel by viewModels()
+
     private lateinit var lineChart: LineChart
+    private lateinit var symbol: String
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        symbol = arguments?.getString("SYMBOL") ?: return
+        val token = getToken() ?: return
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_stock_detail)
+        lineChart = view.findViewById(R.id.lineChart)
 
-        val symbol = intent.getStringExtra("SYMBOL") ?: "AAPL" // fallback just in case
+        viewModel.loadStockDetails(token, symbol)
 
-        // retrieve saved auth token
-        val prefs = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
-        val token = prefs.getString("AUTH_TOKEN", null)
+        viewModel.stockDetails.observe(viewLifecycleOwner) { stock ->
+            if (stock != null) {
+                view.findViewById<TextView>(R.id.symbol).text = stock.symbol
+                view.findViewById<TextView>(R.id.currentPrice).text = stock.currentPrice.toString()
+                view.findViewById<TextView>(R.id.company).text = stock.companyName
+                view.findViewById<TextView>(R.id.ipo).text = stock.ipo
+                view.findViewById<TextView>(R.id.shareOutstanding).text = stock.shareOutstanding.toString()
+                view.findViewById<TextView>(R.id.marketCap).text = stock.marketCap.toString()
+                view.findViewById<TextView>(R.id.exchange).text = stock.exchange
+                view.findViewById<TextView>(R.id.currency).text = stock.currency
+                view.findViewById<TextView>(R.id.industry).text = stock.industry
+                view.findViewById<TextView>(R.id.website).text = stock.website
 
-        if (token == null) {
-            Toast.makeText(this, "Missing auth token", Toast.LENGTH_SHORT).show()
-            finish()
-            return
+                view.findViewById<TextView>(R.id.analystRating).text = "${stock.recommendation?.total ?: 0} Analyst Ratings"
+                view.findViewById<TextView>(R.id.maxOf).text = stock.recommendation?.max.toString()
+                view.findViewById<TextView>(R.id.tvBuyLabel).text = stock.recommendation?.buy.toString()
+                view.findViewById<TextView>(R.id.tvSellLabel).text = stock.recommendation?.sell.toString()
+                view.findViewById<TextView>(R.id.tvHoldLabel).text = stock.recommendation?.hold.toString()
+            }
         }
 
-        val authHeader = "Token $token"
+        viewModel.chartCandles.observe(viewLifecycleOwner) { candles ->
+            if (candles != null) drawLineChart(candles)
+        }
 
-        stockApi = AppModule.stockApi
-        lineChart = findViewById(R.id.lineChart)
+        viewModel.loadChartData(token, symbol)
 
-        stockApi.getStockDetails(authHeader, symbol).enqueue(object : Callback<StockDetailResponse> {
-            override fun onResponse(
-                call: Call<StockDetailResponse>,
-                response: Response<StockDetailResponse>
-            ) {
-                if (response.isSuccessful) {
-                    val stock = response.body()
-
-                    findViewById<TextView>(R.id.symbol).text = stock?.symbol
-                    findViewById<TextView>(R.id.currentPrice).text = stock?.currentPrice.toString()
-                    findViewById<TextView>(R.id.company).text = stock?.companyName.toString()
-                    findViewById<TextView>(R.id.ipo).text = stock?.ipo.toString()
-                    findViewById<TextView>(R.id.shareOutstanding).text = stock?.shareOutstanding.toString()
-                    findViewById<TextView>(R.id.marketCap).text = stock?.marketCap.toString()
-                    findViewById<TextView>(R.id.exchange).text = stock?.exchange.toString()
-                    findViewById<TextView>(R.id.currency).text = stock?.currency.toString()
-                    findViewById<TextView>(R.id.industry).text = stock?.industry.toString()
-                    findViewById<TextView>(R.id.website).text = stock?.website.toString()
-//                    findViewById<TextView>(R.id.recommendation).text = stock?.recommendation.toString()
-
-                    val totalRatings = stock?.recommendation?.total ?: 0
-                    findViewById<TextView>(R.id.analystRating).text = "$totalRatings Analyst Ratings"
-                    findViewById<TextView>(R.id.maxOf).text = stock?.recommendation?.max.toString()
-
-                    findViewById<TextView>(R.id.tvBuyLabel).text = stock?.recommendation?.buy.toString()
-                    findViewById<TextView>(R.id.tvSellLabel).text = stock?.recommendation?.hold.toString()
-                    findViewById<TextView>(R.id.tvHoldLabel).text = stock?.recommendation?.sell.toString()
-
-                    loadChartData(authHeader, symbol)
-
-                } else {
-                    Toast.makeText(this@StockDetailActivity, "Error loading stock",
-                        Toast.LENGTH_SHORT).show()
+        val analyzeButton = view.findViewById<TextView>(R.id.analyze_button)
+        analyzeButton.setOnClickListener {
+            val fragment = StockAnalysisFragment().apply {
+                arguments = Bundle().apply {
+                    putString("SYMBOL", symbol)
                 }
             }
-            override fun onFailure(call: Call<StockDetailResponse>, t: Throwable) {
-                Toast.makeText(this@StockDetailActivity, "Network error",
-                    Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
 
-    private fun loadChartData(token: String, symbol: String) {
-        lifecycleScope.launch {
-            try {
-                val response = stockApi.getStockCandles(token, symbol)
-                drawLineChart(response.candles)
-            } catch (e: Exception) {
-                e.printStackTrace()
-                Toast.makeText(this@StockDetailActivity, "Failed to load chart",
-                    Toast.LENGTH_SHORT).show()
-            }
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit()
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottomNav).visibility = View.VISIBLE
+    }
     private fun drawLineChart(candles: List<Candle>) {
             val entries = candles.mapIndexed { index, candle ->
                 Entry(index.toFloat(), candle.close)
@@ -124,5 +100,8 @@ class StockDetailActivity : AppCompatActivity() {
             lineChart.animateX(1000)
             lineChart.invalidate()
         }
-
+    private fun getToken(): String? {
+        val prefs = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+        return prefs.getString("AUTH_TOKEN", null)?.let { "Token $it" }
+    }
 }

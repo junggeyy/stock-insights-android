@@ -116,6 +116,12 @@
     <string name="recommendationHolder">Recommendation: </string>
 
     <string name="analyst_rating">Analyst Rating: %s</string>
+    <string name="analyze">Analyze Stock</string>
+    <string name="forecast">Forecast for Next 7 days:</string>
+    <string name="analysisTitle">Stock Analysis for %s</string>
+    <string name="forecastFailure">Failed to load forecast!</string>
+    <string name="forecastCurrentPrice">Current Price: %s</string>
+    <string name="forecastPredictedPrice">Predicted Price: %s</string>
 
     <string name="buy_rating">Analyst Rating: %s</string>
     <string name="sell_rating">Analyst Rating: %s</string>
