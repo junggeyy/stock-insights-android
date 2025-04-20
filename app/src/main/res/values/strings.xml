@@ -144,5 +144,8 @@
     <string name="stock_description">Description: %s</string>
     <string name="stock_symbol">Symbol: %s</string>
     <string name="search_bar_image">search bar image</string>
+    <string name="welcome_to">Welcome to</string>
+    <string name="app_title_stock">Stock</string>
+    <string name="app_title_insights">Insights</string>
 
 </resources>
