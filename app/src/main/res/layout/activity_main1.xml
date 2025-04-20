@@ -14,12 +14,14 @@
         android:padding="16dp">
 
         <TextView
+            android:id="@+id/welcomeText"
             android:layout_width="340dp"
             android:layout_height="0dp"
             android:text="@string/welcome_to"
             android:textSize="20sp"
             android:layout_marginTop="52dp"
             android:gravity="center"
+            android:textColor="#555d50"
             android:textStyle="italic"
             android:letterSpacing="0.1"
             app:layout_constraintTop_toTopOf="parent"
@@ -35,12 +37,12 @@
             android:text="@string/app_title_stock"
             android:textColor="@color/white"
             android:textSize="72sp"
-            android:layout_marginTop="64dp"
             android:gravity="center"
+            android:layout_marginTop="-20dp"
             android:textStyle="bold"
             android:fontFamily="sans-serif-medium"
             android:letterSpacing="0.05"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/welcomeText"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             />
@@ -52,27 +54,24 @@
             android:text="@string/app_title_insights"
             android:textColor="@color/white"
             android:textSize="72sp"
-            android:layout_marginTop="120dp"
             android:gravity="center"
+            android:layout_marginTop="-36dp"
             android:textStyle="bold"
             android:fontFamily="sans-serif-medium"
             android:letterSpacing="0.05"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/appTitle"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/appTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
             android:layout_width="340dp"
             android:layout_height="0dp"
-            android:text="Your guide to trading"
+            android:text="@string/your_guide_to_trading"
             android:textSize="20sp"
-            android:layout_marginTop="208dp"
             android:gravity="center"
             android:textStyle="italic"
             android:letterSpacing="0.1"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="#555d50"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/appTitle1"
@@ -83,6 +82,7 @@
             android:layout_width="350dp"
             android:layout_height="475dp"
             android:src="@drawable/app_logo"
+            android:alpha="0.7"
             app:layout_constraintTop_toBottomOf="@id/appTitle1"
             app:layout_constraintStart_toStartOf="parent"
             android:contentDescription="@string/app_logo"
@@ -159,7 +159,6 @@
             android:layout_marginBottom="12dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appLogo"
-            app:layout_constraintBottom_toTopOf="@+id/button11"
             />
 
         <!-- SignUp Button -->
@@ -181,18 +180,7 @@
             app:layout_constraintTop_toBottomOf="@+id/appLogo"
             />
 
-        <!-- Guest Button -->
-        <TextView
-            android:id="@+id/button11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/guest"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="italic"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
