@@ -1,109 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/homePageContainer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    android:fillViewport="false">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <androidx.core.widget.NestedScrollView
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:fillViewport="false">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/appTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Stock Insights"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:textColor="#392511"
-            android:layout_gravity="center_horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="8dp"
-            />
-
-            <ImageView
-                android:id="@+id/searchBar"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/search_bar_image"
-                android:clickable="true"
-                android:focusable="true"
-                android:src="@drawable/search"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_margin="12dp" />
+                android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/dateText"
+                android:id="@+id/appTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Monday, April 14"
+                android:text="Stock Insights"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="#392511"
+                android:layout_gravity="center_horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/appTitle"
-                android:textSize="14sp"
-                android:textColor="#555D50" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="8dp"
+                />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tech Stocks"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:textColor="#392511"
-            android:layout_marginTop="24dp" />
+                <ImageView
+                    android:id="@+id/searchBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/search_bar_image"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@drawable/search"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_margin="12dp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/techRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:nestedScrollingEnabled="false"
-            tools:listitem="@layout/stock_card_view" />
+                <TextView
+                    android:id="@+id/dateText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Monday, April 14"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/appTitle"
+                    android:textSize="14sp"
+                    android:textColor="#555D50" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Healthcare Stocks"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:textColor="#392511"
-            android:layout_marginTop="24dp" />
+            <LinearLayout
+                android:id="@+id/marketOverviewContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/rounded_box"
+                android:elevation="4dp">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/healthRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:nestedScrollingEnabled="false"
-            tools:listitem="@layout/stock_card_view" />
+                <TextView
+                    android:id="@+id/marketStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Market Status: ..."
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="#1F1F1F" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Finance Stocks"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:textColor="#392511"
-            android:layout_marginTop="24dp" />
+                <TextView
+                    android:id="@+id/marketIndices"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"
+                    android:lineSpacingExtra="4dp"
+                    android:textColor="#2C2C2C" />
+            </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/financeRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:nestedScrollingEnabled="false"
-            tools:listitem="@layout/stock_card_view" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tech Stocks"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#392511"
+                android:layout_marginTop="24dp" />
 
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/techRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/stock_card_view" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Healthcare Stocks"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#392511"
+                android:layout_marginTop="24dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/healthRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/stock_card_view" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Finance Stocks"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#392511"
+                android:layout_marginTop="24dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/financeRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/stock_card_view" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <FrameLayout
+    android:id="@+id/loadingOverlay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#BBFFFFFF"
+    android:visibility="gone"
+    android:gravity="center">
+
+        <ProgressBar
+            android:id="@+id/homepageProgressBar"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_gravity="center"
+            style="?android:attr/progressBarStyleLarge"
+            android:indeterminate="true" />
+    </FrameLayout>
+</FrameLayout>

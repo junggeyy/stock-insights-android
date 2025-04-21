@@ -87,7 +87,7 @@
 
     <!-- For Stock Detailed View -->
     <string name="symbol">Stock Symbol</string>
-    <string name="current_price">Current Price: %s</string>
+    <string name="current_price">$%.2f</string>
 
     <string name="companyHolder">Company:</string>
     <string name="company">Company: %s</string>

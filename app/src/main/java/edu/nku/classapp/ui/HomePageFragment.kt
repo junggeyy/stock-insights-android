@@ -2,41 +2,56 @@ package edu.nku.classapp.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
+import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import edu.nku.classapp.R
-import edu.nku.classapp.data.model.StockApiService
 import edu.nku.classapp.data.model.response.Stock
-import edu.nku.classapp.di.AppModule
+import edu.nku.classapp.databinding.FragmentHomePageBinding
 import edu.nku.classapp.ui.adapters.StockAdapter
+import edu.nku.classapp.viewmodel.HomePageViewModel
+import edu.nku.classapp.viewmodel.StockIndexViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 @AndroidEntryPoint
-class HomePageFragment : Fragment(R.layout.fragment_home_page) {
+class HomePageFragment : Fragment() {
 
-    private lateinit var stockApi: StockApiService
+    private var _binding: FragmentHomePageBinding? = null
+    private val binding get() = _binding!!
+
+    private val stockIndexViewModel: StockIndexViewModel by viewModels()
+    private val homePageViewModel: HomePageViewModel by activityViewModels()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentHomePageBinding.inflate(inflater, container, false)
+        setUpObservers()
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        stockApi = AppModule.stockApi
+        setupDate()
 
-        setupDate(view)
-        loadHomepageStocks(view)
-        val searchBar = view.findViewById<ImageView>(R.id.searchBar)
+        val token = getToken() ?: return
+        homePageViewModel.fetchHomepageStocks(token)
+        stockIndexViewModel.fetchIndex(token)
 
-        searchBar.setOnClickListener {
-            Log.d("HomePageFragment", "Search icon clicked")
-
+        binding.searchBar.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, StockSearchFragment())
                 .addToBackStack(null)
@@ -44,31 +59,67 @@ class HomePageFragment : Fragment(R.layout.fragment_home_page) {
         }
     }
 
-    private fun setupDate(view: View) {
-        val dateText = view.findViewById<TextView>(R.id.dateText)
-        val currentDate = SimpleDateFormat("EEEE, MMMM d", Locale.getDefault()).format(Date())
-        dateText.text = currentDate
+    private fun setUpObservers() {
+        observeMarketIndex()
+        observeHomepageStocks()
     }
 
-    private fun loadHomepageStocks(view: View) {
-        val token = getToken() ?: return
-        val techView = view.findViewById<RecyclerView>(R.id.techRecyclerView)
-        val healthView = view.findViewById<RecyclerView>(R.id.healthRecyclerView)
-        val financeView = view.findViewById<RecyclerView>(R.id.financeRecyclerView)
+    private fun setupDate() {
+        val currentDate = SimpleDateFormat("EEEE, MMMM d", Locale.getDefault()).format(Date())
+        binding.dateText.text = currentDate
+    }
 
+    private fun observeMarketIndex() {
         lifecycleScope.launch {
-            try {
-                val response = stockApi.getHomepageStocks(token)
-                val tech = response.data.slice(0..4)
-                val health = response.data.slice(5..9)
-                val finance = response.data.slice(10..14)
+            stockIndexViewModel.indexData.collect { state ->
+                when (state) {
+                    is StockIndexViewModel.StockIndexState.Loading -> {
+                        binding.marketStatus.text = "Loading market data..."
+                        binding.marketIndices.text = ""
+                    }
+                    is StockIndexViewModel.StockIndexState.Failure -> {
+                        binding.marketStatus.text = "Failed to load market data"
+                        binding.marketIndices.text = ""
+                    }
+                    is StockIndexViewModel.StockIndexState.Success -> {
+                        val status = if (state.results.marketStatus) "Open" else "Closed"
+                        binding.marketStatus.text = "Market Status: $status"
 
-                setupRecycler(techView, tech)
-                setupRecycler(healthView, health)
-                setupRecycler(financeView, finance)
+                        val indices = state.results.indices.entries.joinToString("\n") { (name, data) ->
+                            "$name: ${data.price} (${data.changePercent}%)"
+                        }
 
-            } catch (e: Exception) {
-                Toast.makeText(requireContext(), "Failed to load stocks", Toast.LENGTH_SHORT).show()
+                        binding.marketIndices.text = indices
+                    }
+                }
+            }
+        }
+    }
+
+    private fun observeHomepageStocks() {
+        lifecycleScope.launch {
+            homePageViewModel.stocks.collect { state ->
+                when (state) {
+                    is HomePageViewModel.HomepageStockState.Loading -> {
+                        binding.loadingOverlay.isVisible = true
+                    }
+                    is HomePageViewModel.HomepageStockState.Failure -> {
+                        binding.loadingOverlay.isVisible = false
+
+                        Toast.makeText(requireContext(), "Failed to load homepage stocks", Toast.LENGTH_SHORT).show()
+                    }
+                    is HomePageViewModel.HomepageStockState.Success -> {
+                        binding.loadingOverlay.isVisible = false
+
+                        val tech = state.stocks.slice(0..4)
+                        val health = state.stocks.slice(5..9)
+                        val finance = state.stocks.slice(10..14)
+
+                        setupRecycler(binding.techRecyclerView, tech)
+                        setupRecycler(binding.healthRecyclerView, health)
+                        setupRecycler(binding.financeRecyclerView, finance)
+                    }
+                }
             }
         }
     }

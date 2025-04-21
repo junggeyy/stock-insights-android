@@ -3,9 +3,10 @@ package edu.nku.classapp.ui
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.TextView
+import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
@@ -15,50 +16,61 @@ import edu.nku.classapp.R
 import edu.nku.classapp.data.model.response.ForecastPoint
 import edu.nku.classapp.viewmodel.StockAnalysisViewModel
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import edu.nku.classapp.databinding.FragmentStockAnalysisBinding
+import edu.nku.classapp.viewmodel.StockAnalysisState
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class StockAnalysisFragment : Fragment(R.layout.fragment_stock_analysis) {
+class StockAnalysisFragment : Fragment() {
 
-    private val viewModel: StockAnalysisViewModel by viewModels()
+    private var _binding: FragmentStockAnalysisBinding? = null
+    private val binding get() = _binding!!
 
+    private val stockAnalysisViewModel: StockAnalysisViewModel by viewModels()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentStockAnalysisBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val symbol = arguments?.getString("SYMBOL") ?: return
         val token = getToken() ?: return
 
-        viewModel.fetchAnalysis(token, symbol)
+        stockAnalysisViewModel.fetchAnalysis(token, symbol)
 
-        val title = view.findViewById<TextView>(R.id.analysisTitle)
-        val chart = view.findViewById<LineChart>(R.id.forecastChart)
-        val recommendationText = view.findViewById<TextView>(R.id.recommendationText)
 
-        viewModel.analysis.observe(viewLifecycleOwner) { result ->
-            result.onSuccess { data ->
-                recommendationText.text = data.message
-                title.text = "Stock Analysis for $symbol"
-                drawForecast(chart, data.forecast)
-            }
+        lifecycleScope.launch {
+            stockAnalysisViewModel.analysis.collect { state ->
+                when (state) {
+                    is StockAnalysisState.Loading -> {
+                        binding.analysisOverlay.isVisible = true
+                    }
 
-            result.onFailure {
-                recommendationText.text = getString(R.string.failed_to_load_forecast)
+                    is StockAnalysisState.Success -> {
+                        binding.analysisOverlay.isVisible = false
+                        binding.analysisTitle.text = "Stock Analysis for $symbol"
+                        binding.recommendationText.text = state.response.message
+                        drawForecast(binding.forecastChart, state.response.forecast)
+                    }
+
+                    is StockAnalysisState.Failure -> {
+                        binding.analysisOverlay.isVisible = false
+                        binding.recommendationText.text = getString(R.string.failed_to_load_forecast)
+                    }
+                }
             }
         }
     }
-
-    override fun onResume() {
-        super.onResume()
-        requireActivity().findViewById<BottomNavigationView>(R.id.bottomNav).visibility = View.GONE
-    }
-
-    override fun onPause() {
-        super.onPause()
-        requireActivity().findViewById<BottomNavigationView>(R.id.bottomNav).visibility = View.VISIBLE
-    }
-
 
     private fun drawForecast(chart: LineChart, forecast: List<ForecastPoint>) {
         val entries = forecast.mapIndexed { index, point ->
@@ -93,10 +105,18 @@ class StockAnalysisFragment : Fragment(R.layout.fragment_stock_analysis) {
         chart.invalidate()
     }
 
-
-
     private fun getToken(): String? {
         val prefs = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
         return prefs.getString("AUTH_TOKEN", null)?.let { "Token $it" }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottomNav).visibility = View.GONE
+    }
+
+    override fun onPause() {
+        super.onPause()
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottomNav).visibility = View.VISIBLE
     }
 }

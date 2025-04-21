@@ -128,7 +128,7 @@ class StockDetailFragment : Fragment() {
     private fun bindStockDetails(stock: StockDetailResponse) {
         binding.apply {
             symbol.text = stock.symbol
-            currentPrice.text = getString(R.string.current_price, stock.currentPrice.toString())
+            currentPrice.text = getString(R.string.current_price, stock.currentPrice)
             company.text = stock.companyName
             ipo.text = getString(R.string.ipo, stock.ipo)
             shareOutstanding.text = getString(R.string.share_outstanding, stock.shareOutstanding)

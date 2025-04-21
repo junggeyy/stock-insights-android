@@ -34,15 +34,15 @@ data class StockDetailResponse(
     @JsonClass(generateAdapter = true)
     data class Recommendation(
         @Json(name = "buy")
-        val buy: Int,
+        val buy: Double,
         @Json(name = "hold")
-        val hold: Int,
+        val hold: Double,
         @Json(name = "sell")
-        val sell: Int
-    ){
+        val sell: Double,
+        @Json(name = "total")
         val total: Int
-            get() = buy + hold + sell
-        val max: Int
+    ){
+        val max: Double
             get() = maxOf(buy, hold, sell)
     }
 }

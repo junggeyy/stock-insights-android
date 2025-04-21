@@ -3,6 +3,7 @@ package edu.nku.classapp.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import edu.nku.classapp.data.model.response.StockSearchApiResponse
 import edu.nku.classapp.data.model.response.StockSearchResponse
 import edu.nku.classapp.data.repository.StockRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,15 +23,13 @@ class StockSearchViewModel @Inject constructor(
     fun stockSearch(token: String, query: String) {
         viewModelScope.launch {
             _searchState.value = StockSearchState.Loading
-            try {
-                val result = stockRepository.getStockSearch(token, query)
-                _searchState.value = if (result != null) {
-                    StockSearchState.Success(listOf(result))
-                } else {
-                    StockSearchState.Failure
+            when (val result = stockRepository.getStockSearch(token, query)) {
+                is StockSearchApiResponse.Success -> {
+                    _searchState.value = StockSearchState.Success(listOf(result.response))
                 }
-            } catch (e: Exception) {
-                _searchState.value = StockSearchState.Failure
+                is StockSearchApiResponse.Error -> {
+                    _searchState.value = StockSearchState.Failure
+                }
             }
         }
     }

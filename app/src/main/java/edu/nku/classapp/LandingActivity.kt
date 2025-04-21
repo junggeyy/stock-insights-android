@@ -28,9 +28,13 @@ class LandingActivity : AppCompatActivity() {
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, HomePageFragment())
-                        .commit()
+                    val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+                    if (currentFragment !is HomePageFragment) {
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.fragment_container, HomePageFragment())
+                            .addToBackStack(null)
+                            .commit()
+                    }
                     true
                 }
                 R.id.nav_portfolio -> {
