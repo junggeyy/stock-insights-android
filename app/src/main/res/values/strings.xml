@@ -87,7 +87,7 @@
 
     <!-- For Stock Detailed View -->
     <string name="symbol">Stock Symbol</string>
-    <string name="current_price">Current Price</string>
+    <string name="current_price">Current Price: %s</string>
 
     <string name="companyHolder">Company:</string>
     <string name="company">Company: %s</string>
@@ -96,10 +96,10 @@
     <string name="ipo">IPO: %s</string>
 
     <string name="share_outstandingHolder">Share Outstanding: </string>
-    <string name="share_outstanding">Share Outstanding: %d</string>
+    <string name="share_outstanding">Share Outstanding: %.2f</string>
 
     <string name="market_capHolder">Market Cap: </string>
-    <string name="market_cap">Market Cap: %d</string>
+    <string name="market_cap">Market Cap: %.2f</string>
 
     <string name="exchangeHolder">Exchange: </string>
     <string name="exchange">Exchange: %s</string>
@@ -115,7 +115,7 @@
 
     <string name="recommendationHolder">Recommendation: </string>
 
-    <string name="analyst_rating">Analyst Rating: %s</string>
+    <string name="analyst_rating">Analyst Recommendation: %s</string>
     <string name="analyze">Analyze Stock</string>
     <string name="forecast">Forecast for Next 7 days:</string>
     <string name="analysisTitle">Stock Analysis for %s</string>
@@ -148,5 +148,7 @@
     <string name="app_title_stock">Stock</string>
     <string name="app_title_insights">Insights</string>
     <string name="your_guide_to_trading">Your guide to trading</string>
+    <string name="wishlist">Add to wishlist</string>
+    <string name="something_went_wrong">Something went wrong!</string>
 
 </resources>

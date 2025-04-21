@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import edu.nku.classapp.model.Guest
 import edu.nku.classapp.ui.auth.LoginActivity
 import edu.nku.classapp.ui.auth.SignupActivity
 
@@ -24,9 +22,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, SignupActivity::class.java))
         }
 
-        findViewById<TextView>(R.id.button11).setOnClickListener {
-            startActivity(Intent(this, Guest::class.java))
-        }
         val animatedMoney = findViewById<ImageView>(R.id.animatedMoney)
         val animation = AnimationUtils.loadAnimation(this, R.anim.wiggle_zoom)
         animatedMoney.startAnimation(animation)

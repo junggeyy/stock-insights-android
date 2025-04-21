@@ -3,11 +3,13 @@ package edu.nku.classapp.ui
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.TextView
+import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import com.github.mikephil.charting.charts.LineChart
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
@@ -15,53 +17,43 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import edu.nku.classapp.R
 import edu.nku.classapp.data.model.response.Candle
+import edu.nku.classapp.data.model.response.StockDetailResponse
+import edu.nku.classapp.databinding.FragmentStockDetailBinding
 import edu.nku.classapp.viewmodel.StockDetailViewModel
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class StockDetailFragment : Fragment(R.layout.fragment_stock_detail) {
+class StockDetailFragment : Fragment() {
 
-    private val viewModel: StockDetailViewModel by viewModels()
+    private var _binding: FragmentStockDetailBinding? = null
+    private val binding get() = _binding!!
 
-    private lateinit var lineChart: LineChart
-    private lateinit var symbol: String
+    private val stockDetailViewModel: StockDetailViewModel by activityViewModels()
+
+    private lateinit var symbol: String // what is lateinit var?
+    private var isWatchlisted = false
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentStockDetailBinding.inflate(inflater, container, false)
+        setUpObservers()
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         symbol = arguments?.getString("SYMBOL") ?: return
         val token = getToken() ?: return
 
-        lineChart = view.findViewById(R.id.lineChart)
+        stockDetailViewModel.loadStockDetails(token, symbol)
+        stockDetailViewModel.checkIfInWatchlist(token, symbol)
+        stockDetailViewModel.loadChartData(token, symbol)
 
-        viewModel.loadStockDetails(token, symbol)
-
-        viewModel.stockDetails.observe(viewLifecycleOwner) { stock ->
-            if (stock != null) {
-                view.findViewById<TextView>(R.id.symbol).text = stock.symbol
-                view.findViewById<TextView>(R.id.currentPrice).text = stock.currentPrice.toString()
-                view.findViewById<TextView>(R.id.company).text = stock.companyName
-                view.findViewById<TextView>(R.id.ipo).text = stock.ipo
-                view.findViewById<TextView>(R.id.shareOutstanding).text = stock.shareOutstanding.toString()
-                view.findViewById<TextView>(R.id.marketCap).text = stock.marketCap.toString()
-                view.findViewById<TextView>(R.id.exchange).text = stock.exchange
-                view.findViewById<TextView>(R.id.currency).text = stock.currency
-                view.findViewById<TextView>(R.id.industry).text = stock.industry
-                view.findViewById<TextView>(R.id.website).text = stock.website
-
-                view.findViewById<TextView>(R.id.analystRating).text = "${stock.recommendation?.total ?: 0} Analyst Ratings"
-                view.findViewById<TextView>(R.id.maxOf).text = stock.recommendation?.max.toString()
-                view.findViewById<TextView>(R.id.tvBuyLabel).text = stock.recommendation?.buy.toString()
-                view.findViewById<TextView>(R.id.tvSellLabel).text = stock.recommendation?.sell.toString()
-                view.findViewById<TextView>(R.id.tvHoldLabel).text = stock.recommendation?.hold.toString()
-            }
-        }
-
-        viewModel.chartCandles.observe(viewLifecycleOwner) { candles ->
-            if (candles != null) drawLineChart(candles)
-        }
-
-        viewModel.loadChartData(token, symbol)
-
-        val analyzeButton = view.findViewById<TextView>(R.id.analyze_button)
-        analyzeButton.setOnClickListener {
+        binding.analyzeButton.setOnClickListener {
             val fragment = StockAnalysisFragment().apply {
                 arguments = Bundle().apply {
                     putString("SYMBOL", symbol)
@@ -73,11 +65,85 @@ class StockDetailFragment : Fragment(R.layout.fragment_stock_detail) {
                 .addToBackStack(null)
                 .commit()
         }
+
+        binding.watchlistButton.setOnClickListener {
+            stockDetailViewModel.toggleWatchlist(token, symbol, binding.company.text.toString(), isWatchlisted)
+
+            isWatchlisted = !isWatchlisted
+
+            val icon = if (isWatchlisted) R.drawable.watchlist2 else R.drawable.watchlist
+
+            binding.watchlistButton.setImageResource(icon)
+        }
+
+        binding.backButton.setOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
     }
 
-    override fun onResume() {
-        super.onResume()
-        requireActivity().findViewById<BottomNavigationView>(R.id.bottomNav).visibility = View.VISIBLE
+    private fun setUpObservers() {
+        lifecycleScope.launch {
+            stockDetailViewModel.stockDetail.collect { state ->
+                when (state) {
+                    is StockDetailViewModel.StockDetailState.Loading -> {
+                        binding.progressBar.isVisible = true
+                        binding.root.isVisible = false
+                        binding.errorMessage.isVisible = false
+                    }
+
+                    is StockDetailViewModel.StockDetailState.Success -> {
+                        binding.progressBar.isVisible = false
+                        binding.root.isVisible = true
+                        binding.errorMessage.isVisible = false
+                        bindStockDetails(state.stock)
+                    }
+
+                    is StockDetailViewModel.StockDetailState.Failure -> {
+                        binding.progressBar.isVisible = false
+                        binding.root.isVisible = false
+                        binding.errorMessage.isVisible = true
+                    }
+                }
+            }
+        }
+        lifecycleScope.launch {
+            stockDetailViewModel.chartCandles.collect { candles ->
+                if (candles.isNotEmpty()) drawLineChart(candles)
+            }
+        }
+        lifecycleScope.launch {
+            stockDetailViewModel.isInWatchlist.collect { isInList ->
+                isInList?.let {
+                    isWatchlisted = it
+                    val icon = if (isWatchlisted) R.drawable.watchlist2 else R.drawable.watchlist
+                    binding.watchlistButton.setImageResource(icon)
+                }
+            }
+        }
+
+    }
+
+
+
+    private fun bindStockDetails(stock: StockDetailResponse) {
+        binding.apply {
+            symbol.text = stock.symbol
+            currentPrice.text = getString(R.string.current_price, stock.currentPrice.toString())
+            company.text = stock.companyName
+            ipo.text = getString(R.string.ipo, stock.ipo)
+            shareOutstanding.text = getString(R.string.share_outstanding, stock.shareOutstanding)
+            marketCap.text = getString(R.string.market_cap, stock.marketCap)
+            exchange.text = getString(R.string.exchange, stock.exchange)
+            currency.text = getString(R.string.currency, stock.currency)
+            industry.text = getString(R.string.industry, stock.industry)
+            website.text = getString(R.string.website, stock.website)
+
+            analystRating.text = "${stock.recommendation?.total ?: 0} Analyst Recommendations"
+            maxOf.text = "${stock.recommendation?.max ?: 0}%"
+            tvBuyLabel.text = "${stock.recommendation?.buy ?: 0}% Buy"
+            tvSellLabel.text = "${stock.recommendation?.sell ?: 0}% Sell"
+            tvHoldLabel.text = "${stock.recommendation?.hold ?: 0}% Hold"
+        }
     }
     private fun drawLineChart(candles: List<Candle>) {
             val entries = candles.mapIndexed { index, candle ->
@@ -93,14 +159,18 @@ class StockDetailFragment : Fragment(R.layout.fragment_stock_detail) {
             }
 
             val lineData = LineData(dataSet)
-
-            lineChart.data = lineData
-            lineChart.description.text = "Last 30 days"
-            lineChart.animateX(1000)
-            lineChart.invalidate()
+            binding.lineChart.data = lineData
+            binding.lineChart.description.text = "Last 30 days"
+            binding.lineChart.animateX(1000)
+            binding.lineChart.invalidate()
         }
-    private fun getToken(): String? {
-        val prefs = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
-        return prefs.getString("AUTH_TOKEN", null)?.let { "Token $it" }
-    }
+
+        private fun getToken(): String? {
+            val prefs = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+            return prefs.getString("AUTH_TOKEN", null)?.let { "Token $it" }
+        }
+        override fun onResume() {
+            super.onResume()
+            requireActivity().findViewById<BottomNavigationView>(R.id.bottomNav).visibility = View.VISIBLE
+        }
 }

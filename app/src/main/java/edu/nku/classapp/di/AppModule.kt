@@ -78,4 +78,11 @@ object AppModule {
     fun provideStockApiService(retrofit: Retrofit): StockApiService {
         return retrofit.create(StockApiService::class.java)
     }
+
+    @Provides
+    @Singleton
+    fun provideUserApiService(retrofit: Retrofit): UserApiService {
+        return retrofit.create(UserApiService::class.java)
+    }
+
 }

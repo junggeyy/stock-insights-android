@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
+
     <!-- This is the ONLY child of ScrollView -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,6 +14,55 @@
         android:padding="16dp"
         android:background="@android:color/white">
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/errorMessage"
+            android:visibility="gone"
+            android:text="@string/something_went_wrong"
+            android:textSize="16sp"
+            android:layout_gravity="center"
+            android:textColor="@android:color/holo_red_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <!-- Back Button -->
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="-19dp"
+            android:layout_marginTop="3dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/back"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#565c50" />
+
+        <!--Wishlist Button-->
+        <ImageButton
+            android:id="@+id/watchlistButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="-4dp"
+            android:layout_marginEnd="-17dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/wishlist"
+            android:src="@drawable/watchlist"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#565c50" />
     <!-- Stock Ticker -->
     <TextView
         android:id="@+id/symbol"
@@ -91,6 +141,10 @@
             android:textColor="@android:color/black"
             android:layout_marginBottom="8dp" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="14dp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -107,6 +161,9 @@
             android:textSize="14sp"
             android:textColor="@android:color/black"
             android:layout_marginBottom="8dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="14dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -124,6 +181,9 @@
             android:textSize="14sp"
             android:textColor="@android:color/black"
             android:layout_marginBottom="8dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="14dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -169,6 +229,9 @@
             android:textSize="14sp"
             android:textColor="@android:color/black"
             android:layout_marginBottom="8dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -186,6 +249,9 @@
             android:textSize="14sp"
             android:textColor="@android:color/black"
             android:layout_marginBottom="8dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12dp" />
 
         <TextView
 
@@ -204,6 +270,9 @@
             android:textSize="14sp"
             android:textColor="@android:color/black"
             android:layout_marginBottom="8dp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="12dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -222,86 +291,34 @@
             android:textColor="@android:color/black" />
     </LinearLayout>
 
-        <TextView
+        <Button
             android:id="@+id/analyze_button"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginEnd="13dp"
+            android:backgroundTint="#565c50"
+            android:paddingVertical="12dp"
             android:text="@string/analyze"
-            app:layout_constraintTop_toBottomOf="@id/leftColumn"
+            android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_margin= "8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/leftColumn"
             />
 
-
-    <!-- Recommendation Title -->
-    <TextView
-        android:id="@+id/recommendation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/recommendationHolder"
-        android:textStyle="bold"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@id/leftColumn"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <!-- Recommendation Details -->
-    <HorizontalScrollView
-        android:id="@+id/recommendationScroll"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fillViewport="true"
-        android:scrollbars="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/recommendation"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:paddingEnd="8dp">-->
-
-<!--            &lt;!&ndash; Card 1 &ndash;&gt;-->
-<!--            <View-->
-<!--                android:layout_width="150dp"-->
-<!--                android:layout_height="100dp"-->
-<!--                android:layout_marginEnd="8dp"-->
-<!--                android:background="#565c50" />-->
-
-<!--            &lt;!&ndash; Card 2 &ndash;&gt;-->
-<!--            <View-->
-<!--                android:layout_width="150dp"-->
-<!--                android:layout_height="100dp"-->
-<!--                android:layout_marginEnd="8dp"-->
-<!--                android:background="#565c50" />-->
-
-<!--            &lt;!&ndash; Card 3 &ndash;&gt;-->
-<!--            <View-->
-<!--                android:layout_width="150dp"-->
-<!--                android:layout_height="100dp"-->
-<!--                android:layout_marginEnd="8dp"-->
-<!--                android:background="#565c50" />-->
-
-
-
-<!--        </LinearLayout>-->
-    </HorizontalScrollView>
-
-        <!-- Analyst Ratings Title -->
         <TextView
             android:id="@+id/analystRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/analyst_rating"
-            android:textColor="@android:color/black"
+            android:textColor="#565c50"
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@id/recommendationScroll"
+            app:layout_constraintTop_toBottomOf="@id/analyze_button"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <!-- Circle + Bars container -->
         <LinearLayout
             android:id="@+id/analystRatingContainer"
             android:layout_width="0dp"
@@ -312,110 +329,112 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
-            <!-- Circular Buy Percentage -->
-            <TextView
-                android:id="@+id/maxOf"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/circle_dark_green"
-                android:text="@string/max_rating"
-                android:gravity="center"
-                android:textColor="#565c50"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:layout_marginEnd="16dp" />
+        <!-- Circular Buy Percentage -->
+        <TextView
+            android:id="@+id/maxOf"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/circle_dark_green"
+            android:text="@string/max_rating"
+            android:gravity="center"
+            android:textColor="#565c50"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:layout_marginEnd="16dp" />
 
-            <!-- Progress Bars -->
+        <!-- Progress Bars -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Buy -->
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical">
 
-                <!-- Buy -->
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <ProgressBar
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:id="@+id/progressBuy"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="12dp"
+                    android:progress="61"
+                    android:max="100"
+                    android:progressTint="#00d100"
+                    android:backgroundTint="#404040" />
+
+                <TextView
+                    android:id="@+id/tvBuyLabel"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="8dp"
-                    android:gravity="center_vertical">
+                    android:text="@string/buy_rating"
+                    android:textColor="#00d100"
+                    android:layout_marginStart="8dp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
 
-                    <ProgressBar
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:id="@+id/progressBuy"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="12dp"
-                        android:progress="61"
-                        android:max="100"
-                        android:progressTint="#565c50"
-                        android:backgroundTint="#404040" />
+            <!-- Hold -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical">
 
-                    <TextView
-                        android:id="@+id/tvBuyLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/buy_rating"
-                        android:textColor="#565c50"
-                        android:layout_marginStart="8dp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
+                <ProgressBar
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:id="@+id/progressHold"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="12dp"
+                    android:progress="29"
+                    android:max="100"
+                    android:progressTint="#298cd3"
+                    android:backgroundTint="#404040" />
 
-                <!-- Hold -->
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tvHoldLabel"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="8dp"
-                    android:gravity="center_vertical">
+                    android:text="@string/hold_rating"
+                    android:textColor="#298cd3"
+                    android:layout_marginStart="8dp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
 
-                    <ProgressBar
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:id="@+id/progressHold"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="12dp"
-                        android:progress="29"
-                        android:max="100"
-                        android:progressTint="@color/black"
-                        android:backgroundTint="#404040" />
+            <!-- Sell -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
-                    <TextView
-                        android:id="@+id/tvHoldLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/hold_rating"
-                        android:textColor="@color/black"
-                        android:layout_marginStart="8dp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
+                <ProgressBar
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:id="@+id/progressSell"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="12dp"
+                    android:progress="10"
+                    android:max="100"
+                    android:progressTint="#FF0000"
+                    android:backgroundTint="#404040" />
 
-                <!-- Sell -->
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tvSellLabel"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
+                    android:text="@string/sell_rating"
+                    android:textColor="#FF0000"
+                    android:layout_marginStart="8dp"
+                    android:textStyle="bold"/>
 
-                    <ProgressBar
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:id="@+id/progressSell"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="12dp"
-                        android:progress="10"
-                        android:max="100"
-                        android:progressTint="#FF3D00"
-                        android:backgroundTint="#404040" />
 
-                    <TextView
-                        android:id="@+id/tvSellLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/sell_rating"
-                        android:textColor="#FF3D00"
-                        android:layout_marginStart="8dp"
-                        android:textStyle="bold"/>
                 </LinearLayout>
 
             </LinearLayout>
