@@ -58,7 +58,7 @@ class UserProfileFragment : Fragment() {
                 }
             }
         }
-        binding.portfolioButton.setOnClickListener {
+        binding.watchlistButton.setOnClickListener {
             Toast.makeText(context, "coming soon!", Toast.LENGTH_SHORT).show()
         }
     }
@@ -74,16 +74,16 @@ class UserProfileFragment : Fragment() {
                     is UserProfileViewModel.UserProfileState.Success -> {
                         binding.progressBar.visibility = View.GONE
                         val profile = state.profile
-                        binding.nameTextView.text = profile.name
-                        binding.usernameTextView.text = "@${profile.username}"
-                        binding.emailTextView.text = profile.email
+                        binding.username.text = binding.root.context.getString(R.string.username, profile.username)
+                        binding.name.text = binding.root.context.getString(R.string.name, profile.name)
+                        binding.email.text = binding.root.context.getString(R.string.email, profile.email)
 
                         if (!profile.avatar.isNullOrEmpty()) {
                             Glide.with(binding.root)
                                 .load(profile.avatar)
-                                .into(binding.avatarImageView)
+                                .into(binding.userProfileImage)
                         } else {
-                            binding.avatarImageView.setImageResource(R.drawable.default_avatar)
+                            binding.userProfileImage.setImageResource(R.drawable.user_profile_page)
                         }
                     }
 

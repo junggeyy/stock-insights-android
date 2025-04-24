@@ -17,7 +17,9 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-    private const val BASE_URL = "http://10.0.2.2:8000/"
+//    private const val BASE_URL = "http://10.0.2.2:8000/"
+    private const val BASE_URL = "https://stock-backend-rzgl.onrender.com/"
+
 
     private val logging = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY

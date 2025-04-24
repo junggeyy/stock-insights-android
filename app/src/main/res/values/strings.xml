@@ -46,7 +46,7 @@
     <string name="dialog_title_success">Success</string>
     <string name="dialog_title_error">Error</string>
     <string name="dialog_title_warning">Warning</string>
-    <string name="email">Email</string>
+    <string name="email">Email: %s</string>
     <string name="password">Password</string>
     <string name="phone">Phone Number</string>
     <string name="image">Image Loading</string>
@@ -150,5 +150,13 @@
     <string name="your_guide_to_trading">Your guide to trading</string>
     <string name="wishlist">Add to wishlist</string>
     <string name="something_went_wrong">Something went wrong!</string>
+
+    <string name="username">Username: %s</string>
+    <string name="name">Name: %s</string>
+    <string name="image_of_user_settings_icon">Image of user settings icon</string>
+    <string name="image_of_watchlist">Image of watchlist</string>
+    <string name="image_of_settings_icon">Image of settings icon</string>
+    <string name="top_box_for_ui">Top box for ui</string>
+    <string name="image_of_a_user_icon">Image of a user icon</string>
 
 </resources>
