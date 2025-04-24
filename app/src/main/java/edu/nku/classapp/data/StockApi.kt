@@ -6,7 +6,6 @@ import edu.nku.classapp.model.StockAnalysisResponse
 import edu.nku.classapp.model.StockDetailResponse
 import edu.nku.classapp.model.StockIndexResponse
 import edu.nku.classapp.model.StockSearchResponse
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -17,21 +16,21 @@ interface StockApi {
     ): Response<HomeStockResponse>
 
     @GET("stocks/{symbol}/details")
-    fun getStockDetails(
+    suspend fun getStockDetail(
         @Header("Authorization") token: String,
         @Path("symbol") symbol: String
-    ): Call<StockDetailResponse>
+    ): Response<StockDetailResponse>
 
     @GET("stocks/{symbol}/chart/")
-    fun getStockCandles(
+    suspend fun getStockCandle(
         @Header("Authorization") token: String,
-        @Path("symbol") symbol: String): Call<CandleChartResponse>
+        @Path("symbol") symbol: String): Response<CandleChartResponse>
 
     @GET("stocks/{symbol}/analysis/")
     suspend fun getStockAnalysis(
         @Header("Authorization") token: String,
         @Path("symbol") symbol: String
-    ): StockAnalysisResponse
+    ): Response<StockAnalysisResponse>
 
     @GET("stocks/{symbol}/search/")
     suspend fun getStockSearch(

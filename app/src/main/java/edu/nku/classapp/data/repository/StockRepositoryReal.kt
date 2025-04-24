@@ -2,6 +2,9 @@ package edu.nku.classapp.data.repository
 
 import edu.nku.classapp.data.StockApi
 import edu.nku.classapp.data.model.HomeStockApiResponse
+import edu.nku.classapp.data.model.StockAnalysisApiResponse
+import edu.nku.classapp.data.model.StockCandleApiResponse
+import edu.nku.classapp.data.model.StockDetailApiResponse
 import edu.nku.classapp.data.model.StockIndexApiResponse
 import edu.nku.classapp.data.model.StockSearchApiResponse
 import javax.inject.Inject
@@ -42,4 +45,39 @@ class StockRepositoryReal @Inject constructor(
             StockIndexApiResponse.Error
         }
     }
+
+    override suspend fun getStockDetail(token: String, symbol: String): StockDetailApiResponse {
+        val response = stockApi.getStockDetail(token, symbol)
+        return if (response.isSuccessful) {
+            response.body()?.let {
+                StockDetailApiResponse.Success(it)
+            } ?: StockDetailApiResponse.Error
+        } else {
+            StockDetailApiResponse.Error
+        }
+    }
+
+    override suspend fun getStockCandle(token: String, symbol: String): StockCandleApiResponse {
+        val response = stockApi.getStockCandle(token, symbol)
+        return if (response.isSuccessful) {
+            response.body()?.let {
+                StockCandleApiResponse.Success(it)
+            } ?: StockCandleApiResponse.Error
+        } else {
+            StockCandleApiResponse.Error
+        }
+    }
+
+    override suspend fun getStockAnalysis(token: String, symbol: String): StockAnalysisApiResponse {
+        val response = stockApi.getStockAnalysis(token, symbol)
+        return if (response.isSuccessful) {
+            response.body()?.let {
+                StockAnalysisApiResponse.Success(it)
+            } ?: StockAnalysisApiResponse.Error
+        } else {
+            StockAnalysisApiResponse.Error
+        }
+    }
+
+
 }

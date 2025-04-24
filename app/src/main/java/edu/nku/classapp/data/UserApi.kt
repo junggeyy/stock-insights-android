@@ -5,7 +5,6 @@ import edu.nku.classapp.model.UserProfileResponse
 import edu.nku.classapp.model.WatchListResponse
 import edu.nku.classapp.model.WatchListCheckResponse
 import retrofit2.Response
-import retrofit2.Call
 import retrofit2.http.*
 
 interface UserApi {

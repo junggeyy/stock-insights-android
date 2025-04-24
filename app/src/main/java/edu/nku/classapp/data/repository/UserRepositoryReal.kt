@@ -3,6 +3,8 @@ package edu.nku.classapp.data.repository
 import edu.nku.classapp.data.UserApi
 import edu.nku.classapp.data.model.AuthApiResponse
 import edu.nku.classapp.data.model.UserProfileApiResponse
+import edu.nku.classapp.data.model.WatchlistApiResponse
+import edu.nku.classapp.data.model.WatchlistCheckApiResponse
 import javax.inject.Inject
 
 class UserRepositoryReal @Inject constructor(
@@ -46,7 +48,53 @@ class UserRepositoryReal @Inject constructor(
         } catch (e: Exception) {
             UserProfileApiResponse.Error("Network Error: ${e.localizedMessage}")
         }
+    }
 
+    override suspend fun addToWatchlist(
+        token: String,
+        body: Map<String, String>
+    ): WatchlistApiResponse {
+        return try{
+            val response = userApi.addToWatchlist(token, body)
+            if(response.isSuccessful && response.body() != null){
+                WatchlistApiResponse.Success(response.body()!!)
+            } else{
+                WatchlistApiResponse.Error("Failed to add: ${response.code()}")
+            }
+        }catch (e: Exception){
+            WatchlistApiResponse.Error("Network Error: ${e.localizedMessage}")
+        }
+    }
+
+    override suspend fun removeFromWatchlist(
+        token: String,
+        body: Map<String, String>
+    ): WatchlistApiResponse {
+        return try{
+            val response = userApi.removeFromWatchlist(token, body)
+            if(response.isSuccessful && response.body() != null){
+                WatchlistApiResponse.Success(response.body()!!)
+            } else{
+                WatchlistApiResponse.Error("Failed to add: ${response.code()}")
+            }
+        }catch (e: Exception){
+            WatchlistApiResponse.Error("Network Error: ${e.localizedMessage}")
+        }
+    }
+
+    override suspend fun isInWatchlist(
+        token: String, symbol: String
+    ): WatchlistCheckApiResponse {
+        return try{
+            val response = userApi.isInWatchlist(token, symbol)
+            if(response.isSuccessful && response.body() != null){
+                WatchlistCheckApiResponse.Success(response.body()!!)
+            } else{
+                WatchlistCheckApiResponse.Error("Failed to check: ${response.code()}")
+            }
+        } catch (e: Exception){
+            WatchlistCheckApiResponse.Error("Network Error: ${e.localizedMessage}")
+        }
     }
 
     override suspend fun logout(token: String): Boolean {

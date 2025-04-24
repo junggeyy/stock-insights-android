@@ -1,10 +1,11 @@
 package edu.nku.classapp.viewmodel
 
 import androidx.lifecycle.ViewModel
-import edu.nku.classapp.data.StockApi
 import edu.nku.classapp.model.StockAnalysisResponse
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import edu.nku.classapp.data.model.StockAnalysisApiResponse
+import edu.nku.classapp.data.repository.StockRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,24 +14,22 @@ import javax.inject.Inject
 
 @HiltViewModel
 class StockAnalysisViewModel @Inject constructor(
-    private val stockApi: StockApi  // change to use repository
+    private val stockRepository: StockRepository
 ) : ViewModel() {
 
     private val _analysis = MutableStateFlow<StockAnalysisState>(StockAnalysisState.Loading)
     val analysis: StateFlow<StockAnalysisState> = _analysis.asStateFlow()
 
-    // try to use when branch and also '=' method
-    fun fetchAnalysis(token: String, symbol: String) {
-        viewModelScope.launch {
-            _analysis.value = StockAnalysisState.Loading
-            try {
-                val response = stockApi.getStockAnalysis(token, symbol)
-                _analysis.value = StockAnalysisState.Success(response)
-            } catch (e: Exception) {
-                _analysis.value = StockAnalysisState.Failure
-            }
+    fun fetchAnalysis(token: String, symbol: String) = viewModelScope.launch {
+        when(val result = stockRepository.getStockAnalysis(token, symbol)){
+            is StockAnalysisApiResponse.Success -> _analysis.value =
+                StockAnalysisState.Success(result.response)
+
+            is StockAnalysisApiResponse.Error -> _analysis.value =
+                StockAnalysisState.Failure
         }
     }
+
     sealed class StockAnalysisState {
         data class Success(val response: StockAnalysisResponse) : StockAnalysisState()
         data object Loading : StockAnalysisState()
