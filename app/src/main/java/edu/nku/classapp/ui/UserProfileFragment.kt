@@ -58,8 +58,21 @@ class UserProfileFragment : Fragment() {
                 }
             }
         }
+
         binding.watchlistButton.setOnClickListener {
-            Toast.makeText(context, "coming soon!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Coming soon!", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.editUser.setOnClickListener {
+            Toast.makeText(context, "Coming soon!", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.userSettings.setOnClickListener {
+            Toast.makeText(context, "Coming soon!", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.backButton.setOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
     }
 
