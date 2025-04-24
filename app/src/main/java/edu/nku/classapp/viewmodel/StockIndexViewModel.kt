@@ -1,15 +1,10 @@
 package edu.nku.classapp.viewmodel
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import edu.nku.classapp.data.model.StockApiService
-import edu.nku.classapp.data.model.response.StockIndexApiResponse
-import edu.nku.classapp.data.model.response.StockIndexResponse
-import edu.nku.classapp.data.model.response.StockSearchResponse
+import edu.nku.classapp.data.model.StockIndexApiResponse
+import edu.nku.classapp.model.StockIndexResponse
 import edu.nku.classapp.data.repository.StockRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -30,7 +25,6 @@ class StockIndexViewModel @Inject constructor(
             StockIndexApiResponse.Error -> _indexData.value = StockIndexState.Failure
             is StockIndexApiResponse.Success ->
                 _indexData.value = StockIndexState.Success(result.response)
-
         }
     }
 

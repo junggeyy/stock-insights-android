@@ -4,11 +4,11 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import edu.nku.classapp.data.model.StockApiService
-import edu.nku.classapp.data.model.UserApiService
-import edu.nku.classapp.data.model.response.Candle
-import edu.nku.classapp.data.model.response.CandleChartResponse
-import edu.nku.classapp.data.model.response.StockDetailResponse
+import edu.nku.classapp.data.StockApi
+import edu.nku.classapp.data.UserApi
+import edu.nku.classapp.model.Candle
+import edu.nku.classapp.model.CandleChartResponse
+import edu.nku.classapp.model.StockDetailResponse
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,8 +20,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class StockDetailViewModel @Inject constructor(
-    private val stockApi: StockApiService,
-    private val userApi: UserApiService
+    private val stockApi: StockApi,     // change to use repository
+    private val userApi: UserApi
 ) : ViewModel() {
 
     private val _stockDetail =
@@ -115,12 +115,9 @@ class StockDetailViewModel @Inject constructor(
         }
     }
 
-        sealed class StockDetailState {
-            data class Success(val stock: StockDetailResponse) : StockDetailState()
-            data object Loading : StockDetailState()
-            data object Failure : StockDetailState()
-        }
-
-
-
+    sealed class StockDetailState {
+        data class Success(val stock: StockDetailResponse) : StockDetailState()
+        data object Loading : StockDetailState()
+        data object Failure : StockDetailState()
+    }
 }

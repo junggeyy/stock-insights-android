@@ -1,8 +1,8 @@
 package edu.nku.classapp.data.repository
 
-import edu.nku.classapp.data.model.response.HomeStockApiResponse
-import edu.nku.classapp.data.model.response.StockIndexApiResponse
-import edu.nku.classapp.data.model.response.StockSearchApiResponse
+import edu.nku.classapp.data.model.HomeStockApiResponse
+import edu.nku.classapp.data.model.StockIndexApiResponse
+import edu.nku.classapp.data.model.StockSearchApiResponse
 
 
 interface StockRepository {

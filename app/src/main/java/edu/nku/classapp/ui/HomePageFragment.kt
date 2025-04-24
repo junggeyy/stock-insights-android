@@ -2,6 +2,7 @@ package edu.nku.classapp.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +12,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import edu.nku.classapp.R
-import edu.nku.classapp.data.model.response.Stock
+import edu.nku.classapp.model.Stock
 import edu.nku.classapp.databinding.FragmentHomePageBinding
-import edu.nku.classapp.ui.adapters.StockAdapter
+import edu.nku.classapp.ui.adapters.HomeStockAdapter
 import edu.nku.classapp.viewmodel.HomePageViewModel
 import edu.nku.classapp.viewmodel.StockIndexViewModel
 import kotlinx.coroutines.launch
@@ -31,7 +33,7 @@ class HomePageFragment : Fragment() {
     private var _binding: FragmentHomePageBinding? = null
     private val binding get() = _binding!!
 
-    private val stockIndexViewModel: StockIndexViewModel by viewModels()
+    private val stockIndexViewModel: StockIndexViewModel by activityViewModels()
     private val homePageViewModel: HomePageViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -45,6 +47,8 @@ class HomePageFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.d("HomePageFragment", "onViewCreated called")
+
         setupDate()
 
         val token = getToken() ?: return
@@ -52,10 +56,9 @@ class HomePageFragment : Fragment() {
         stockIndexViewModel.fetchIndex(token)
 
         binding.searchBar.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, StockSearchFragment())
-                .addToBackStack(null)
-                .commit()
+            val action = HomePageFragmentDirections
+                .actionHomePageFragmentToStockSearchFragment()
+            findNavController().navigate(action)
         }
     }
 
@@ -126,14 +129,10 @@ class HomePageFragment : Fragment() {
 
     private fun setupRecycler(recycler: RecyclerView, list: List<Stock>) {
         recycler.layoutManager = LinearLayoutManager(requireContext())
-        recycler.adapter = StockAdapter(list) { symbol ->
-            val fragment = StockDetailFragment().apply {
-                arguments = Bundle().apply { putString("SYMBOL", symbol) }
-            }
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .addToBackStack(null)
-                .commit()
+        recycler.adapter = HomeStockAdapter(list) { symbol ->
+            val action = HomePageFragmentDirections
+                .actionHomePageFragmentToStockDetailFragment(symbol)
+            findNavController().navigate(action)
         }
     }
 

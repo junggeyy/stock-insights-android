@@ -1,16 +1,16 @@
-package edu.nku.classapp.data.model
+package edu.nku.classapp.data
 
-import edu.nku.classapp.data.model.response.CandleChartResponse
-import edu.nku.classapp.data.model.response.HomeStockResponse
-import edu.nku.classapp.data.model.response.StockAnalysisResponse
-import edu.nku.classapp.data.model.response.StockDetailResponse
-import edu.nku.classapp.data.model.response.StockIndexResponse
-import edu.nku.classapp.data.model.response.StockSearchResponse
+import edu.nku.classapp.model.CandleChartResponse
+import edu.nku.classapp.model.HomeStockResponse
+import edu.nku.classapp.model.StockAnalysisResponse
+import edu.nku.classapp.model.StockDetailResponse
+import edu.nku.classapp.model.StockIndexResponse
+import edu.nku.classapp.model.StockSearchResponse
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
-interface StockApiService {
+interface StockApi {
     @GET("stocks/home/")
     suspend fun getHomepageStocks(
         @Header("Authorization") token: String

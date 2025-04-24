@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import edu.nku.classapp.R
 import edu.nku.classapp.databinding.FragmentStockSearchBinding
-import edu.nku.classapp.ui.adapters.StockSearchAdapter
+import edu.nku.classapp.ui.adapters.ListStockAdapter
 import edu.nku.classapp.viewmodel.StockSearchViewModel
 import kotlinx.coroutines.launch
 
@@ -21,8 +21,8 @@ class StockSearchFragment : Fragment() {
 
     private var _binding: FragmentStockSearchBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: StockSearchViewModel by viewModels()
-    private lateinit var adapter: StockSearchAdapter
+    private val viewModel: StockSearchViewModel by activityViewModels()
+    private lateinit var adapter: ListStockAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -36,17 +36,10 @@ class StockSearchFragment : Fragment() {
         val token = "Token " + requireContext().getSharedPreferences("MyAppPrefs", 0)
             .getString("AUTH_TOKEN", null)
 
-        adapter = StockSearchAdapter(emptyList()) { symbol ->
-            val fragment = StockDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putString("SYMBOL", symbol)
-                }
-            }
-
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .addToBackStack(null)
-                .commit()
+        adapter = ListStockAdapter(emptyList()) { symbol ->
+            val action = StockSearchFragmentDirections
+                .actionStockSearchFragmentToStockDetailFragment(symbol)
+            findNavController().navigate(action)
         }
 
         binding.searchResults.layoutManager = LinearLayoutManager(requireContext())
@@ -81,10 +74,5 @@ class StockSearchFragment : Fragment() {
                 }
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

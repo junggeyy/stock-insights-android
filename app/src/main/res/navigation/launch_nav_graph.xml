@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/launchPageFragment">
+
+    <fragment
+        android:id="@+id/launchPageFragment"
+        android:name="edu.nku.classapp.ui.LaunchPageFragment"
+        android:label="Launch" >
+        <action android:id="@+id/action_to_login" app:destination="@id/loginFragment" />
+        <action android:id="@+id/action_to_signup" app:destination="@id/signupFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="edu.nku.classapp.ui.LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="edu.nku.classapp.ui.SignupFragment"
+        android:label="Signup" >
+        <action
+            android:id="@+id/action_signupFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="edu.nku.classapp.ui.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+
+<!--    i dont need anything from here below now:?-->
+<!--    <fragment-->
+<!--        android:id="@+id/stockDetailFragment"-->
+<!--        android:name="edu.nku.classapp.ui.StockDetailFragment"-->
+<!--        android:label="Stock Detail">-->
+<!--        <argument-->
+<!--            android:name="SYMBOL"-->
+<!--            app:argType="string" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_stockDetailFragment_to_stockAnalysisFragment"-->
+<!--            app:destination="@id/stockAnalysisFragment" />-->
+<!--    </fragment>-->
+
+<!--    <fragment-->
+<!--        android:id="@+id/stockAnalysisFragment"-->
+<!--        android:name="edu.nku.classapp.ui.StockAnalysisFragment"-->
+<!--        android:label="Stock Analysis" >-->
+<!--        <argument-->
+<!--            android:name="SYMBOL"-->
+<!--            app:argType="string" />-->
+<!--    </fragment>-->
+
+<!--    <fragment-->
+<!--        android:id="@+id/stockSearchFragment"-->
+<!--        android:name="edu.nku.classapp.ui.StockSearchFragment"-->
+<!--        android:label="Stock Search" >-->
+<!--        <action-->
+<!--            android:id="@+id/action_stockSearchFragment_to_stockDetailFragment"-->
+<!--            app:destination="@id/stockDetailFragment"/>-->
+<!--    </fragment>-->
+
+
+</navigation>

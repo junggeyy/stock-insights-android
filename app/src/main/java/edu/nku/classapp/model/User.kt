@@ -1,5 +1,4 @@
-package edu.nku.classapp.data.model.response
-
+package edu.nku.classapp.model
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 

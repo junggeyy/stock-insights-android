@@ -13,16 +13,14 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import edu.nku.classapp.R
-import edu.nku.classapp.data.model.response.ForecastPoint
+import edu.nku.classapp.model.ForecastPoint
 import edu.nku.classapp.viewmodel.StockAnalysisViewModel
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import edu.nku.classapp.databinding.FragmentStockAnalysisBinding
-import edu.nku.classapp.viewmodel.StockAnalysisState
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -52,18 +50,18 @@ class StockAnalysisFragment : Fragment() {
         lifecycleScope.launch {
             stockAnalysisViewModel.analysis.collect { state ->
                 when (state) {
-                    is StockAnalysisState.Loading -> {
+                    is StockAnalysisViewModel.StockAnalysisState.Loading -> {
                         binding.analysisOverlay.isVisible = true
                     }
 
-                    is StockAnalysisState.Success -> {
+                    is StockAnalysisViewModel.StockAnalysisState.Success -> {
                         binding.analysisOverlay.isVisible = false
                         binding.analysisTitle.text = "Stock Analysis for $symbol"
                         binding.recommendationText.text = state.response.message
                         drawForecast(binding.forecastChart, state.response.forecast)
                     }
 
-                    is StockAnalysisState.Failure -> {
+                    is StockAnalysisViewModel.StockAnalysisState.Failure -> {
                         binding.analysisOverlay.isVisible = false
                         binding.recommendationText.text = getString(R.string.failed_to_load_forecast)
                     }
@@ -108,15 +106,5 @@ class StockAnalysisFragment : Fragment() {
     private fun getToken(): String? {
         val prefs = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
         return prefs.getString("AUTH_TOKEN", null)?.let { "Token $it" }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        requireActivity().findViewById<BottomNavigationView>(R.id.bottomNav).visibility = View.GONE
-    }
-
-    override fun onPause() {
-        super.onPause()
-        requireActivity().findViewById<BottomNavigationView>(R.id.bottomNav).visibility = View.VISIBLE
     }
 }

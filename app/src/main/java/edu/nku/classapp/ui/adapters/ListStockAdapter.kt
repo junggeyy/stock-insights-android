@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import edu.nku.classapp.databinding.StockSearchCardViewBinding
-import edu.nku.classapp.data.model.response.StockSearchResponse
+import edu.nku.classapp.model.StockSearchResponse
 
-class StockSearchAdapter(
+class ListStockAdapter(
     private var items: List<StockSearchResponse>,
     private val onClick: (String) -> Unit
-) : RecyclerView.Adapter<StockSearchAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<ListStockAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: StockSearchCardViewBinding) :
         RecyclerView.ViewHolder(binding.root) {

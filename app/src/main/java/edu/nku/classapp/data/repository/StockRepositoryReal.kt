@@ -1,17 +1,17 @@
 package edu.nku.classapp.data.repository
 
-import edu.nku.classapp.data.model.StockApiService
-import edu.nku.classapp.data.model.response.HomeStockApiResponse
-import edu.nku.classapp.data.model.response.StockIndexApiResponse
-import edu.nku.classapp.data.model.response.StockSearchApiResponse
+import edu.nku.classapp.data.StockApi
+import edu.nku.classapp.data.model.HomeStockApiResponse
+import edu.nku.classapp.data.model.StockIndexApiResponse
+import edu.nku.classapp.data.model.StockSearchApiResponse
 import javax.inject.Inject
 
 class StockRepositoryReal @Inject constructor(
-    private val stockApiService: StockApiService
+    private val stockApi: StockApi
 ) : StockRepository {
 
     override suspend fun getHomeStocks(token: String): HomeStockApiResponse {
-        val response = stockApiService.getHomepageStocks(token)
+        val response = stockApi.getHomepageStocks(token)
         return if (response.isSuccessful) {
             response.body()?.let {
                 HomeStockApiResponse.Success(it)
@@ -22,7 +22,7 @@ class StockRepositoryReal @Inject constructor(
     }
 
     override suspend fun getStockSearch(token: String, query: String): StockSearchApiResponse {
-        val response = stockApiService.getStockSearch(token, query)
+        val response = stockApi.getStockSearch(token, query)
         return if (response.isSuccessful) {
             response.body()?.let {
                 StockSearchApiResponse.Success(it)
@@ -33,7 +33,7 @@ class StockRepositoryReal @Inject constructor(
     }
 
     override suspend fun getStockIndex(token: String): StockIndexApiResponse {
-        val response = stockApiService.getStockIndex(token)
+        val response = stockApi.getStockIndex(token)
         return if (response.isSuccessful) {
             response.body()?.let {
                 StockIndexApiResponse.Success(it)

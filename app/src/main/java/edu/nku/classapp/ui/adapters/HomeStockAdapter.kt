@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import edu.nku.classapp.R
-import edu.nku.classapp.data.model.response.Stock
+import edu.nku.classapp.model.Stock
 
-class StockAdapter(
+class HomeStockAdapter(
     private val stockList: List<Stock>,
     private val onClick: (String) -> Unit) :
-    RecyclerView.Adapter<StockAdapter.StockViewHolder>() {
+    RecyclerView.Adapter<HomeStockAdapter.StockViewHolder>() {
 
     class StockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val symbolText: TextView = itemView.findViewById(R.id.stockSymbol)

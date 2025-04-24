@@ -1,26 +1,26 @@
-package edu.nku.classapp.data.model
+package edu.nku.classapp.data
 
-import edu.nku.classapp.data.model.response.LoginSignupResponse
-import edu.nku.classapp.data.model.response.UserProfileResponse
-import edu.nku.classapp.data.model.response.WatchListResponse
-import edu.nku.classapp.data.model.response.WatchListCheckResponse
+import edu.nku.classapp.model.LoginSignupResponse
+import edu.nku.classapp.model.UserProfileResponse
+import edu.nku.classapp.model.WatchListResponse
+import edu.nku.classapp.model.WatchListCheckResponse
 import retrofit2.Response
 import retrofit2.Call
 import retrofit2.http.*
 
-interface UserApiService {
+interface UserApi {
 
     @POST("user/signup/")
-    fun signup(@Body user: Map<String, String>): Call<LoginSignupResponse>
+    suspend fun signup(@Body user: Map<String, String>): Response<LoginSignupResponse>
 
     @POST("user/login/")
-    fun login(@Body credentials: Map<String, String>): Call<LoginSignupResponse>
+    suspend fun login(@Body credentials: Map<String, String>): Response<LoginSignupResponse>
 
     @POST("user/logout/")
-    fun logout(@Header("Authorization") token: String): Call<Void>
+    suspend fun logout(@Header("Authorization") token: String): Response<Void>
 
     @GET("user/profile/")
-    fun getProfile(@Header("Authorization") token: String): Call<UserProfileResponse>
+    suspend fun getProfile(@Header("Authorization") token: String): Response<UserProfileResponse>
 
     @POST("user/watchlist/add/")
     suspend fun addToWatchlist(

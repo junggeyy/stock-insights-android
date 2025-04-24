@@ -6,6 +6,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import edu.nku.classapp.data.repository.StockRepository
 import edu.nku.classapp.data.repository.StockRepositoryReal
+import edu.nku.classapp.data.repository.UserRepository
+import edu.nku.classapp.data.repository.UserRepositoryReal
 import javax.inject.Singleton
 
 @Module
@@ -16,4 +18,10 @@ abstract class RepositoryModule {
     abstract fun bindStockRepository(
         stockRepositoryReal: StockRepositoryReal
     ): StockRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindUserRepository(
+        userRepositoryReal: UserRepositoryReal
+    ): UserRepository
 }

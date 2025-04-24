@@ -1,13 +1,13 @@
 package edu.nku.classapp.di
 
-import edu.nku.classapp.data.model.UserApiService
+import edu.nku.classapp.data.UserApi
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import edu.nku.classapp.data.model.StockApiService
+import edu.nku.classapp.data.StockApi
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import okhttp3.OkHttpClient
@@ -31,22 +31,22 @@ object AppModule {
         .add(KotlinJsonAdapterFactory())
         .build()
 
-    val instance: UserApiService by lazy {
+    val instance: UserApi by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(client)
             .build()
-            .create(UserApiService::class.java)
+            .create(UserApi::class.java)
     }
 
-    val stockApi: StockApiService by lazy {
+    val stockApi: StockApi by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(client)
             .build()
-            .create(StockApiService::class.java)
+            .create(StockApi::class.java)
     }
     @Provides
     @Singleton
@@ -75,14 +75,14 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideStockApiService(retrofit: Retrofit): StockApiService {
-        return retrofit.create(StockApiService::class.java)
+    fun provideStockApiService(retrofit: Retrofit): StockApi {
+        return retrofit.create(StockApi::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideUserApiService(retrofit: Retrofit): UserApiService {
-        return retrofit.create(UserApiService::class.java)
+    fun provideUserApiService(retrofit: Retrofit): UserApi {
+        return retrofit.create(UserApi::class.java)
     }
 
 }

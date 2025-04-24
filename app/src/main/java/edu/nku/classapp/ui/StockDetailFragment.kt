@@ -10,17 +10,18 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import edu.nku.classapp.R
-import edu.nku.classapp.data.model.response.Candle
-import edu.nku.classapp.data.model.response.StockDetailResponse
+import edu.nku.classapp.model.Candle
+import edu.nku.classapp.model.StockDetailResponse
 import edu.nku.classapp.databinding.FragmentStockDetailBinding
 import edu.nku.classapp.viewmodel.StockDetailViewModel
 import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class StockDetailFragment : Fragment() {
@@ -54,16 +55,9 @@ class StockDetailFragment : Fragment() {
         stockDetailViewModel.loadChartData(token, symbol)
 
         binding.analyzeButton.setOnClickListener {
-            val fragment = StockAnalysisFragment().apply {
-                arguments = Bundle().apply {
-                    putString("SYMBOL", symbol)
-                }
-            }
-
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .addToBackStack(null)
-                .commit()
+            val action = StockDetailFragmentDirections
+                .actionStockDetailFragmentToStockAnalysisFragment(symbol)
+            findNavController().navigate(action)
         }
 
         binding.watchlistButton.setOnClickListener {
@@ -168,9 +162,5 @@ class StockDetailFragment : Fragment() {
         private fun getToken(): String? {
             val prefs = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
             return prefs.getString("AUTH_TOKEN", null)?.let { "Token $it" }
-        }
-        override fun onResume() {
-            super.onResume()
-            requireActivity().findViewById<BottomNavigationView>(R.id.bottomNav).visibility = View.VISIBLE
         }
 }

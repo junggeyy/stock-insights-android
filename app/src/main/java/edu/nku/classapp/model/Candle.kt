@@ -1,4 +1,4 @@
-package edu.nku.classapp.data.model.response
+package edu.nku.classapp.model
 
 data class Candle(
     val date: String,

@@ -3,8 +3,8 @@ package edu.nku.classapp.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import edu.nku.classapp.data.model.response.HomeStockApiResponse
-import edu.nku.classapp.data.model.response.Stock
+import edu.nku.classapp.data.model.HomeStockApiResponse
+import edu.nku.classapp.model.Stock
 import edu.nku.classapp.data.repository.StockRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -22,9 +22,7 @@ class HomePageViewModel @Inject constructor(
     private var hasLoaded = false
 
     fun fetchHomepageStocks(token: String) {
-        if (hasLoaded) return
-
-        viewModelScope.launch {
+        viewModelScope.launch { // check this to have =
             when (val result = stockRepository.getHomeStocks(token)) {
                 is HomeStockApiResponse.Success -> {
                     _stocks.value = HomepageStockState.Success(result.response.data)

@@ -1,4 +1,8 @@
-package edu.nku.classapp.data.model.response
+package edu.nku.classapp.data.model
+
+import edu.nku.classapp.model.HomeStockResponse
+import edu.nku.classapp.model.StockIndexResponse
+import edu.nku.classapp.model.StockSearchResponse
 
 
 sealed class HomeStockApiResponse{
