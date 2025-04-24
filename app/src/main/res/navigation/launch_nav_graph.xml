@@ -36,38 +36,8 @@
         <action
             android:id="@+id/action_mainFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_global_logout"
+            app:destination="@id/loginFragment" />
     </fragment>
-
-<!--    i dont need anything from here below now:?-->
-<!--    <fragment-->
-<!--        android:id="@+id/stockDetailFragment"-->
-<!--        android:name="edu.nku.classapp.ui.StockDetailFragment"-->
-<!--        android:label="Stock Detail">-->
-<!--        <argument-->
-<!--            android:name="SYMBOL"-->
-<!--            app:argType="string" />-->
-<!--        <action-->
-<!--            android:id="@+id/action_stockDetailFragment_to_stockAnalysisFragment"-->
-<!--            app:destination="@id/stockAnalysisFragment" />-->
-<!--    </fragment>-->
-
-<!--    <fragment-->
-<!--        android:id="@+id/stockAnalysisFragment"-->
-<!--        android:name="edu.nku.classapp.ui.StockAnalysisFragment"-->
-<!--        android:label="Stock Analysis" >-->
-<!--        <argument-->
-<!--            android:name="SYMBOL"-->
-<!--            app:argType="string" />-->
-<!--    </fragment>-->
-
-<!--    <fragment-->
-<!--        android:id="@+id/stockSearchFragment"-->
-<!--        android:name="edu.nku.classapp.ui.StockSearchFragment"-->
-<!--        android:label="Stock Search" >-->
-<!--        <action-->
-<!--            android:id="@+id/action_stockSearchFragment_to_stockDetailFragment"-->
-<!--            app:destination="@id/stockDetailFragment"/>-->
-<!--    </fragment>-->
-
-
 </navigation>

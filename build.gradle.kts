@@ -11,5 +11,6 @@ plugins {
     alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.dagger.hilt) apply false
     alias(libs.plugins.google.ksp) apply false
+    alias(libs.plugins.navigation.safe.args) apply false
 
 }

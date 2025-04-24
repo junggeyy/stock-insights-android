@@ -61,4 +61,5 @@
         android:id="@+id/userProfileFragment"
         android:name="edu.nku.classapp.ui.UserProfileFragment"
         android:label="Profile" />
+
 </navigation>
