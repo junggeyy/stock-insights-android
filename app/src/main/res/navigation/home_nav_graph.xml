@@ -42,7 +42,6 @@
             app:argType="string" />
     </fragment>
 
-    <!-- Stock Search -->
     <fragment
         android:id="@+id/stockSearchFragment"
         android:name="edu.nku.classapp.ui.StockSearchFragment"
@@ -52,14 +51,22 @@
             app:destination="@id/stockDetailFragment" />
     </fragment>
 
-<!--    <fragment-->
-<!--        android:id="@+id/watchlistFragment"-->
-<!--        android:name="edu.nku.classapp.ui.WatchlistFragment"-->
-<!--        android:label="Watchlist" />-->
+    <fragment
+        android:id="@+id/watchlistFragment"
+        android:name="edu.nku.classapp.ui.WatchlistFragment"
+        android:label="Watchlist" >
+        <action
+            android:id="@+id/action_watchlistFragment_to_stockDetailFragment"
+            app:destination="@id/stockDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/userProfileFragment"
         android:name="edu.nku.classapp.ui.UserProfileFragment"
-        android:label="Profile" />
+        android:label="Profile" >
+        <action
+            android:id="@+id/action_userProfileFragment_to_watchlistFragment"
+            app:destination="@id/watchlistFragment" />
+    </fragment>
 
 </navigation>

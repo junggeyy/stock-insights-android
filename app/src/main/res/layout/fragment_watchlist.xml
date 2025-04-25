@@ -6,6 +6,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="16dp">
 
+    <TextView
+        android:id="@+id/no_results"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/no_stock_found"
+        android:textSize="40sp"
+        android:textColor="#392511"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingTop="160dp"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp"
+        android:visibility="gone"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/watchlistRecyclerView"
         android:layout_width="0dp"
@@ -14,5 +28,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:listitem="@layout/stock_card_view" />
+        tools:listitem="@layout/stock_list_card_view" />
 </androidx.constraintlayout.widget.ConstraintLayout>

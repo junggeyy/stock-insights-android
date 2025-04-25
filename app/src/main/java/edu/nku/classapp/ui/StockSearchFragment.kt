@@ -1,5 +1,6 @@
 package edu.nku.classapp.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,8 +34,7 @@ class StockSearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val token = "Token " + requireContext().getSharedPreferences("MyAppPrefs", 0)
-            .getString("AUTH_TOKEN", null)
+        val token = getToken() ?: return
 
         adapter = ListStockAdapter(emptyList()) { symbol ->
             val action = StockSearchFragmentDirections
@@ -48,7 +48,7 @@ class StockSearchFragment : Fragment() {
         binding.searchInput.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val query = binding.searchInput.text.toString()
-                if (query.isNotBlank() && token != null) {
+                if (query.isNotBlank()) {
                     viewModel.stockSearch(token, query)
                 }
                 true
@@ -74,5 +74,9 @@ class StockSearchFragment : Fragment() {
                 }
             }
         }
+    }
+    private fun getToken(): String? {
+        val prefs = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+        return prefs.getString("AUTH_TOKEN", null)?.let { "Token $it" }
     }
 }

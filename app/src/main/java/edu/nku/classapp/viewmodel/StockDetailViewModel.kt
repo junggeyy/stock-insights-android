@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import edu.nku.classapp.data.model.StockCandleApiResponse
 import edu.nku.classapp.data.model.StockDetailApiResponse
-import edu.nku.classapp.data.model.WatchlistApiResponse
+import edu.nku.classapp.data.model.WatchlistEditApiResponse
 import edu.nku.classapp.data.model.WatchlistCheckApiResponse
 import edu.nku.classapp.data.repository.StockRepository
 import edu.nku.classapp.data.repository.UserRepository
@@ -70,8 +70,8 @@ class StockDetailViewModel @Inject constructor(
         }
 
         when (result) {
-            is WatchlistApiResponse.Success -> _watchlistState.value = result.response.detail
-            is WatchlistApiResponse.Error -> _watchlistState.value = "Failed to update watchlist: ${result.message}"
+            is WatchlistEditApiResponse.Success -> _watchlistState.value = result.response.detail
+            is WatchlistEditApiResponse.Error -> _watchlistState.value = "Failed to update watchlist: ${result.message}"
         }
     }
 

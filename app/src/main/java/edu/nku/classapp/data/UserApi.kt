@@ -2,8 +2,9 @@ package edu.nku.classapp.data
 
 import edu.nku.classapp.model.LoginSignupResponse
 import edu.nku.classapp.model.UserProfileResponse
-import edu.nku.classapp.model.WatchListResponse
+import edu.nku.classapp.model.WatchlistResponse
 import edu.nku.classapp.model.WatchListCheckResponse
+import edu.nku.classapp.model.WatchlistEditResponse
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -21,17 +22,22 @@ interface UserApi {
     @GET("user/profile/")
     suspend fun getProfile(@Header("Authorization") token: String): Response<UserProfileResponse>
 
+    @GET("user/watchlist/")
+    suspend fun getWatchlist(
+        @Header("Authorization") token: String
+    ): Response<List<WatchlistResponse>>
+
     @POST("user/watchlist/add/")
     suspend fun addToWatchlist(
         @Header("Authorization") token: String,
         @Body body: Map<String, String>
-    ): Response<WatchListResponse>
+    ): Response<WatchlistEditResponse>
 
     @POST("user/watchlist/remove/")
     suspend fun removeFromWatchlist(
         @Header("Authorization") token: String,
         @Body body: Map<String, String>
-    ): Response<WatchListResponse>
+    ): Response<WatchlistEditResponse>
 
     @GET("user/watchlist/contains/{ticker}/")
     suspend fun isInWatchlist(

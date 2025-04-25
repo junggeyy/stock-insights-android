@@ -35,10 +35,10 @@ class MainFragment : Fragment() {
                     navController?.navigate(R.id.homePageFragment)
                     true
                 }
-//                R.id.nav_watchlist -> {
-//                    navController?.navigate(R.id.watchlistFragment)
-//                    true
-//                }
+                R.id.nav_watchlist -> {
+                    navController?.navigate(R.id.watchlistFragment)
+                    true
+                }
                 R.id.nav_profile -> {
                     navController?.navigate(R.id.userProfileFragment)
                     true

@@ -4,6 +4,7 @@ import edu.nku.classapp.data.UserApi
 import edu.nku.classapp.data.model.AuthApiResponse
 import edu.nku.classapp.data.model.UserProfileApiResponse
 import edu.nku.classapp.data.model.WatchlistApiResponse
+import edu.nku.classapp.data.model.WatchlistEditApiResponse
 import edu.nku.classapp.data.model.WatchlistCheckApiResponse
 import javax.inject.Inject
 
@@ -50,35 +51,48 @@ class UserRepositoryReal @Inject constructor(
         }
     }
 
+    override suspend fun getWatchlist(token: String): WatchlistApiResponse {
+        return try {
+            val response = userApi.getWatchlist(token)
+            if (response.isSuccessful && response.body() != null) {
+                WatchlistApiResponse.Success(response.body()!!)
+            } else {
+                WatchlistApiResponse.Error("Failed to fetch: ${response.code()}")
+            }
+        } catch (e: Exception) {
+            WatchlistApiResponse.Error("Network Error: ${e.localizedMessage}")
+        }
+    }
+
     override suspend fun addToWatchlist(
         token: String,
         body: Map<String, String>
-    ): WatchlistApiResponse {
+    ): WatchlistEditApiResponse {
         return try{
             val response = userApi.addToWatchlist(token, body)
             if(response.isSuccessful && response.body() != null){
-                WatchlistApiResponse.Success(response.body()!!)
+                WatchlistEditApiResponse.Success(response.body()!!)
             } else{
-                WatchlistApiResponse.Error("Failed to add: ${response.code()}")
+                WatchlistEditApiResponse.Error("Failed to add: ${response.code()}")
             }
         }catch (e: Exception){
-            WatchlistApiResponse.Error("Network Error: ${e.localizedMessage}")
+            WatchlistEditApiResponse.Error("Network Error: ${e.localizedMessage}")
         }
     }
 
     override suspend fun removeFromWatchlist(
         token: String,
         body: Map<String, String>
-    ): WatchlistApiResponse {
+    ): WatchlistEditApiResponse {
         return try{
             val response = userApi.removeFromWatchlist(token, body)
             if(response.isSuccessful && response.body() != null){
-                WatchlistApiResponse.Success(response.body()!!)
+                WatchlistEditApiResponse.Success(response.body()!!)
             } else{
-                WatchlistApiResponse.Error("Failed to add: ${response.code()}")
+                WatchlistEditApiResponse.Error("Failed to add: ${response.code()}")
             }
         }catch (e: Exception){
-            WatchlistApiResponse.Error("Network Error: ${e.localizedMessage}")
+            WatchlistEditApiResponse.Error("Network Error: ${e.localizedMessage}")
         }
     }
 
