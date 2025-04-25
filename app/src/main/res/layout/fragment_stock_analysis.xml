@@ -1,10 +1,6 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/analysisRoot"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp"
@@ -19,16 +15,29 @@
             android:visibility="gone"
             />
 
+     <ImageButton
+         android:id="@+id/back_button"
+         android:layout_width="60dp"
+         android:layout_height="60dp"
+         android:layout_gravity="start"
+         android:layout_marginTop="3dp"
+         android:layout_marginStart="-12dp"
+         android:padding="16dp"
+         android:background="?attr/selectableItemBackgroundBorderless"
+         android:contentDescription="@string/back"
+         android:src="@drawable/ic_back"
+         app:tint="#565c50" />
+
         <TextView
-            android:id="@+id/analysisTitle"
+            android:id="@+id/analysis_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/analysisTitle"
-            android:textSize="24sp"
-            android:textStyle="bold"
+            android:textSize="26sp"
+            android:fontFamily="@font/shentox"
             android:textColor="#392511"
             android:layout_marginBottom="12dp"
-            android:layout_marginTop="80dp" />
+            android:layout_marginTop="28dp" />
 
         <TextView
             android:id="@+id/chartSubtitle"
@@ -58,37 +67,4 @@
             android:gravity="center_horizontal"
             android:paddingTop="8dp" />
 
-    </LinearLayout>
-    <FrameLayout
-        android:id="@+id/analysisOverlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#BBFFFFFF"
-        android:gravity="center"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ProgressBar
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="128dp"
-                android:layout_height="128dp"
-                android:layout_gravity="center"
-                android:indeterminate="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="12dp"
-                android:text="Getting your analysis ready..."
-                android:textColor="#444444"
-                android:textSize="16sp" />
-        </LinearLayout>
-    </FrameLayout>
-</FrameLayout>
-
+ </LinearLayout>

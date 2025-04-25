@@ -26,11 +26,11 @@ class LaunchPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.button9.setOnClickListener {
+        binding.loginButton.setOnClickListener {
             findNavController().navigate(R.id.action_to_login)
         }
 
-        binding.button10.setOnClickListener {
+        binding.signUpButton.setOnClickListener {
             findNavController().navigate(R.id.action_to_signup)
         }
 

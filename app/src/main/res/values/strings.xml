@@ -46,7 +46,9 @@
     <string name="dialog_title_success">Success</string>
     <string name="dialog_title_error">Error</string>
     <string name="dialog_title_warning">Warning</string>
-    <string name="email">Email: %s</string>
+    <string name="email_placeholder">Email: %s</string>
+    <string name="email">Email</string>
+
     <string name="password">Password</string>
     <string name="phone">Phone Number</string>
     <string name="image">Image Loading</string>
@@ -72,14 +74,13 @@
     <!-- For Login page-->
     <string name="enter_email">Enter Email</string>
     <string name="enter_password">Enter Password</string>
-    <string name="welcome_message">Welcome back to Stock Insights</string>
+    <string name="welcome_message">Welcome back!</string>
     <string name="new_sign_up">New User? Sign up</string>
     <string name="enter_username">Enter Username</string>
     <string name="enter_first_name">Enter First Name</string>
     <string name="enter_last_name">Enter Last Name</string>
     <string name="log_back_in">Already have an account? Login</string>
-    <string name="new_welcome">Welcome to Stock Insights</string>
-
+    <string name="new_welcome">Let\'s Get Started!</string>
     <string name="money">Image of dollar bills</string>
     <string name="bar_increase">Image of bar chart increase</string>
 <!--    <string name="company">Image of company</string>-->
@@ -151,12 +152,24 @@
     <string name="wishlist">Add to wishlist</string>
     <string name="something_went_wrong">Something went wrong!</string>
 
-    <string name="username">Username: %s</string>
-    <string name="name">Name: %s</string>
+    <string name="username_placeholder">Username: %s</string>
+    <string name="username">Username</string>
+
+    <string name="name_placeholder">Name: %s</string>
+    <string name="name">Name</string>
     <string name="image_of_user_settings_icon">Image of user settings icon</string>
     <string name="image_of_watchlist">Image of watchlist</string>
     <string name="image_of_settings_icon">Image of settings icon</string>
     <string name="top_box_for_ui">Top box for ui</string>
     <string name="image_of_a_user_icon">Image of a user icon</string>
+
+    <string name="watchlist">Watchlist</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="market_status">Market Status: ...</string>
+    <string name="tech_stocks">Tech Stocks</string>
+    <string name="healthcare_stocks">Healthcare Stocks</string>
+    <string name="finance_stocks">Finance Stocks</string>
+    <string name="date">Date: %s</string>
 
 </resources>

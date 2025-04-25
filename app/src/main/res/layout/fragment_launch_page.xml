@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#72a0c1">
+    android:background="#8b94a3">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,138 +13,77 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/welcomeText"
+            android:id="@+id/welcome_text"
             android:layout_width="340dp"
             android:layout_height="0dp"
             android:text="@string/welcome_to"
-            android:textSize="20sp"
+            android:textSize="24sp"
+            android:fontFamily="@font/lobster_regular"
             android:layout_marginTop="52dp"
             android:gravity="center"
-            android:textColor="#555d50"
             android:textStyle="italic"
             android:letterSpacing="0.1"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            />
-
+            app:layout_constraintRight_toRightOf="parent" />
 
         <TextView
-            android:id="@+id/appTitle"
+            android:id="@+id/app_title"
             android:layout_width="260dp"
             android:layout_height="0dp"
             android:text="@string/app_title_stock"
-            android:textColor="@color/white"
+            android:layout_marginTop="-20dp"
+            android:textColor="#392511"
             android:textSize="72sp"
             android:gravity="center"
-            android:layout_marginTop="-20dp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily= "@font/shentox"
             android:letterSpacing="0.05"
-            app:layout_constraintTop_toBottomOf="@+id/welcomeText"
+            app:layout_constraintTop_toBottomOf="@+id/welcome_text"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            />
+            app:layout_constraintRight_toRightOf="parent" />
 
         <TextView
-            android:id="@+id/appTitle1"
+            android:id="@+id/app_title1"
             android:layout_width="288dp"
             android:layout_height="0dp"
+            android:layout_marginTop="-32dp"
             android:text="@string/app_title_insights"
-            android:textColor="@color/white"
+            android:textColor="#392511"
             android:textSize="72sp"
             android:gravity="center"
-            android:layout_marginTop="-36dp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="@font/shentox"
             android:letterSpacing="0.05"
-            app:layout_constraintTop_toBottomOf="@+id/appTitle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/app_title" />
 
         <TextView
+            android:id="@+id/guide_text"
             android:layout_width="340dp"
             android:layout_height="0dp"
             android:text="@string/your_guide_to_trading"
-            android:textSize="20sp"
+            android:textSize="24sp"
+            android:layout_marginTop="-4dp"
             android:gravity="center"
+            android:fontFamily="@font/lobster_regular"
             android:textStyle="italic"
             android:letterSpacing="0.1"
-            android:textColor="#555d50"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/appTitle1"
-            />
+            app:layout_constraintTop_toBottomOf="@id/app_title1" />
 
         <ImageView
-            android:id="@+id/appLogo"
+            android:id="@+id/app_logo"
             android:layout_width="350dp"
             android:layout_height="475dp"
             android:src="@drawable/app_logo"
-            android:alpha="0.7"
-            app:layout_constraintTop_toBottomOf="@id/appTitle1"
+            app:layout_constraintTop_toBottomOf="@id/guide_text"
             app:layout_constraintStart_toStartOf="parent"
             android:contentDescription="@string/app_logo"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        <ImageView
-            android:id="@+id/animatedMoney"
-            android:layout_width="4dp"
-            android:layout_height="4dp"
-            android:layout_margin="16dp"
-            android:contentDescription="@string/money"
-            android:src="@drawable/money"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/appTitle"
-            app:layout_constraintStart_toEndOf="@+id/appTitle"/>
-
-        <!-- Login Button -->
-
-<!--        <ImageView-->
-<!--            android:id="@+id/animatedCompany"-->
-<!--            android:layout_width="100dp"-->
-<!--            android:layout_height="100dp"-->
-<!--            android:layout_margin="16dp"-->
-<!--            android:layout_marginBottom="204dp"-->
-<!--            android:contentDescription="@string/company"-->
-<!--            android:src="@drawable/company"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="1.0"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintVertical_bias="0.614" />-->
-
-<!--        <ImageView-->
-<!--            android:id="@+id/animatedBarIncrease"-->
-<!--            android:layout_width="100dp"-->
-<!--            android:layout_height="100dp"-->
-<!--            android:layout_margin="16dp"-->
-<!--            android:contentDescription="@string/bar_increase"-->
-<!--            android:src="@drawable/bar_increase"-->
-<!--            app:layout_constraintBottom_toTopOf="@id/button9"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.0"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/appTitle"-->
-<!--            app:layout_constraintVertical_bias="0.984" />-->
-
-
-<!--        <ImageView-->
-<!--            android:id="@+id/animatedHourGlass"-->
-<!--            android:layout_width="100dp"-->
-<!--            android:layout_height="100dp"-->
-<!--            android:layout_margin="16dp"-->
-<!--            android:contentDescription="@string/bar_increase"-->
-<!--            android:src="@drawable/hour_glass"-->
-<!--            app:layout_constraintBottom_toTopOf="@id/button9"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/appTitle"-->
-<!--            app:layout_constraintVertical_bias="0.984" />-->
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <Button
-            android:id="@+id/button9"
+            android:id="@+id/login_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/login"
@@ -158,12 +96,11 @@
             android:paddingEnd="50dp"
             android:layout_marginBottom="12dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appLogo"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/app_logo" />
 
         <!-- SignUp Button -->
         <Button
-            android:id="@+id/button10"
+            android:id="@+id/sign_up_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingStart="40dp"
@@ -175,12 +112,9 @@
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/button9"
+            app:layout_constraintStart_toEndOf="@id/login_button"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appLogo"
-            />
-
-
+            app:layout_constraintTop_toBottomOf="@+id/app_logo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

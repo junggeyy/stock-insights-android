@@ -37,14 +37,13 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val button = view.findViewById<Button>(R.id.signInButton)
+        val button = view.findViewById<Button>(R.id.sign_in_button)
         Log.d("LoginFragment", "Button found: ${button != null}")
 
 
         binding.signInButton.setOnClickListener {
             val email = binding.usernameEmail.text.toString().trim()
             val password = binding.password.text.toString().trim()
-            Log.d("LoginButtn", "This is a debug message")
 
             if (email.isNotEmpty() && password.length >= 6) {
                 viewModel.login(email, password)

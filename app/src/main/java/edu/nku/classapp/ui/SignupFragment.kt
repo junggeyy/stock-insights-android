@@ -52,7 +52,7 @@ class SignupFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.authState.collect { state ->
                 when (state) {
-                    is AuthViewModel.AuthState.Loading -> binding.btnSignup.isEnabled = false
+                    is AuthViewModel.AuthState.Loading -> binding.btnSignup.isEnabled = true
                     is AuthViewModel.AuthState.Success -> {
                         binding.btnSignup.isEnabled = true
                         findNavController().navigate(R.id.action_signupFragment_to_mainFragment)

@@ -51,18 +51,18 @@ class StockAnalysisFragment : Fragment() {
             stockAnalysisViewModel.analysis.collect { state ->
                 when (state) {
                     is StockAnalysisViewModel.StockAnalysisState.Loading -> {
-                        binding.analysisOverlay.isVisible = true
+                        binding.analysisProgressBar.isVisible = true
                     }
 
                     is StockAnalysisViewModel.StockAnalysisState.Success -> {
-                        binding.analysisOverlay.isVisible = false
+                        binding.analysisProgressBar.isVisible = false
                         binding.analysisTitle.text = "Stock Analysis for $symbol"
                         binding.recommendationText.text = state.response.message
                         drawForecast(binding.forecastChart, state.response.forecast)
                     }
 
                     is StockAnalysisViewModel.StockAnalysisState.Failure -> {
-                        binding.analysisOverlay.isVisible = false
+                        binding.analysisProgressBar.isVisible = false
                         binding.recommendationText.text = getString(R.string.failed_to_load_forecast)
                     }
                 }

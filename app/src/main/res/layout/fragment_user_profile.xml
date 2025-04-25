@@ -112,6 +112,7 @@
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:padding="14dp"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/user_settings"/>
 
             <TextView

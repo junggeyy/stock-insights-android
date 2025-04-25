@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#C2EABD">
+    android:layout_height="match_parent">
 
     <!-- Fragment container to swap in home/detail/analysis -->
     <FrameLayout
@@ -18,7 +17,7 @@
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="#8b94a3"
         app:itemIconTint="@color/nav_selector"
         app:itemTextColor="@color/nav_selector"
         app:menu="@menu/bottom_nav_menu" />

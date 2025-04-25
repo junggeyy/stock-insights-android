@@ -40,7 +40,7 @@
             android:id="@+id/backButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginStart="-19dp"
+            android:layout_marginStart="-12dp"
             android:layout_marginTop="3dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/back"
@@ -56,7 +56,7 @@
             android:layout_height="60dp"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="-4dp"
-            android:layout_marginEnd="-17dp"
+            android:layout_marginEnd="-12dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/wishlist"
             android:src="@drawable/watchlist"
@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:text="@string/symbol"
         android:textSize="30sp"
-        android:textStyle="bold"
+        android:fontFamily="@font/shentox"
         android:layout_marginTop="50dp"
         android:textColor="#565c50"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,20 +86,9 @@
         android:layout_height="wrap_content"
         android:text="@string/current_price"
         android:textSize="30sp"
-        android:textStyle="bold"
+        android:fontFamily="@font/shentox"
         app:layout_constraintTop_toTopOf="@id/symbol"
         app:layout_constraintEnd_toEndOf="parent" />
-
-
-<!--    <View-->
-<!--        android:id="@+id/chartPlaceholder"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="250dp"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:background="#565c50"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/currentPrice"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent" />-->
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/lineChart"
@@ -128,8 +117,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/companyHolder"
-            android:textSize="12sp"
-            android:textStyle="bold"
+            android:textSize="16sp"
+            android:fontFamily="@font/shentox"
             android:textColor="#565c50" />
 
         <TextView
@@ -139,18 +128,14 @@
             android:text="@string/company"
             android:textSize="14sp"
             android:textColor="@android:color/black"
-            android:layout_marginBottom="8dp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="14dp" />
+            android:layout_marginBottom="28dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ipoHolder"
-            android:textSize="12sp"
-            android:textStyle="bold"
+            android:textSize="16sp"
+            android:fontFamily="@font/shentox"
             android:textColor="#565c50" />
 
         <TextView
@@ -160,17 +145,14 @@
             android:text="@string/ipo"
             android:textSize="14sp"
             android:textColor="@android:color/black"
-            android:layout_marginBottom="8dp" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="14dp" />
+            android:layout_marginBottom="24dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/share_outstandingHolder"
-            android:textSize="12sp"
-            android:textStyle="bold"
+            android:textSize="16sp"
+            android:fontFamily="@font/shentox"
             android:textColor="#565c50" />
 
         <TextView
@@ -180,17 +162,14 @@
             android:text="@string/share_outstanding"
             android:textSize="14sp"
             android:textColor="@android:color/black"
-            android:layout_marginBottom="8dp" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="14dp" />
+            android:layout_marginBottom="24dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/market_capHolder"
-            android:textSize="12sp"
-            android:textStyle="bold"
+            android:textSize="16sp"
+            android:fontFamily="@font/shentox"
             android:textColor="#565c50" />
 
         <TextView
@@ -217,8 +196,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/exchangeHolder"
-            android:textSize="12sp"
-            android:textStyle="bold"
+            android:textSize="16sp"
+            android:fontFamily="@font/shentox"
             android:textColor="#565c50" />
 
         <TextView
@@ -228,17 +207,14 @@
             android:text="@string/exchange"
             android:textSize="14sp"
             android:textColor="@android:color/black"
-            android:layout_marginBottom="8dp" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="12dp" />
+            android:layout_marginBottom="24dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/currencyHolder"
-            android:textSize="12sp"
-            android:textStyle="bold"
+            android:textSize="16sp"
+            android:fontFamily="@font/shentox"
             android:textColor="#565c50" />
 
         <TextView
@@ -248,18 +224,14 @@
             android:text="@string/currency"
             android:textSize="14sp"
             android:textColor="@android:color/black"
-            android:layout_marginBottom="8dp" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="12dp" />
+            android:layout_marginBottom="24dp" />
 
         <TextView
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/industryHolder"
-            android:textSize="12sp"
-            android:textStyle="bold"
+            android:textSize="16sp"
+            android:fontFamily="@font/shentox"
             android:textColor="#565c50" />
 
         <TextView
@@ -269,17 +241,14 @@
             android:text="@string/industry"
             android:textSize="14sp"
             android:textColor="@android:color/black"
-            android:layout_marginBottom="8dp" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="12dp" />
+            android:layout_marginBottom="24dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/websiteHolder"
-            android:textSize="12sp"
-            android:textStyle="bold"
+            android:textSize="16sp"
+            android:fontFamily="@font/shentox"
             android:textColor="#565c50" />
 
         <TextView
@@ -296,8 +265,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:layout_marginStart="13dp"
-            android:layout_marginEnd="13dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
             android:backgroundTint="#565c50"
             android:paddingVertical="12dp"
             android:text="@string/analyze"
@@ -314,6 +283,7 @@
             android:text="@string/analyst_rating"
             android:textColor="#565c50"
             android:textSize="20sp"
+            android:fontFamily="@font/shentox"
             android:textStyle="bold"
             android:layout_marginTop="24dp"
             app:layout_constraintTop_toBottomOf="@id/analyze_button"
@@ -339,7 +309,7 @@
             android:gravity="center"
             android:textColor="#565c50"
             android:textSize="28sp"
-            android:textStyle="bold"
+            android:fontFamily="@font/shentox"
             android:layout_marginEnd="16dp" />
 
         <!-- Progress Bars -->
@@ -375,7 +345,7 @@
                     android:text="@string/buy_rating"
                     android:textColor="#00d100"
                     android:layout_marginStart="8dp"
-                    android:textStyle="bold"/>
+                    android:fontFamily="@font/shentox"/>
             </LinearLayout>
 
             <!-- Hold -->
@@ -394,7 +364,7 @@
                     android:layout_height="12dp"
                     android:progress="29"
                     android:max="100"
-                    android:progressTint="#298cd3"
+                    android:progressTint="#565c50"
                     android:backgroundTint="#404040" />
 
                 <TextView
@@ -402,9 +372,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/hold_rating"
-                    android:textColor="#298cd3"
+                    android:textColor="#565c50"
                     android:layout_marginStart="8dp"
-                    android:textStyle="bold"/>
+                    android:fontFamily="@font/shentox"/>
             </LinearLayout>
 
             <!-- Sell -->
@@ -432,7 +402,7 @@
                     android:text="@string/sell_rating"
                     android:textColor="#FF0000"
                     android:layout_marginStart="8dp"
-                    android:textStyle="bold"/>
+                    android:fontFamily="@font/shentox"/>
 
 
                 </LinearLayout>

@@ -12,7 +12,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:background="#66c2eabd"
+        android:padding="8dp">
 
         <TextView
             android:id="@+id/stockSymbol"
@@ -44,7 +45,6 @@
             android:text="$192.45"
             android:textSize="16sp"
             android:textColor="#000000"
-            android:textStyle="bold"
             app:layout_constraintTop_toTopOf="@id/stockSymbol"
             app:layout_constraintEnd_toEndOf="parent" />
 
