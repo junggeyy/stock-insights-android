@@ -124,19 +124,19 @@ class StockDetailFragment : Fragment() {
             symbol.text = stock.symbol
             currentPrice.text = getString(R.string.current_price, stock.currentPrice)
             company.text = stock.companyName
-            ipo.text = getString(R.string.ipo, stock.ipo)
-            shareOutstanding.text = getString(R.string.share_outstanding, stock.shareOutstanding)
-            marketCap.text = getString(R.string.market_cap, stock.marketCap)
-            exchange.text = getString(R.string.exchange, stock.exchange)
-            currency.text = getString(R.string.currency, stock.currency)
-            industry.text = getString(R.string.industry, stock.industry)
-            website.text = getString(R.string.website, stock.website)
+            ipo.text = stock.ipo
+            shareOutstanding.text = String.format(stock.shareOutstanding.toString())
+            marketCap.text = String.format(stock.marketCap.toString())
+            exchange.text = stock.exchange
+            currency.text = stock.currency
+            industry.text = stock.industry
+            website.text = stock.website
 
-            analystRating.text = "${stock.recommendation?.total ?: 0} Analyst Recommendations"
-            maxOf.text = "${stock.recommendation?.max ?: 0}%"
-            tvBuyLabel.text = "${stock.recommendation?.buy ?: 0}% Buy"
-            tvSellLabel.text = "${stock.recommendation?.sell ?: 0}% Sell"
-            tvHoldLabel.text = "${stock.recommendation?.hold ?: 0}% Hold"
+            analystRating.text = getString(R.string.analyst_recommendations, stock.recommendation.total)
+            maxOf.text = getString(R.string.percent_value, stock.recommendation.max)
+            tvBuyLabel.text = getString(R.string.buy_label, stock.recommendation.buy)
+            tvSellLabel.text = getString(R.string.sell_label, stock.recommendation.sell)
+            tvHoldLabel.text = getString(R.string.hold_label, stock.recommendation.hold)
         }
     }
     private fun drawLineChart(candles: List<Candle>) {

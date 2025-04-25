@@ -14,10 +14,14 @@
         android:autofillHints=""
         android:background="@drawable/rounded_text_box"
         android:drawablePadding="8dp"
-        android:inputType=""
         android:padding="16dp"
+        android:singleLine="true"
+        android:maxLines="1"
         android:drawableEnd="@drawable/search"
+        android:importantForAutofill="no"
+        android:imeOptions="actionSearch"
         android:hint="@string/search_by_stock_name"
+        android:inputType="text"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

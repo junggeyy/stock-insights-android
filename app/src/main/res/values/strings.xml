@@ -68,7 +68,6 @@
     <string name="welcome_to_stock_analyzer">Welcome to Stock Analyzer</string>
     <string name="an_easy_to_use_online_stock_market_prediction_application_just_search_the_company_below_and_we_will_tell_you_the_prediction_value_of_that_company_in_the_near_future">An easy-to-use online stock market prediction application. Just search the company below and we will tell you the prediction value of that company in the near future.</string>
 
-    <!-- Add these if using Material search icon -->
     <string name="search_hint">Search company...</string>
 
     <!-- For Login page-->
@@ -171,5 +170,12 @@
     <string name="healthcare_stocks">Healthcare Stocks</string>
     <string name="finance_stocks">Finance Stocks</string>
     <string name="date">Date: %s</string>
+
+    <string name="analyst_recommendations">%1$d Analyst Recommendations</string>
+    <string name="percent_value">%1$d%%</string>
+    <string name="buy_label">%1$d%% Buy</string>
+    <string name="sell_label">%1$d%% Sell</string>
+    <string name="hold_label">%1$d%% Hold</string>
+
 
 </resources>

@@ -87,9 +87,9 @@ class UserProfileFragment : Fragment() {
                     is UserProfileViewModel.UserProfileState.Success -> {
                         binding.progressBar.visibility = View.GONE
                         val profile = state.profile
-                        binding.username.text = binding.root.context.getString(R.string.username, profile.username)
-                        binding.name.text = binding.root.context.getString(R.string.name, profile.name)
-                        binding.email.text = binding.root.context.getString(R.string.email, profile.email)
+                        binding.username.text = binding.root.context.getString(R.string.username_placeholder, profile.username)
+                        binding.name.text = binding.root.context.getString(R.string.name_placeholder, profile.name)
+                        binding.email.text = binding.root.context.getString(R.string.email_placeholder, profile.email)
 
                         if (!profile.avatar.isNullOrEmpty()) {
                             Glide.with(binding.root)

@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#66c2eabd"
-        android:padding="8dp">
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/stockSymbol"

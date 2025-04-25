@@ -46,7 +46,6 @@ class StockAnalysisFragment : Fragment() {
 
         stockAnalysisViewModel.fetchAnalysis(token, symbol)
 
-
         lifecycleScope.launch {
             stockAnalysisViewModel.analysis.collect { state ->
                 when (state) {
@@ -67,6 +66,10 @@ class StockAnalysisFragment : Fragment() {
                     }
                 }
             }
+        }
+
+        binding.backButton.setOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
     }
 
