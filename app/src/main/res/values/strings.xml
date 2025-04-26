@@ -166,9 +166,9 @@
     <string name="home">Home</string>
     <string name="profile">Profile</string>
     <string name="market_status">Market Status: ...</string>
-    <string name="tech_stocks">Tech Stocks</string>
-    <string name="healthcare_stocks">Healthcare Stocks</string>
-    <string name="finance_stocks">Finance Stocks</string>
+    <string name="tech_stocks">Top Stocks in Tech</string>
+    <string name="healthcare_stocks">Top Stocks in Healthcare</string>
+    <string name="finance_stocks">Top Stocks in Finance</string>
     <string name="date">Date: %s</string>
 
     <string name="analyst_recommendations">%1$d Analyst Recommendations</string>
@@ -176,6 +176,8 @@
     <string name="buy_label">%1$d%% Buy</string>
     <string name="sell_label">%1$d%% Sell</string>
     <string name="hold_label">%1$d%% Hold</string>
+    <string name="top_picks_for_you">Top picks for you:</string>
+    <string name="refresh_price">Refresh price</string>
 
 
 </resources>

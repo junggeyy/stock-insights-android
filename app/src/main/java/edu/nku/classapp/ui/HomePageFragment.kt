@@ -46,13 +46,19 @@ class HomePageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupDate()
         val token = getToken() ?: return
-        homePageViewModel.fetchHomepageStocks(token)
+        if(!homePageViewModel.hasLoaded) {
+            homePageViewModel.fetchHomepageStocks(token)
+        }
         stockIndexViewModel.fetchIndex(token)
 
         binding.searchBar.setOnClickListener {
             val action = HomePageFragmentDirections
                 .actionHomePageFragmentToStockSearchFragment()
             findNavController().navigate(action)
+        }
+        binding.refreshPrice.setOnClickListener {
+            homePageViewModel.fetchHomepageStocks(token)
+            Toast.makeText(requireContext(), "Refreshing stock prices...", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -19,10 +19,11 @@ class HomePageViewModel @Inject constructor(
     private val _stocks = MutableStateFlow<HomepageStockState>(HomepageStockState.Loading)
     val stocks = _stocks.asStateFlow()
 
-    private var hasLoaded = false
+    var hasLoaded = false
+        private set
 
-    fun fetchHomepageStocks(token: String) {
-        viewModelScope.launch { // check this to have =
+    fun fetchHomepageStocks(token: String) =
+        viewModelScope.launch {
             when (val result = stockRepository.getHomeStocks(token)) {
                 is HomeStockApiResponse.Success -> {
                     _stocks.value = HomepageStockState.Success(result.response.data)
@@ -33,7 +34,7 @@ class HomePageViewModel @Inject constructor(
                 }
             }
         }
-    }
+
 
     sealed class HomepageStockState {
         data class Success(val stocks: List<Stock>) : HomepageStockState()

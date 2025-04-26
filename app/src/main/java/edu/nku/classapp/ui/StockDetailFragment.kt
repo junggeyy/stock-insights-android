@@ -31,7 +31,7 @@ class StockDetailFragment : Fragment() {
 
     private val stockDetailViewModel: StockDetailViewModel by activityViewModels()
 
-    private lateinit var symbol: String // what is lateinit var?
+    private lateinit var symbol: String
     private var isWatchlisted = false
 
     override fun onCreateView(
@@ -114,10 +114,7 @@ class StockDetailFragment : Fragment() {
                 }
             }
         }
-
     }
-
-
 
     private fun bindStockDetails(stock: StockDetailResponse) {
         binding.apply {

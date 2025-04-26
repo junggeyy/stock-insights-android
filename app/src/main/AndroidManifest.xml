@@ -26,22 +26,5 @@
             </intent-filter>
         </activity>
 
-<!--        <activity-->
-<!--            android:name=".MainActivity1"-->
-<!--            android:exported="true"-->
-<!--            android:theme="@style/Theme.ClassApp">-->
-
-<!--        </activity>-->
-
-        <activity android:name=".ui.auth.LoginActivity" />
-        <activity android:name=".model.Guest" />
-        <activity android:name=".ui.auth.SignupActivity" />
-        <activity android:name=".LandingActivity" />
-        <activity android:name=".ProfileActivity"
-            android:exported="true">
-
-
-        </activity>
-
     </application>
 </manifest>
