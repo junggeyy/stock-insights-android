@@ -37,10 +37,6 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val button = view.findViewById<Button>(R.id.sign_in_button)
-        Log.d("LoginFragment", "Button found: ${button != null}")
-
-
         binding.signInButton.setOnClickListener {
             val email = binding.usernameEmail.text.toString().trim()
             val password = binding.password.text.toString().trim()
@@ -50,6 +46,10 @@ class LoginFragment : Fragment() {
             } else {
                 Toast.makeText(requireContext(), "Enter valid email and password", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        binding.createAccount.setOnClickListener{
+            findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
         }
 
         lifecycleScope.launch {

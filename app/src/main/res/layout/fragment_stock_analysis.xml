@@ -6,15 +6,6 @@
         android:padding="16dp"
         android:gravity="center_horizontal">
 
-        <ProgressBar
-            android:id="@+id/analysisProgressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:visibility="gone"
-            />
-
      <ImageButton
          android:id="@+id/back_button"
          android:layout_width="60dp"
@@ -49,6 +40,30 @@
             android:textColor="#555d50"
             android:layout_marginBottom="8dp" />
 
+         <FrameLayout
+             android:id="@+id/loadingOverlay"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="#BBFFFFFF"
+             android:visibility="gone"
+             android:gravity="center">
+
+             <ProgressBar
+                 android:id="@+id/homepageProgressBar"
+                 android:layout_width="128dp"
+                 android:layout_height="128dp"
+                 android:layout_gravity="center"
+                 style="?android:attr/progressBarStyleLarge"
+                 android:indeterminate="true" />
+
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:gravity="center"
+                 android:text="@string/getting_your_analysis_ready" />
+         </FrameLayout>
+
+
         <!-- Chart -->
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/forecastChart"
@@ -66,5 +81,6 @@
             android:textColor="#392511"
             android:gravity="center_horizontal"
             android:paddingTop="8dp" />
+
 
  </LinearLayout>

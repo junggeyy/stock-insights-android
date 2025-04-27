@@ -3,9 +3,14 @@ package edu.nku.classapp.ui
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -37,12 +42,9 @@ class UserProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
        val token = getToken() ?: return
 
-        if (token != null) {
-            userProfileViewModel.fetchProfile(token)
-            setupButtons(token)
-        } else {
-            navigateToLogin()
-        }
+        userProfileViewModel.fetchProfile(token)
+        setupButtons(token)
+
         observeUserState()
     }
 
@@ -71,9 +73,9 @@ class UserProfileFragment : Fragment() {
             Toast.makeText(context, "Coming soon!", Toast.LENGTH_SHORT).show()
         }
 
-        binding.backButton.setOnClickListener {
-            requireActivity().onBackPressedDispatcher.onBackPressed()
-        }
+        val toolbar = view?.findViewById<Toolbar>(R.id.toolbar)
+        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+        setHasOptionsMenu(true)
     }
 
     private fun observeUserState() {
@@ -87,9 +89,9 @@ class UserProfileFragment : Fragment() {
                     is UserProfileViewModel.UserProfileState.Success -> {
                         binding.progressBar.visibility = View.GONE
                         val profile = state.profile
-                        binding.username.text = binding.root.context.getString(R.string.username_placeholder, profile.username)
-                        binding.name.text = binding.root.context.getString(R.string.name_placeholder, profile.name)
-                        binding.email.text = binding.root.context.getString(R.string.email_placeholder, profile.email)
+                        binding.usernamePlaceholder.text = profile.username
+                        binding.namePlaceholder.text = profile.name
+                        binding.emailPlaceholder.text = profile.email
 
                         if (!profile.avatar.isNullOrEmpty()) {
                             Glide.with(binding.root)
@@ -117,5 +119,22 @@ class UserProfileFragment : Fragment() {
     private fun getToken(): String? {
         val prefs = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
         return prefs.getString("AUTH_TOKEN", null)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.toolbar_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_search -> {
+                val action = UserProfileFragmentDirections
+                    .actionUserProfileFragmentToStockSearchFragment()
+                findNavController().navigate(action)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

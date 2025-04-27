@@ -61,13 +61,8 @@ class StockDetailFragment : Fragment() {
         }
 
         binding.watchlistButton.setOnClickListener {
-            stockDetailViewModel.toggleWatchlist(token, symbol, binding.company.text.toString(), isWatchlisted)
-
-            isWatchlisted = !isWatchlisted
-
-            val icon = if (isWatchlisted) R.drawable.watchlist2 else R.drawable.watchlist
-
-            binding.watchlistButton.setImageResource(icon)
+            stockDetailViewModel.toggleWatchlist(token, symbol, binding.company.text.toString(),
+                isWatchlisted)
         }
 
         binding.backButton.setOnClickListener {
