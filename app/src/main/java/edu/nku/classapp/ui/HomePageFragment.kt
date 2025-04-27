@@ -3,9 +3,14 @@ package edu.nku.classapp.ui
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -14,6 +19,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
+import edu.nku.classapp.R
 import edu.nku.classapp.model.Stock
 import edu.nku.classapp.databinding.FragmentHomePageBinding
 import edu.nku.classapp.ui.adapters.HomeStockAdapter
@@ -51,15 +57,14 @@ class HomePageFragment : Fragment() {
         }
         stockIndexViewModel.fetchIndex(token)
 
-        binding.searchBar.setOnClickListener {
-            val action = HomePageFragmentDirections
-                .actionHomePageFragmentToStockSearchFragment()
-            findNavController().navigate(action)
-        }
         binding.refreshPrice.setOnClickListener {
             homePageViewModel.fetchHomepageStocks(token)
             Toast.makeText(requireContext(), "Refreshing stock prices...", Toast.LENGTH_SHORT).show()
         }
+
+        val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
+        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+        setHasOptionsMenu(true)
     }
 
     private fun setUpObservers() {
@@ -140,4 +145,23 @@ class HomePageFragment : Fragment() {
         val prefs = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
         return prefs.getString("AUTH_TOKEN", null)?.let { "Token $it" }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.toolbar_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_search -> {
+                val action = HomePageFragmentDirections
+                    .actionHomePageFragmentToStockSearchFragment()
+                findNavController().navigate(action)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+
 }

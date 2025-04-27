@@ -46,7 +46,7 @@
     <string name="dialog_title_success">Success</string>
     <string name="dialog_title_error">Error</string>
     <string name="dialog_title_warning">Warning</string>
-    <string name="email_placeholder">Email: %s</string>
+    <string name="email_holder">Email:</string>
     <string name="email">Email</string>
 
     <string name="password">Password</string>
@@ -151,10 +151,10 @@
     <string name="wishlist">Add to wishlist</string>
     <string name="something_went_wrong">Something went wrong!</string>
 
-    <string name="username_placeholder">Username: %s</string>
+    <string name="username_holder">Username:</string>
     <string name="username">Username</string>
 
-    <string name="name_placeholder">Name: %s</string>
+    <string name="name_holder">Name:</string>
     <string name="name">Name</string>
     <string name="image_of_user_settings_icon">Image of user settings icon</string>
     <string name="image_of_watchlist">Image of watchlist</string>

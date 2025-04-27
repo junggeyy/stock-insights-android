@@ -3,8 +3,13 @@ package edu.nku.classapp.ui
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -12,6 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import edu.nku.classapp.R
 import edu.nku.classapp.databinding.FragmentWatchlistBinding
 import edu.nku.classapp.viewmodel.WatchlistViewModel
 import edu.nku.classapp.ui.adapters.ListStockAdapter
@@ -51,6 +57,11 @@ class WatchlistFragment : Fragment() {
         watchlistViewModel.fetchWatchlist(token)
 
         setUpObservers()
+
+
+        val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
+        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+        setHasOptionsMenu(true)
     }
 
     private fun setUpObservers() {
@@ -80,6 +91,23 @@ class WatchlistFragment : Fragment() {
     private fun getToken(): String? {
         val prefs = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
         return prefs.getString("AUTH_TOKEN", null)?.let { "Token $it" }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.toolbar_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_search -> {
+                val action = HomePageFragmentDirections
+                    .actionHomePageFragmentToStockSearchFragment()
+                findNavController().navigate(action)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
 }
