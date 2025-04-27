@@ -2,8 +2,6 @@
     <!-- Base application theme. -->
     <style name="Theme.ClassApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:windowTranslucentStatus">true</item>
         <item name="colorPrimary">#555d50</item>
         <item name="colorPrimaryVariant">#c2eabd</item>
         <item name="colorOnPrimary">#8b94a3</item>
@@ -13,6 +11,8 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>

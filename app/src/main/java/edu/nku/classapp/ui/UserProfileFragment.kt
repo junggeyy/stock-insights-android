@@ -42,12 +42,9 @@ class UserProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
        val token = getToken() ?: return
 
-        if (token != null) {
-            userProfileViewModel.fetchProfile(token)
-            setupButtons(token)
-        } else {
-            navigateToLogin()
-        }
+        userProfileViewModel.fetchProfile(token)
+        setupButtons(token)
+
         observeUserState()
     }
 
@@ -132,8 +129,8 @@ class UserProfileFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_search -> {
-                val action = HomePageFragmentDirections
-                    .actionHomePageFragmentToStockSearchFragment()
+                val action = UserProfileFragmentDirections
+                    .actionUserProfileFragmentToStockSearchFragment()
                 findNavController().navigate(action)
                 true
             }

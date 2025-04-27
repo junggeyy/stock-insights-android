@@ -101,8 +101,8 @@ class WatchlistFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_search -> {
-                val action = HomePageFragmentDirections
-                    .actionHomePageFragmentToStockSearchFragment()
+                val action = WatchlistFragmentDirections
+                    .actionWatchlistFragmentToStockSearchFragment()
                 findNavController().navigate(action)
                 true
             }

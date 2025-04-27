@@ -1,8 +1,8 @@
 package edu.nku.classapp.model
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 data class WatchListCheckResponse(
-    @SerializedName("is_in_watchlist")
+    @Json(name="is_in_watchlist")
     val isInWatchlist: Boolean
 )
 

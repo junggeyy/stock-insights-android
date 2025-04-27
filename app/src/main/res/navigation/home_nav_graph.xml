@@ -58,6 +58,9 @@
         <action
             android:id="@+id/action_watchlistFragment_to_stockDetailFragment"
             app:destination="@id/stockDetailFragment" />
+        <action
+            android:id="@+id/action_watchlistFragment_to_stockSearchFragment"
+            app:destination="@id/stockSearchFragment" />
     </fragment>
 
     <fragment
@@ -67,6 +70,9 @@
         <action
             android:id="@+id/action_userProfileFragment_to_watchlistFragment"
             app:destination="@id/watchlistFragment" />
+        <action
+            android:id="@+id/action_userProfileFragment_to_stockSearchFragment"
+            app:destination="@id/stockSearchFragment" />
     </fragment>
 
 </navigation>

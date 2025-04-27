@@ -6,22 +6,12 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-
-    <!-- This is the ONLY child of ScrollView -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:background="@android:color/white">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/errorMessage"
@@ -35,7 +25,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-        <!-- Back Button -->
         <ImageButton
             android:id="@+id/backButton"
             android:layout_width="60dp"
@@ -49,7 +38,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tint="#565c50" />
 
-        <!--Wishlist Button-->
         <ImageButton
             android:id="@+id/watchlistButton"
             android:layout_width="60dp"
@@ -63,7 +51,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="#565c50" />
-    <!-- Stock Ticker -->
+
     <TextView
         android:id="@+id/symbol"
         android:layout_width="wrap_content"
@@ -75,9 +63,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Stock Price (left-aligned, below ticker) -->
 
-    <!-- Chart Placeholder -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:attr/progressBarStyleLarge"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
 
     <TextView
         android:id="@+id/currentPrice"

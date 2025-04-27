@@ -33,7 +33,7 @@ class SignupFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnSignup.setOnClickListener {
+        binding.signupButton.setOnClickListener {
             val data = mapOf(
                 "first_name" to binding.firstNameEdittextSignup.text.toString().trim(),
                 "last_name" to binding.lastNameEdittextSignup.text.toString().trim(),
@@ -49,16 +49,20 @@ class SignupFragment : Fragment() {
             }
         }
 
+        binding.loginPage.setOnClickListener {
+            findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
+        }
+
         lifecycleScope.launch {
             viewModel.authState.collect { state ->
                 when (state) {
-                    is AuthViewModel.AuthState.Loading -> binding.btnSignup.isEnabled = true
+                    is AuthViewModel.AuthState.Loading -> binding.signupButton.isEnabled = true
                     is AuthViewModel.AuthState.Success -> {
-                        binding.btnSignup.isEnabled = true
+                        binding.signupButton.isEnabled = true
                         findNavController().navigate(R.id.action_signupFragment_to_mainFragment)
                     }
                     is AuthViewModel.AuthState.Failure -> {
-                        binding.btnSignup.isEnabled = true
+                        binding.signupButton.isEnabled = true
                         Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
                     }
                 }

@@ -70,7 +70,10 @@ class StockDetailViewModel @Inject constructor(
         }
 
         when (result) {
-            is WatchlistEditApiResponse.Success -> _watchlistState.value = result.response.detail
+            is WatchlistEditApiResponse.Success ->{
+                _watchlistState.value = result.response.detail
+                _isInWatchlist.value = !isCurrentlyWatchlisted
+            }
             is WatchlistEditApiResponse.Error -> _watchlistState.value = "Failed to update watchlist: ${result.message}"
         }
     }
@@ -79,6 +82,8 @@ class StockDetailViewModel @Inject constructor(
         token: String,
         ticker: String
     ) = viewModelScope.launch {
+        Log.d("WatchlistDebug", "Checking if $ticker is in watchlist")
+
         when (val result = userRepository.isInWatchlist(token, ticker)) {
             is WatchlistCheckApiResponse.Success -> _isInWatchlist.value = result.response.isInWatchlist
             is WatchlistCheckApiResponse.Error -> _isInWatchlist.value = false
