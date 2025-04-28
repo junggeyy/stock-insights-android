@@ -1,6 +1,7 @@
 package edu.nku.classapp.ui
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -17,8 +18,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import edu.nku.classapp.MainActivity
 import edu.nku.classapp.R
-//import edu.nku.classapp.WatchlistActivity
 import edu.nku.classapp.databinding.FragmentUserProfileBinding
 import edu.nku.classapp.viewmodel.UserProfileViewModel
 import kotlinx.coroutines.launch
@@ -113,7 +114,13 @@ class UserProfileFragment : Fragment() {
     }
 
     private fun navigateToLogin() {
-        findNavController().navigate(R.id.action_global_logout)
+        requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+            .edit().remove("AUTH_TOKEN").apply()
+
+        val intent = Intent(requireActivity(), MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        requireActivity().finish()
     }
 
     private fun getToken(): String? {

@@ -20,71 +20,37 @@ object AppModule {
     private const val BASE_URL = "http://10.0.2.2:8000/"
 //    private const val BASE_URL = "https://stock-backend-rzgl.onrender.com/"
 
-
-    private val logging = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
-    }
-
-    private val client = OkHttpClient.Builder()
-        .addInterceptor(logging)
-        .build()
-
-    private val moshi = Moshi.Builder()
-        .add(KotlinJsonAdapterFactory())
-        .build()
-
-    val instance: UserApi by lazy {
+    @Provides
+    @Singleton
+    fun provideRetrofit(): Retrofit =
         Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .client(client)
+            .addConverterFactory(
+                MoshiConverterFactory.create(
+                    Moshi.Builder()
+                        .add(KotlinJsonAdapterFactory())
+                        .build()
+                )
+            )
+            .client(
+                OkHttpClient.Builder()
+                    .addInterceptor(
+                        HttpLoggingInterceptor().apply {
+                            level = HttpLoggingInterceptor.Level.BODY
+                        }
+                    )
+                    .build()
+            )
             .build()
-            .create(UserApi::class.java)
-    }
-
-    val stockApi: StockApi by lazy {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .client(client)
-            .build()
-            .create(StockApi::class.java)
-    }
-    @Provides
-    @Singleton
-    fun provideLoggingInterceptor(): HttpLoggingInterceptor = logging
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient = client
+    fun provideUserApi(retrofit: Retrofit): UserApi =
+        retrofit.create(UserApi::class.java)
 
     @Provides
     @Singleton
-    fun provideMoshi(): Moshi = moshi
-
-    @Provides
-    @Singleton
-    fun provideRetrofit(
-        client: OkHttpClient,
-        moshi: Moshi
-    ): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .client(client)
-            .build()
-    }
-
-    @Provides
-    @Singleton
-    fun provideStockApiService(retrofit: Retrofit): StockApi {
-        return retrofit.create(StockApi::class.java)
-    }
-
-    @Provides
-    @Singleton
-    fun provideUserApiService(retrofit: Retrofit): UserApi {
-        return retrofit.create(UserApi::class.java)
-    }
+    fun provideStockApi(retrofit: Retrofit): StockApi =
+        retrofit.create(StockApi::class.java)
 
 }
