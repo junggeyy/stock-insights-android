@@ -181,6 +181,10 @@
     <string name="getting_your_analysis_ready">Getting your analysis ready</string>
     <string name="loading_market_data">Loading market data...</string>
     <string name="failed_to_load_market_data">Failed to load market data</string>
+    <string name="symbol_list">Symbol: %1$s</string>
+    <string name="description_list">Description: %1$s</string>
+    <string name="home_price">$%1$s</string>
+    <string name="market_status_home">Market Status: %1$s</string>
 
 
 </resources>

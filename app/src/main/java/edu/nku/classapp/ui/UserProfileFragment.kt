@@ -63,7 +63,9 @@ class UserProfileFragment : Fragment() {
         }
 
         binding.watchlistButton.setOnClickListener {
-            Toast.makeText(context, "Coming soon!", Toast.LENGTH_SHORT).show()
+            val action = UserProfileFragmentDirections
+                .actionUserProfileFragmentToWatchlistFragment()
+            findNavController().navigate(action)
         }
 
         binding.editUser.setOnClickListener {

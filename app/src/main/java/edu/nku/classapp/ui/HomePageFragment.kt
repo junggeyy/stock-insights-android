@@ -17,10 +17,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import edu.nku.classapp.R
-import edu.nku.classapp.model.Stock
 import edu.nku.classapp.databinding.FragmentHomePageBinding
 import edu.nku.classapp.ui.adapters.HomeStockAdapter
 import edu.nku.classapp.viewmodel.HomePageViewModel
@@ -39,6 +37,25 @@ class HomePageFragment : Fragment() {
     private val stockIndexViewModel: StockIndexViewModel by activityViewModels()
     private val homePageViewModel: HomePageViewModel by activityViewModels()
 
+    private val techAdapter = HomeStockAdapter { symbol, _ ->
+        val action = HomePageFragmentDirections
+            .actionHomePageFragmentToStockDetailFragment(symbol)
+        findNavController().navigate(action)
+    }
+
+    private val healthAdapter = HomeStockAdapter { symbol, _ ->
+        val action = HomePageFragmentDirections
+            .actionHomePageFragmentToStockDetailFragment(symbol)
+        findNavController().navigate(action)
+    }
+
+    private val financeAdapter = HomeStockAdapter { symbol, _ ->
+        val action = HomePageFragmentDirections
+            .actionHomePageFragmentToStockDetailFragment(symbol)
+        findNavController().navigate(action)
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,6 +69,7 @@ class HomePageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupDate()
         val token = getToken() ?: return
+
         if(!homePageViewModel.hasLoaded) {
             homePageViewModel.fetchHomepageStocks(token)
         }
@@ -61,6 +79,16 @@ class HomePageFragment : Fragment() {
             homePageViewModel.fetchHomepageStocks(token)
             Toast.makeText(requireContext(), "Refreshing stock prices...", Toast.LENGTH_SHORT).show()
         }
+
+        binding.techRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.techRecyclerView.adapter = techAdapter
+
+        binding.healthRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.healthRecyclerView.adapter = healthAdapter
+
+        binding.financeRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.financeRecyclerView.adapter = financeAdapter
+
 
         val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
@@ -90,8 +118,9 @@ class HomePageFragment : Fragment() {
                         binding.marketIndices.text = ""
                     }
                     is StockIndexViewModel.StockIndexState.Success -> {
+
                         val status = if (state.results.marketStatus) "Open" else "Closed"
-                        binding.marketStatus.text = "Market Status: $status"
+                        binding.marketStatus.text = getString(R.string.market_status_home, status)
 
                         val indices = state.results.indices.entries.joinToString("\n") { (name, data) ->
                             "$name: ${data.price} (${data.changePercent}%)"
@@ -113,7 +142,6 @@ class HomePageFragment : Fragment() {
                     }
                     is HomePageViewModel.HomepageStockState.Failure -> {
                         binding.loadingOverlay.isVisible = false
-
                         Toast.makeText(requireContext(), "Failed to load homepage stocks", Toast.LENGTH_SHORT).show()
                     }
                     is HomePageViewModel.HomepageStockState.Success -> {
@@ -123,23 +151,15 @@ class HomePageFragment : Fragment() {
                         val health = state.stocks.slice(5..9)
                         val finance = state.stocks.slice(10..14)
 
-                        setupRecycler(binding.techRecyclerView, tech)
-                        setupRecycler(binding.healthRecyclerView, health)
-                        setupRecycler(binding.financeRecyclerView, finance)
+                        techAdapter.refreshData(tech)
+                        healthAdapter.refreshData(health)
+                        financeAdapter.refreshData(finance)
                     }
                 }
             }
         }
     }
 
-    private fun setupRecycler(recycler: RecyclerView, list: List<Stock>) {
-        recycler.layoutManager = LinearLayoutManager(requireContext())
-        recycler.adapter = HomeStockAdapter(list) { symbol ->
-            val action = HomePageFragmentDirections
-                .actionHomePageFragmentToStockDetailFragment(symbol)
-            findNavController().navigate(action)
-        }
-    }
 
     private fun getToken(): String? {
         val prefs = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
