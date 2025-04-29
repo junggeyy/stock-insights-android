@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.charts.LineChart
@@ -42,7 +43,7 @@ class StockAnalysisFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val symbol = arguments?.getString("SYMBOL") ?: return
+        val symbol = arguments?.getString(ARG_SYMBOL) ?: return
         val token = getToken() ?: return
 
         stockAnalysisViewModel.fetchAnalysis(token, symbol)
@@ -52,10 +53,12 @@ class StockAnalysisFragment : Fragment() {
                 when (state) {
                     is StockAnalysisViewModel.StockAnalysisState.Loading -> {
                         binding.loadingOverlay.isVisible = true
+                        binding.analysisContent.isVisible = false
                     }
 
                     is StockAnalysisViewModel.StockAnalysisState.Success -> {
                         binding.loadingOverlay.isVisible = false
+                        binding.analysisContent.isVisible = true
                         binding.analysisTitle.text = "Stock Analysis for $symbol"
                         binding.recommendationText.text = state.response.message
                         drawForecast(binding.forecastChart, state.response.forecast)
@@ -63,6 +66,7 @@ class StockAnalysisFragment : Fragment() {
 
                     is StockAnalysisViewModel.StockAnalysisState.Failure -> {
                         binding.loadingOverlay.isVisible = false
+                        binding.analysisContent.isVisible = true
                         binding.recommendationText.text = getString(R.string.failed_to_load_forecast)
                     }
                 }
@@ -110,5 +114,13 @@ class StockAnalysisFragment : Fragment() {
     private fun getToken(): String? {
         val prefs = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
         return prefs.getString("AUTH_TOKEN", null)?.let { "Token $it" }
+    }
+
+    companion object {
+        private const val ARG_SYMBOL = "SYMBOL"
+
+        fun newInstance(symbol: String) =  StockAnalysisFragment().apply {
+            arguments = bundleOf(ARG_SYMBOL to symbol)
+        }
     }
 }
