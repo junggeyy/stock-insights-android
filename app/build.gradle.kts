@@ -56,20 +56,12 @@ dependencies {
     implementation(libs.androidx.fragment)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
-
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.firebase.auth.ktx)
     implementation(libs.firebase.firestore.ktx)
-
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.okhttp)
@@ -79,24 +71,21 @@ dependencies {
     implementation(libs.moshi)
     implementation(libs.moshi.kotlin)
     implementation(libs.moshi.codegen)
-
     implementation(libs.hilt.android)
+    implementation(libs.mpandroidchart)
+    implementation(libs.cardview)
+    implementation(libs.glide)
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+
     ksp(libs.hilt.compiler)
 
-
-
-    testImplementation(libs.junit)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.ui.test.junit4)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation(libs.mpandroidchart)
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
 
-
-    implementation("androidx.cardview:cardview:1.0.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-
-    implementation(libs.cardview)
-    implementation(libs.glide)
-
-
+    testImplementation(libs.junit)
 }
