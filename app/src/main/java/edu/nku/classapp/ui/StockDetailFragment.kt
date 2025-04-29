@@ -66,7 +66,7 @@ class StockDetailFragment : Fragment() {
         }
 
         binding.backButton.setOnClickListener {
-            requireActivity().onBackPressedDispatcher.onBackPressed()
+            findNavController().popBackStack()
         }
     }
 

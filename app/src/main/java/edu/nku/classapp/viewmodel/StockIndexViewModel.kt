@@ -22,7 +22,7 @@ class StockIndexViewModel @Inject constructor(
 
     fun fetchIndex(token: String) = viewModelScope.launch {
         when (val result = stockRepository.getStockIndex(token)) {
-            StockIndexApiResponse.Error -> _indexData.value = StockIndexState.Failure
+            is StockIndexApiResponse.Error -> _indexData.value = StockIndexState.Failure
             is StockIndexApiResponse.Success ->
                 _indexData.value = StockIndexState.Success(result.response)
         }

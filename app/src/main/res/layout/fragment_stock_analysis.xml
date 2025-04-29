@@ -59,19 +59,19 @@
              <TextView
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
-                 android:gravity="center"
+                 android:layout_gravity="center"
+                 android:textColor="#392511"
+                 android:textSize="16sp"
+                 android:fontFamily="@font/shentox"
                  android:text="@string/getting_your_analysis_ready" />
          </FrameLayout>
 
-
-        <!-- Chart -->
-        <com.github.mikephil.charting.charts.LineChart
+      <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/forecastChart"
             android:layout_width="match_parent"
             android:layout_height="332dp"
             android:layout_marginBottom="20dp" />
 
-        <!-- Recommendation Message -->
         <TextView
             android:id="@+id/recommendationText"
             android:layout_width="match_parent"

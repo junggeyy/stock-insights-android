@@ -292,7 +292,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Circular Buy Percentage -->
         <TextView
             android:id="@+id/maxOf"
             android:layout_width="100dp"
@@ -305,14 +304,12 @@
             android:fontFamily="@font/shentox"
             android:layout_marginEnd="16dp" />
 
-        <!-- Progress Bars -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Buy -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -341,7 +338,6 @@
                     android:fontFamily="@font/shentox"/>
             </LinearLayout>
 
-            <!-- Hold -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -370,7 +366,6 @@
                     android:fontFamily="@font/shentox"/>
             </LinearLayout>
 
-            <!-- Sell -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -399,7 +394,6 @@
 
 
                 </LinearLayout>
-
             </LinearLayout>
         </LinearLayout>
 
