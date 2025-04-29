@@ -23,9 +23,7 @@ interface UserApi {
     suspend fun getProfile(@Header("Authorization") token: String): Response<UserProfileResponse>
 
     @GET("user/watchlist/")
-    suspend fun getWatchlist(
-        @Header("Authorization") token: String
-    ): Response<List<WatchlistResponse>>
+    suspend fun getWatchlist(@Header("Authorization") token: String): Response<List<WatchlistResponse>>
 
     @POST("user/watchlist/add/")
     suspend fun addToWatchlist(

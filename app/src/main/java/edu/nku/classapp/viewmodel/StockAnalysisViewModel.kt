@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import edu.nku.classapp.model.StockAnalysisResponse
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import edu.nku.classapp.data.model.StockAnalysisApiResponse
+import edu.nku.classapp.data.model.StockApiResponse
 import edu.nku.classapp.data.repository.StockRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -22,11 +22,14 @@ class StockAnalysisViewModel @Inject constructor(
 
     fun fetchAnalysis(token: String, symbol: String) = viewModelScope.launch {
         when(val result = stockRepository.getStockAnalysis(token, symbol)){
-            is StockAnalysisApiResponse.Success -> _analysis.value =
-                StockAnalysisState.Success(result.response)
+            is StockApiResponse.StockAnalysisSuccess ->{
+                _analysis.value = StockAnalysisState.Success(result.response)
+            }
 
-            is StockAnalysisApiResponse.Error -> _analysis.value =
-                StockAnalysisState.Failure
+            is StockApiResponse.Error -> {
+                _analysis.value = StockAnalysisState.Failure
+            }
+            else -> {}
         }
     }
 

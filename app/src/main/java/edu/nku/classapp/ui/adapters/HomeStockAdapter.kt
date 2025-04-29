@@ -1,38 +1,59 @@
 package edu.nku.classapp.ui.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import edu.nku.classapp.R
+import edu.nku.classapp.databinding.StockCardViewBinding
 import edu.nku.classapp.model.Stock
 
 class HomeStockAdapter(
-    private val stockList: List<Stock>,
-    private val onClick: (String) -> Unit) :
-    RecyclerView.Adapter<HomeStockAdapter.StockViewHolder>() {
+    private val onStockClicked: (symbol: String, position: Int) -> Unit
+): RecyclerView.Adapter<HomeStockAdapter.StockViewHolder>() {
 
-    class StockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val symbolText: TextView = itemView.findViewById(R.id.stockSymbol)
-        val priceText: TextView = itemView.findViewById(R.id.stockPrice)
-        val companyText: TextView = itemView.findViewById(R.id.stockCompany)
+    private val stocks = mutableListOf<Stock>()
+
+    class StockViewHolder(
+        private val binding: StockCardViewBinding,
+        private val onStockClicked: (position: Int) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            itemView.setOnClickListener {
+                onStockClicked(adapterPosition)
+            }
+        }
+
+        fun bind(item: Stock) {
+            binding.stockSymbol.text = item.symbol
+            binding.stockCompany.text = item.company
+            binding.stockPrice.text = item.price?.let {
+                    String.format("%.2f", it)
+                } ?: "--"
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun refreshData(newList: List<Stock>) {
+        stocks.clear()
+        stocks.addAll(newList)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StockViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.stock_card_view, parent, false)
-        return StockViewHolder(view)
+        val binding = StockCardViewBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false)
+        return StockViewHolder(binding) { position ->
+            onStockClicked(stocks[position].symbol, position)
+        }
     }
 
     override fun onBindViewHolder(holder: StockViewHolder, position: Int) {
-        val stock = stockList[position]
-        holder.symbolText.text = stock.symbol
-        holder.companyText.text = stock.company
-        holder.priceText.text = stock.price?.let { "$${String.format("%.2f", it)}" } ?: "--"
-        holder.itemView.setOnClickListener { onClick(stock.symbol) }
 
+        holder.bind(stocks[position])
     }
 
-    override fun getItemCount(): Int = stockList.size
+    override fun getItemCount(): Int = stocks.size
 }

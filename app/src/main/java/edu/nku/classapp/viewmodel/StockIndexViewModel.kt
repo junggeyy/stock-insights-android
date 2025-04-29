@@ -3,7 +3,7 @@ package edu.nku.classapp.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import edu.nku.classapp.data.model.StockIndexApiResponse
+import edu.nku.classapp.data.model.StockApiResponse
 import edu.nku.classapp.model.StockIndexResponse
 import edu.nku.classapp.data.repository.StockRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,9 +22,13 @@ class StockIndexViewModel @Inject constructor(
 
     fun fetchIndex(token: String) = viewModelScope.launch {
         when (val result = stockRepository.getStockIndex(token)) {
-            is StockIndexApiResponse.Error -> _indexData.value = StockIndexState.Failure
-            is StockIndexApiResponse.Success ->
+            is StockApiResponse.Error -> {
+                _indexData.value = StockIndexState.Failure
+            }
+            is StockApiResponse.StockIndexSuccess -> {
                 _indexData.value = StockIndexState.Success(result.response)
+            }
+            else -> {}
         }
     }
 

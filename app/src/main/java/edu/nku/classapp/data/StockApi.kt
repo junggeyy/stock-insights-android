@@ -24,7 +24,8 @@ interface StockApi {
     @GET("stocks/{symbol}/chart/")
     suspend fun getStockCandle(
         @Header("Authorization") token: String,
-        @Path("symbol") symbol: String): Response<CandleChartResponse>
+        @Path("symbol") symbol: String
+    ): Response<CandleChartResponse>
 
     @GET("stocks/{symbol}/analysis/")
     suspend fun getStockAnalysis(

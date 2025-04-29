@@ -31,7 +31,11 @@ class WatchlistFragment : Fragment() {
 
     private val watchlistViewModel: WatchlistViewModel by activityViewModels()
 
-    private lateinit var adapter: ListStockAdapter
+    private val listStockAdapter = ListStockAdapter {symbol, _ ->
+        val action = WatchlistFragmentDirections
+            .actionWatchlistFragmentToStockDetailFragment(symbol)
+        findNavController().navigate(action)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,14 +48,9 @@ class WatchlistFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = ListStockAdapter(emptyList()) { symbol ->
-            val action = WatchlistFragmentDirections
-                .actionWatchlistFragmentToStockDetailFragment(symbol)
-            findNavController().navigate(action)
-        }
 
         binding.watchlistRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.watchlistRecyclerView.adapter = adapter
+        binding.watchlistRecyclerView.adapter = listStockAdapter
 
         val token = getToken() ?: return
         watchlistViewModel.fetchWatchlist(token)
@@ -76,7 +75,7 @@ class WatchlistFragment : Fragment() {
                     is WatchlistViewModel.WatchlistState.Success -> {
                         binding.noResults.isVisible = false
                         binding.watchlistRecyclerView.isVisible = true
-                        adapter.submitList(state.stocks)
+                        listStockAdapter.refreshData(state.stocks)
                     }
 
                     is WatchlistViewModel.WatchlistState.Failure -> {

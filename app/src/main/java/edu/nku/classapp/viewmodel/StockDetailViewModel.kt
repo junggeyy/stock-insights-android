@@ -1,13 +1,10 @@
 package edu.nku.classapp.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import edu.nku.classapp.data.model.StockCandleApiResponse
-import edu.nku.classapp.data.model.StockDetailApiResponse
-import edu.nku.classapp.data.model.WatchlistEditApiResponse
-import edu.nku.classapp.data.model.WatchlistCheckApiResponse
+import edu.nku.classapp.data.model.StockApiResponse
+import edu.nku.classapp.data.model.UserApiResponse
 import edu.nku.classapp.data.repository.StockRepository
 import edu.nku.classapp.data.repository.UserRepository
 import edu.nku.classapp.model.Candle
@@ -40,18 +37,25 @@ class StockDetailViewModel @Inject constructor(
     fun loadStockDetails(token: String, symbol: String) = viewModelScope.launch {
         _stockDetail.value = StockDetailState.Loading
         when (val result = stockRepository.getStockDetail(token, symbol)) {
-            is StockDetailApiResponse.Success -> _stockDetail.value = StockDetailState.Success(result.response)
-            is StockDetailApiResponse.Error -> _stockDetail.value = StockDetailState.Failure
+            is StockApiResponse.StockDetailSuccess -> {
+                _stockDetail.value = StockDetailState.Success(result.response)
+            }
+            is StockApiResponse.Error -> {
+                _stockDetail.value = StockDetailState.Failure
+            }
+            else -> {}
         }
     }
 
     fun loadChartData(token: String, symbol: String) = viewModelScope.launch {
         when (val result = stockRepository.getStockCandle(token, symbol)) {
-            is StockCandleApiResponse.Success -> _chartCandles.value = result.response.candles
-            is StockCandleApiResponse.Error -> {
+            is StockApiResponse.StockCandleSuccess -> {
+            _chartCandles.value = result.response.candles
+        }
+            is StockApiResponse.Error -> {
                 _chartCandles.value = emptyList()
-                Log.e("StockDetailVM", "Chart API error")
             }
+            else-> {}
         }
     }
 
@@ -70,11 +74,14 @@ class StockDetailViewModel @Inject constructor(
         }
 
         when (result) {
-            is WatchlistEditApiResponse.Success ->{
+            is UserApiResponse.WatchlistEditSuccess ->{
                 _watchlistState.value = result.response.detail
                 _isInWatchlist.value = !isCurrentlyWatchlisted
             }
-            is WatchlistEditApiResponse.Error -> _watchlistState.value = "Failed to update watchlist: ${result.message}"
+            is UserApiResponse.Error ->{
+                _watchlistState.value = "Failed to update watchlist: ${result.message}"
+            }
+            else -> {}
         }
     }
 
@@ -82,11 +89,14 @@ class StockDetailViewModel @Inject constructor(
         token: String,
         ticker: String
     ) = viewModelScope.launch {
-        Log.d("WatchlistDebug", "Checking if $ticker is in watchlist")
-
         when (val result = userRepository.isInWatchlist(token, ticker)) {
-            is WatchlistCheckApiResponse.Success -> _isInWatchlist.value = result.response.isInWatchlist
-            is WatchlistCheckApiResponse.Error -> _isInWatchlist.value = false
+            is UserApiResponse.WatchlistCheckSuccess ->{
+                _isInWatchlist.value = result.response.isInWatchlist
+            }
+            is UserApiResponse.Error -> {
+                _isInWatchlist.value = false
+            }
+            else -> {}
         }
     }
 

@@ -1,5 +1,6 @@
 package edu.nku.classapp.ui.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -7,35 +8,51 @@ import edu.nku.classapp.databinding.StockListCardViewBinding
 import edu.nku.classapp.model.StockList
 
 class ListStockAdapter(
-    private var items: List<StockList>,
-    private val onClick: (String) -> Unit
-) : RecyclerView.Adapter<ListStockAdapter.ViewHolder>() {
+    private val onStockClicked: (String, position: Int) -> Unit
+) : RecyclerView.Adapter<ListStockAdapter.StockViewHolder>() {
 
-    inner class ViewHolder(private val binding: StockListCardViewBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    class StockViewHolder(
+        private val binding: StockListCardViewBinding,
+        private val onStockClicked: (position: Int) -> Unit
+    ):  RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            itemView.setOnClickListener {
+                onStockClicked(adapterPosition)
+            }
+        }
+
         fun bind(item: StockList) {
-            binding.stockSymbol.text = "Symbol: ${item.symbol}"
-            binding.stockDescription.text = "Description: ${item.description}"
-            binding.root.setOnClickListener { onClick(item.symbol) }
+            binding.stockSymbol.text = item.symbol
+            binding.stockDescription.text = item.description
         }
     }
 
-    fun submitList(newList: List<StockList>) {
-        items = newList
+    private val stockList = mutableListOf<StockList>()
+
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun refreshData(newList: List<StockList>) {
+        stockList.clear()
+        stockList.addAll(newList)
         notifyDataSetChanged()
     }
 
-    override fun getItemCount() = items.size
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StockViewHolder {
         val binding = StockListCardViewBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false)
-        return ViewHolder(binding)
+        return StockViewHolder(binding){ position ->
+            onStockClicked(stockList[position].symbol, position)
+        }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(items[position])
+    override fun getItemCount() = stockList.size
+
+
+    override fun onBindViewHolder(holder: StockViewHolder, position: Int) {
+        val stock = stockList[position]
+        holder.bind(stock)
     }
 }

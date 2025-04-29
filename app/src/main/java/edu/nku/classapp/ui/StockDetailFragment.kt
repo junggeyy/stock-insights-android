@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -31,7 +32,6 @@ class StockDetailFragment : Fragment() {
 
     private val stockDetailViewModel: StockDetailViewModel by activityViewModels()
 
-    private lateinit var symbol: String
     private var isWatchlisted = false
 
     override fun onCreateView(
@@ -47,7 +47,7 @@ class StockDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        symbol = arguments?.getString("SYMBOL") ?: return
+        val symbol = requireArguments().getString(ARG_SYMBOL) ?: return
         val token = getToken() ?: return
 
         stockDetailViewModel.loadStockDetails(token, symbol)
@@ -151,8 +151,16 @@ class StockDetailFragment : Fragment() {
             binding.lineChart.invalidate()
         }
 
-        private fun getToken(): String? {
-            val prefs = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
-            return prefs.getString("AUTH_TOKEN", null)?.let { "Token $it" }
+    private fun getToken(): String? {
+        val prefs = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+        return prefs.getString("AUTH_TOKEN", null)?.let { "Token $it" }
+    }
+
+    companion object {
+        private const val ARG_SYMBOL = "SYMBOL"
+
+        fun newInstance(symbol: String) = StockDetailFragment().apply {
+            arguments = bundleOf(ARG_SYMBOL to symbol)
         }
+    }
 }

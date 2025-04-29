@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -23,12 +24,18 @@ class StockSearchFragment : Fragment() {
     private var _binding: FragmentStockSearchBinding? = null
     private val binding get() = _binding!!
     private val viewModel: StockSearchViewModel by activityViewModels()
-    private lateinit var adapter: ListStockAdapter
+
+    private val listStockAdapter = ListStockAdapter{ symbol, _ ->
+        val action = StockSearchFragmentDirections
+            .actionStockSearchFragmentToStockDetailFragment(symbol)
+        findNavController().navigate(action)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentStockSearchBinding.inflate(inflater, container, false)
+        setUpObservers()
         return binding.root
     }
 
@@ -36,14 +43,10 @@ class StockSearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val token = getToken() ?: return
 
-        adapter = ListStockAdapter(emptyList()) { symbol ->
-            val action = StockSearchFragmentDirections
-                .actionStockSearchFragmentToStockDetailFragment(symbol)
-            findNavController().navigate(action)
+        binding.searchResults.apply{
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = listStockAdapter
         }
-
-        binding.searchResults.layoutManager = LinearLayoutManager(requireContext())
-        binding.searchResults.adapter = adapter
 
         binding.searchInput.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -54,27 +57,32 @@ class StockSearchFragment : Fragment() {
                 true
             } else false
         }
+    }
 
-        lifecycleScope.launch {
-            viewModel.searchState.collect { state ->
-                when (state) {
-                    StockSearchViewModel.StockSearchState.Loading -> {
-                        binding.noResults.visibility = View.GONE
-                        binding.searchResults.visibility = View.GONE
-                    }
-                    StockSearchViewModel.StockSearchState.Failure -> {
-                        binding.noResults.visibility = View.VISIBLE
-                        binding.searchResults.visibility = View.GONE
-                    }
-                    is StockSearchViewModel.StockSearchState.Success -> {
-                        adapter.submitList(state.results)
-                        binding.searchResults.visibility = View.VISIBLE
-                        binding.noResults.visibility = View.GONE
+        private fun setUpObservers() {
+            lifecycleScope.launch {
+                viewModel.searchState.collect { state ->
+                    when (state) {
+                        StockSearchViewModel.StockSearchState.Loading -> {
+                            binding.noResults.isVisible = false
+                            binding.searchResults.isVisible = false
+                        }
+
+                        StockSearchViewModel.StockSearchState.Failure -> {
+                            binding.noResults.isVisible = true
+                            binding.searchResults.isVisible = false
+                        }
+
+                        is StockSearchViewModel.StockSearchState.Success -> {
+                            listStockAdapter.refreshData(state.results)
+                            binding.noResults.isVisible = false
+                            binding.searchResults.isVisible = true
+                        }
                     }
                 }
             }
         }
-    }
+
     private fun getToken(): String? {
         val prefs = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
         return prefs.getString("AUTH_TOKEN", null)?.let { "Token $it" }
