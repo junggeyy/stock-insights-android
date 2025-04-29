@@ -30,6 +30,3 @@ sealed class WatchlistCheckApiResponse {
     data class Success(val response: WatchListCheckResponse) : WatchlistCheckApiResponse()
     data class Error(val message: String) : WatchlistCheckApiResponse()
 }
-
-
-

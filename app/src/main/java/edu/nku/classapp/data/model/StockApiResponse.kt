@@ -10,30 +10,30 @@ import edu.nku.classapp.model.StockSearchResponse
 
 sealed class HomeStockApiResponse{
     data class Success(val response: HomeStockResponse) : HomeStockApiResponse()
-    data object Error : HomeStockApiResponse()
+    data class Error(val message: String) : HomeStockApiResponse()
 }
 
 sealed class StockIndexApiResponse {
     data class Success(val response: StockIndexResponse) : StockIndexApiResponse()
-    data object Error : StockIndexApiResponse()
+    data class Error(val message: String) : StockIndexApiResponse()
 }
 
 sealed class StockSearchApiResponse {
     data class Success(val response: StockSearchResponse) : StockSearchApiResponse()
-    data object Error : StockSearchApiResponse()
+    data class Error(val message: String) : StockSearchApiResponse()
 }
 
 sealed class StockDetailApiResponse {
     data class Success(val response: StockDetailResponse) : StockDetailApiResponse()
-    data object Error : StockDetailApiResponse()
+    data class Error(val message: String) : StockDetailApiResponse()
 }
 
 sealed class StockCandleApiResponse {
     data class Success(val response: CandleChartResponse) : StockCandleApiResponse()
-    data object Error : StockCandleApiResponse()
+    data class Error(val message: String) : StockCandleApiResponse()
 }
 
 sealed class StockAnalysisApiResponse {
     data class Success(val response: StockAnalysisResponse) : StockAnalysisApiResponse()
-    data object Error : StockAnalysisApiResponse()
+    data class Error(val message: String) : StockAnalysisApiResponse()
 }

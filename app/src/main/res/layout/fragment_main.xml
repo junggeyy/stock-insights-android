@@ -18,6 +18,8 @@
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:itemIconTint="@color/nav_selector"
+        app:itemTextColor="@color/nav_selector"
         android:layout_gravity="bottom"
         app:menu="@menu/bottom_nav_menu" />
 

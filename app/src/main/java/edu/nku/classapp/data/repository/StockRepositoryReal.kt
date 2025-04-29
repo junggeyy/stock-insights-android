@@ -1,6 +1,7 @@
 package edu.nku.classapp.data.repository
 
 import edu.nku.classapp.data.StockApi
+import edu.nku.classapp.data.model.AuthApiResponse
 import edu.nku.classapp.data.model.HomeStockApiResponse
 import edu.nku.classapp.data.model.StockAnalysisApiResponse
 import edu.nku.classapp.data.model.StockCandleApiResponse
@@ -14,70 +15,92 @@ class StockRepositoryReal @Inject constructor(
 ) : StockRepository {
 
     override suspend fun getHomeStocks(token: String): HomeStockApiResponse {
-        val response = stockApi.getHomepageStocks(token)
-        return if (response.isSuccessful) {
-            response.body()?.let {
-                HomeStockApiResponse.Success(it)
-            } ?: HomeStockApiResponse.Error
-        } else {
-            HomeStockApiResponse.Error
+        return try {
+            val response = stockApi.getHomepageStocks(token)
+            return if (response.isSuccessful) {
+                response.body()?.let {
+                    HomeStockApiResponse.Success(it)
+                } ?: HomeStockApiResponse.Error("Failed" + response.code())
+            } else {
+                HomeStockApiResponse.Error("Failed" + response.code())
+            }
+        } catch (e: Exception) {
+            HomeStockApiResponse.Error("Network error: ${e.localizedMessage}")
         }
     }
 
     override suspend fun getStockSearch(token: String, query: String): StockSearchApiResponse {
-        val response = stockApi.getStockSearch(token, query)
-        return if (response.isSuccessful) {
-            response.body()?.let {
-                StockSearchApiResponse.Success(it)
-            } ?: StockSearchApiResponse.Error
-        } else {
-            StockSearchApiResponse.Error
+        return try {
+            val response = stockApi.getStockSearch(token, query)
+            return if (response.isSuccessful) {
+                response.body()?.let {
+                    StockSearchApiResponse.Success(it)
+                } ?: StockSearchApiResponse.Error("Failed" + response.code())
+            } else {
+                StockSearchApiResponse.Error("Failed" + response.code())
+            }
+        } catch (e: Exception) {
+            StockSearchApiResponse.Error("Network error: ${e.localizedMessage}")
         }
     }
 
     override suspend fun getStockIndex(token: String): StockIndexApiResponse {
-        val response = stockApi.getStockIndex(token)
-        return if (response.isSuccessful) {
-            response.body()?.let {
-                StockIndexApiResponse.Success(it)
-            } ?: StockIndexApiResponse.Error
-        } else {
-            StockIndexApiResponse.Error
+        return try {
+            val response = stockApi.getStockIndex(token)
+            return if (response.isSuccessful) {
+                response.body()?.let {
+                    StockIndexApiResponse.Success(it)
+                } ?: StockIndexApiResponse.Error("Failed" + response.code())
+            } else {
+                StockIndexApiResponse.Error("Failed" + response.code())
+            }
+        } catch (e: Exception) {
+            StockIndexApiResponse.Error("Network error: ${e.localizedMessage}")
         }
     }
 
     override suspend fun getStockDetail(token: String, symbol: String): StockDetailApiResponse {
-        val response = stockApi.getStockDetail(token, symbol)
-        return if (response.isSuccessful) {
-            response.body()?.let {
-                StockDetailApiResponse.Success(it)
-            } ?: StockDetailApiResponse.Error
-        } else {
-            StockDetailApiResponse.Error
+        return try {
+            val response = stockApi.getStockDetail(token, symbol)
+            return if (response.isSuccessful) {
+                response.body()?.let {
+                    StockDetailApiResponse.Success(it)
+                } ?: StockDetailApiResponse.Error("Failed" + response.code())
+            } else {
+                StockDetailApiResponse.Error("Failed" + response.code())
+            }
+        } catch (e: Exception) {
+            StockDetailApiResponse.Error("Network error: ${e.localizedMessage}")
         }
     }
 
     override suspend fun getStockCandle(token: String, symbol: String): StockCandleApiResponse {
-        val response = stockApi.getStockCandle(token, symbol)
-        return if (response.isSuccessful) {
-            response.body()?.let {
-                StockCandleApiResponse.Success(it)
-            } ?: StockCandleApiResponse.Error
-        } else {
-            StockCandleApiResponse.Error
+        return try {
+            val response = stockApi.getStockCandle(token, symbol)
+            return if (response.isSuccessful) {
+                response.body()?.let {
+                    StockCandleApiResponse.Success(it)
+                } ?: StockCandleApiResponse.Error("Failed" + response.code())
+            } else {
+                StockCandleApiResponse.Error("Failed" + response.code())
+            }
+        } catch (e: Exception) {
+            StockCandleApiResponse.Error("Network error: ${e.localizedMessage}")
         }
     }
 
     override suspend fun getStockAnalysis(token: String, symbol: String): StockAnalysisApiResponse {
-        val response = stockApi.getStockAnalysis(token, symbol)
-        return if (response.isSuccessful) {
-            response.body()?.let {
-                StockAnalysisApiResponse.Success(it)
-            } ?: StockAnalysisApiResponse.Error
-        } else {
-            StockAnalysisApiResponse.Error
+        return try{
+            val response = stockApi.getStockAnalysis(token, symbol)
+            return if (response.isSuccessful) {
+                response.body()?.let {
+                    StockAnalysisApiResponse.Success(it)
+                } ?: StockAnalysisApiResponse.Error("Failed" + response.code())
+            } else {
+                StockAnalysisApiResponse.Error("Failed" + response.code())
+            }
+        } catch (e: Exception) {
+            StockAnalysisApiResponse.Error("Network error: ${e.localizedMessage}")
         }
     }
-
-
 }

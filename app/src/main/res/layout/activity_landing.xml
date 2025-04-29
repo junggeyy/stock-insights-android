@@ -5,21 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Fragment container to swap in home/detail/analysis -->
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+<!--    &lt;!&ndash; Fragment container to swap in home/detail/analysis &ndash;&gt;-->
+<!--    <FrameLayout-->
+<!--        android:id="@+id/fragment_container"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_weight="1" />-->
 
-    <!-- Persistent bottom nav -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#8b94a3"
-        app:itemIconTint="@color/nav_selector"
-        app:itemTextColor="@color/nav_selector"
-        app:menu="@menu/bottom_nav_menu" />
+<!--    &lt;!&ndash; Persistent bottom nav &ndash;&gt;-->
+<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--        android:id="@+id/bottomNav"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="#8b94a3"-->
+<!--        app:itemIconTint="@color/nav_selector"-->
+<!--        app:itemTextColor="@color/nav_selector"-->
+<!--        app:menu="@menu/bottom_nav_menu" />-->
 
 </LinearLayout>

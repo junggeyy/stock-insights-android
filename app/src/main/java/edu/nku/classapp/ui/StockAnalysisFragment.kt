@@ -22,6 +22,7 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import dagger.hilt.android.AndroidEntryPoint
 import edu.nku.classapp.databinding.FragmentStockAnalysisBinding
 import kotlinx.coroutines.launch
+import androidx.navigation.fragment.findNavController
 
 @AndroidEntryPoint
 class StockAnalysisFragment : Fragment() {
@@ -69,7 +70,7 @@ class StockAnalysisFragment : Fragment() {
         }
 
         binding.backButton.setOnClickListener {
-            requireActivity().onBackPressedDispatcher.onBackPressed()
+            findNavController().popBackStack()
         }
     }
 
