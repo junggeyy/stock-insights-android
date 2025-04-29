@@ -125,7 +125,7 @@ class UserProfileFragment : Fragment() {
 
     private fun getToken(): String? {
         val prefs = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
-        return prefs.getString("AUTH_TOKEN", null)
+        return prefs.getString("AUTH_TOKEN", null).let { "Token $it" }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

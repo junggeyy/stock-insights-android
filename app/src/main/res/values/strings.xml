@@ -179,6 +179,8 @@
     <string name="top_picks_for_you">Top picks for you:</string>
     <string name="refresh_price">Refresh price</string>
     <string name="getting_your_analysis_ready">Getting your analysis ready</string>
+    <string name="loading_market_data">Loading market data...</string>
+    <string name="failed_to_load_market_data">Failed to load market data</string>
 
 
 </resources>

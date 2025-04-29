@@ -82,11 +82,11 @@ class HomePageFragment : Fragment() {
             stockIndexViewModel.indexData.collect { state ->
                 when (state) {
                     is StockIndexViewModel.StockIndexState.Loading -> {
-                        binding.marketStatus.text = "Loading market data..."
+                        binding.marketStatus.text = getString(R.string.loading_market_data)
                         binding.marketIndices.text = ""
                     }
                     is StockIndexViewModel.StockIndexState.Failure -> {
-                        binding.marketStatus.text = "Failed to load market data"
+                        binding.marketStatus.text = getString(R.string.failed_to_load_market_data)
                         binding.marketIndices.text = ""
                     }
                     is StockIndexViewModel.StockIndexState.Success -> {
