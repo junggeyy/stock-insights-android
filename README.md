@@ -72,6 +72,6 @@ Built with a Kotlin frontend and Django backend, the app provides users with a s
 
 ## Live Demo
 
-COMING SOON!
+[DEMO LINK](https://youtube.com/shorts/sa9yQm1N80U?feature=share)
 
 
