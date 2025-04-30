@@ -75,21 +75,21 @@ class StockDetailFragment : Fragment() {
             stockDetailViewModel.stockDetail.collect { state ->
                 when (state) {
                     is StockDetailViewModel.StockDetailState.Loading -> {
-                        binding.progressBar.isVisible = true
-                        binding.root.isVisible = false
+                        binding.loadingOverlay.isVisible = true
+                        binding.scrollContainer.isVisible = false
                         binding.errorMessage.isVisible = false
                     }
 
                     is StockDetailViewModel.StockDetailState.Success -> {
-                        binding.progressBar.isVisible = false
-                        binding.root.isVisible = true
+                        binding.loadingOverlay.isVisible = false
+                        binding.scrollContainer.isVisible = true
                         binding.errorMessage.isVisible = false
                         bindStockDetails(state.stock)
                     }
 
                     is StockDetailViewModel.StockDetailState.Failure -> {
-                        binding.progressBar.isVisible = false
-                        binding.root.isVisible = false
+                        binding.loadingOverlay.isVisible = false
+                        binding.scrollContainer.isVisible = false
                         binding.errorMessage.isVisible = true
                     }
                 }

@@ -185,6 +185,7 @@
     <string name="description_list">Description: %1$s</string>
     <string name="home_price">$%1$s</string>
     <string name="market_status_home">Market Status: %1$s</string>
+    <string name="fetching_details">Fetching details</string>
 
 
 </resources>
