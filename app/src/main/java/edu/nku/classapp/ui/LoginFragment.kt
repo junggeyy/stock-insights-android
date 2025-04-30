@@ -54,7 +54,7 @@ class LoginFragment : Fragment() {
             viewModel.authState.collect { state ->
                 when (state) {
                     is AuthViewModel.AuthState.Loading -> binding.signInButton.isEnabled = true
-                    is AuthViewModel.AuthState.Success -> {
+                    is AuthViewModel.AuthState.LoginSuccess -> {
                         binding.signInButton.isEnabled = true
                         val token = state.response.token
                         val prefs = requireContext().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
@@ -66,6 +66,7 @@ class LoginFragment : Fragment() {
                         binding.signInButton.isEnabled = true
                         Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
                     }
+                    else -> {}
                 }
             }
         }

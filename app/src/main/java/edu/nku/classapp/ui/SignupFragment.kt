@@ -57,14 +57,16 @@ class SignupFragment : Fragment() {
             viewModel.authState.collect { state ->
                 when (state) {
                     is AuthViewModel.AuthState.Loading -> binding.signupButton.isEnabled = true
-                    is AuthViewModel.AuthState.Success -> {
+                    is AuthViewModel.AuthState.SignupSuccess -> {
                         binding.signupButton.isEnabled = true
-                        findNavController().navigate(R.id.action_signupFragment_to_mainFragment)
+                        Toast.makeText(requireContext(), "Signed up successfully!", Toast.LENGTH_SHORT).show()
+                        findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
                     }
                     is AuthViewModel.AuthState.Failure -> {
                         binding.signupButton.isEnabled = true
                         Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
                     }
+                    else -> {}
                 }
             }
         }

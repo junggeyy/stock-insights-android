@@ -25,7 +25,7 @@ class AuthViewModel @Inject constructor(
             _authState.value = AuthState.Loading
             when (val result = userRepository.login(email, password)) {
                 is UserApiResponse.UserAuthSuccess -> {
-                    _authState.value = AuthState.Success(result.response)
+                    _authState.value = AuthState.LoginSuccess(result.response)
                 }
                 is UserApiResponse.Error ->{
                     _authState.value = AuthState.Failure(result.message)
@@ -39,7 +39,7 @@ class AuthViewModel @Inject constructor(
             _authState.value = AuthState.Loading
             when (val result = userRepository.signup(data)) {
                 is UserApiResponse.UserAuthSuccess -> {
-                    _authState.value = AuthState.Success(result.response)
+                    _authState.value = AuthState.SignupSuccess(result.response)
                 }
                 is UserApiResponse.Error -> {
                     _authState.value = AuthState.Failure(result.message)
@@ -50,7 +50,8 @@ class AuthViewModel @Inject constructor(
 
     sealed class AuthState {
         data object Loading : AuthState()
-        data class Success(val response: LoginSignupResponse) : AuthState()
+        data class SignupSuccess(val response: LoginSignupResponse) : AuthState()
+        data class LoginSuccess(val response: LoginSignupResponse) : AuthState()
         data class Failure(val message: String) : AuthState()
     }
 }
