@@ -42,7 +42,7 @@ Built with a Kotlin frontend and Django backend, the app provides users with a s
   - User Profile
 
 ### Backend
-- Backend repository: https://github.com/2025-CSC-415/group-project-debuggers-backend
+- Backend repository: https://github.com/junggeyy/stock-insights-api
 - **Technology**: Django, Django Rest Framework
 - **Key Services**:
   - User Authentication
